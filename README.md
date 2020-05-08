@@ -4,14 +4,18 @@
 <!-- badges: start -->
 <!-- badges: end -->
 
-The goal of medicareR is to ...
+The goal of medicareR is to standardize medicare datasets including: 
+- MBSF
+- MedPAR
+- Carrier Line 
+- Carrier Claim
 
 ## Installation
 
-You can install the released version of medicareR from [CRAN](https://CRAN.R-project.org) with:
+You can install medicareR from GitHub with devtools:
 
 ``` r
-install.packages("medicareR")
+install.packages("UMCSTaR/medicareR")
 ```
 
 ## Example

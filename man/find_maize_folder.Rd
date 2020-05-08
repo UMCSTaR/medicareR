@@ -2,16 +2,25 @@
 % Please edit documentation in R/computer_config.R
 \name{find_maize_folder}
 \alias{find_maize_folder}
-\title{Title: find brian geroge folder location}
+\title{Title: find brian geroge folder location
+This script detects the computer enviromnent automatically}
 \usage{
-find_maize_folder(Brian_George_folder_loc)
+find_maize_folder(your_BG_folder_loc = NA)
 }
 \arguments{
 \item{Brian_George_folder_loc}{}
 }
 \value{
-
+Brian_George folder location on maize, if it can't automaticly detect the location, you
+can also manually specify the location
 }
 \description{
 Title: find brian geroge folder location
+This script detects the computer enviromnent automatically
+}
+\examples{
+find_maize_folder()
+find_maize_folder(Brian_George_folder_loc = "Volumes/George_Surgeon_Projects/")
+
+
 }

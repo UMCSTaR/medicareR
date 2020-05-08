@@ -1,17 +1,22 @@
 #' Title: find brian geroge folder location
+#' This script detects the computer enviromnent automatically
+# and assiagn variable `Brian_George_folder_loc` to existed directory.
+# if the locations changed, you can change the value assiagned to Brian_George_folder_loc
 #'
 #' @param Brian_George_folder_loc
 #'
-#' @return
+#' @return Brian_George folder location on maize, if it can't automaticly detect the location, you
+#' can also manually specify the location
 #' @export
 #'
 #' @examples
-find_maize_folder <- function(Brian_George_folder_loc) {
-  # This script detects the computer enviromnent automatically
-  # and assiagn variable `Brian_George_folder_loc` to existed directory.
-  # if the locations changed, you can change the value assiagned to Brian_George_folder_loc
+#' find_maize_folder()
+#' find_maize_folder(Brian_George_folder_loc = "Volumes/George_Surgeon_Projects/")
+#'
+#'
+find_maize_folder <- function(your_BG_folder_loc = NA) {
 
-  # output: Brian_George_folder_loc
+ if(is.na(your_BG_folder_loc)){
 
   type = Sys.info()[['sysname']]
 
@@ -47,6 +52,7 @@ find_maize_folder <- function(Brian_George_folder_loc) {
       )
     }
   }
-
-  Brian_George_folder_loc
+ } else if (!is.na(your_BG_folder_loc)){
+   your_BG_folder_loc
+ }
 }
