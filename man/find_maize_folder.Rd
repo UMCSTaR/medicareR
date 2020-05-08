@@ -8,7 +8,7 @@ This script detects the computer enviromnent automatically}
 find_maize_folder(your_BG_folder_loc = NA)
 }
 \arguments{
-\item{Brian_George_folder_loc}{}
+\item{your_BG_folder_loc:}{put your own BG location if the function can't find yours. e.g."/Volumes/George_Surgeon_Projects/"}
 }
 \value{
 Brian_George folder location on maize, if it can't automaticly detect the location, you
