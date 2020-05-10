@@ -3,7 +3,7 @@
 # and assiagn variable `Brian_George_folder_loc` to existed directory.
 # if the locations changed, you can change the value assiagned to Brian_George_folder_loc
 #'
-#' @param your_BG_folder_loc: put your own BG location if the function can't find yours. e.g."/Volumes/George_Surgeon_Projects/"
+#' @param your_BG_folder_loc put your own BG location if the function can't find yours. e.g."/Volumes/George_Surgeon_Projects/"
 #'
 #' @return Brian_George folder location on maize, if it can't automaticly detect the location, you
 #' can also manually specify the location
