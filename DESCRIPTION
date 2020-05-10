@@ -4,7 +4,7 @@ Title: Standardize Medicare Data and Create Analytic File
 Version: 0.0.1
 Author: Xilin Chen
 Maintainer: Center for Surgical Training and Research <xilinc@med.umch.edu>
-Description: Standardize Medicare files across years, including MedPAR, Demon(MBSF) and Carrier Claim and line files
+Description: Standardize Medicare files across years, including 
     Create Analytic dataset based on the procedures you are interested in
 License: MIT + file LICENSE
 Encoding: UTF-8
