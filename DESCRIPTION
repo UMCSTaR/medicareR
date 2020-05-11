@@ -1,20 +1,20 @@
 Package: medicareR
-Type: Package
 Title: Standardize Medicare Data and Create Analytic File
 Version: 0.0.1
-Author: Xilin Chen
-Maintainer: Center for Surgical Training and Research <xilinc@med.umch.edu>
-Description: Standardize Medicare files across years, including 
-    Create Analytic dataset based on the procedures you are interested in
+Authors@R: 
+    person(given = "Xilin",
+           family = "Chen",
+           role = c("aut", "cre"),
+           email = "xilinc@med.umch.edu")
+Description: Standardize Medicare files across years.
 License: MIT + file LICENSE
 Encoding: UTF-8
 LazyData: true
+Roxygen: list(markdown = TRUE)
 RoxygenNote: 7.1.0
 Suggests: 
     testthat,
-    usethis
+    usethis,
     rmarkdown
 Imports: 
     data.table
-    
-VignetteBuilder: knitr
