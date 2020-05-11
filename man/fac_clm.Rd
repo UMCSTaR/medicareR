@@ -2,9 +2,7 @@
 % Please edit documentation in R/fac_clm.R
 \name{fac_clm}
 \alias{fac_clm}
-\title{Title: facility claim standardized data
-details: this scrip combines all years MedPPAR claims (not include dx and pr code),
-and removed the duplication claims; for example, service date, facility NPI}
+\title{Title: standardized facility claim}
 \usage{
 fac_clm(year, data_file_name, schema, src_root)
 }
@@ -21,7 +19,6 @@ fac_clm(year, data_file_name, schema, src_root)
 combined facility claims over years; Delete duplications
 }
 \description{
-Title: facility claim standardized data
-details: this scrip combines all years MedPPAR claims (not include dx and pr code),
+This scrip combines all years MedPPAR claims (not include dx and pr code),
 and removed the duplication claims; for example, service date, facility NPI
 }

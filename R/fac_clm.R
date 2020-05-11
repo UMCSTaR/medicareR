@@ -1,5 +1,5 @@
-#' Title: facility claim standardized data
-#' details: this scrip combines all years MedPPAR claims (not include dx and pr code),
+#' Title: standardized facility claim
+#' @description This scrip combines all years MedPPAR claims (not include dx and pr code),
 #' and removed the duplication claims; for example, service date, facility NPI
 #'
 #' @param year : year of medicare data
@@ -16,7 +16,7 @@ fac_clm <- function(year, data_file_name, schema, src_root) {
   # thses varaibles will be used to dedup facility claims
   dedup_key = c("member_id", "claim_id")
 
-  # vars that are included in the stf fac_claim data
+  # vars that are included in the std fac_claim data
   fac_clm_vars = c(
     "member_id",
     "claim_id",
