@@ -4,7 +4,12 @@
 \alias{check_save_csv}
 \title{Title check if want to overwrite existing files}
 \usage{
-check_save_csv(std_data_root = wd$std_data_root, csv_data_name, data_to_save)
+check_save_csv(
+  std_data_root = wd$std_data_root,
+  csv_data_name,
+  data_to_save,
+  save_csv
+)
 }
 \arguments{
 \item{std_data_root}{: data folder location}
@@ -12,6 +17,8 @@ check_save_csv(std_data_root = wd$std_data_root, csv_data_name, data_to_save)
 \item{csv_data_name}{:data name you wantt o sign as: eg: "fac_claim.csv"}
 
 \item{data_to_save}{: dataset you want to save}
+
+\item{save_csv}{: save csv file or not: "yes" or "no"}
 }
 \value{
 message
