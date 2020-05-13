@@ -2,3 +2,4 @@
 
 export(fac_clm)
 export(find_maize_folder)
+export(mk_data_dir_path)

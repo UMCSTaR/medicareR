@@ -27,7 +27,7 @@ helper_check_if_save_data <- function(save_or_not,
 
     # output after confirm
     if (res == 1) {
-      fwrite(rdata_name, file = paste0(wd$std_data_root, csv_name))
+      fwrite(rdata_name, file = paste0(wd, csv_name))
       message(paste0("README: saved the ", csv_name, " on the drive"))
     } else if (res == 2) {
       message(paste0("README: Didn't saved the ", csv_name, " on the drive"))

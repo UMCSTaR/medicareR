@@ -1,6 +1,6 @@
 #' Find Brian Geroge folder location
 #' @description  This script detects the computer enviromnent automatically
-#'     and assign variable `Brian_George_folder_loc` to an detected directory.
+#'    and assign variable `Brian_George_folder_loc` to an detected directory.
 #'    If the locations can't be detected, you manually assign  value to Brian_George_folder_loc
 #'
 #' @param your_BG_folder_loc put your own BG location if the function can't find yours. e.g."/Volumes/George_Surgeon_Projects"

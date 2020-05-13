@@ -17,5 +17,5 @@ Title check if user want to use smaple or full data
 }
 \details{
 to avid accidental full data processing, there will be a popup question to
-confirm if choing full data
+confirm if "full_data" was chosen
 }
