@@ -40,7 +40,7 @@ mk_data_dir_path <- function(data_root = "sample",
 
 
   # input data location: like neppes npi, etc.
-  wd$input_data = paste0(wd$george_file,  "/standardized_medicare_data_using_R/input")
+  wd$input_data = paste0(wd$george_file,  "/standardized_medicare_data_using_R/input/")
 
 
   # source root
