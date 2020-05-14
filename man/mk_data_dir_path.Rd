@@ -4,16 +4,25 @@
 \alias{mk_data_dir_path}
 \title{Make working directory locations}
 \usage{
-mk_data_dir_path(data_root = "sample", medicare_file, george_file)
+mk_data_dir_path(
+  data_root = "sample",
+  medicare_file = NULL,
+  george_file,
+  medicare_data_file = "/original_medicare_selected_vars/data",
+  medicare_std_data_file = "/standardized_medicare_data_using_R/std"
+)
 }
 \arguments{
 \item{data_root}{: "sample" or "full_data"}
 
-\item{medicare_file}{: original medicare data file folder name. e.g. demon data folder
-name is "Denom_MBSF"}
+\item{medicare_file}{: original medicare data file folder name. e.g. demon data folder}
 
-\item{george_file:}{where the BG folder located at on maize. You may use the \code{computer_config}
-to help you detect.}
+\item{george_file}{Brian_George folder loc on Maize}
+
+\item{medicare_data_file}{original medicare locations}
+
+\item{medicare_std_data_file}{where the std medicare data will be saved to location
+name is "Denom_MBSF"}
 }
 \value{
 list items of data directory locactions.
