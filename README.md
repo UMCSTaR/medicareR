@@ -15,7 +15,7 @@ The goal of medicareR is to standardize medicare datasets including:
 You can install medicareR from GitHub with devtools:
 
 ``` r
-install.packages("UMCSTaR/medicareR")
+devtools::install_github("https://github.com/UMCSTaR/medicareR")
 ```
 
 ## Example
