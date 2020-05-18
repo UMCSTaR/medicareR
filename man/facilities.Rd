@@ -2,7 +2,7 @@
 % Please edit documentation in R/facilities.R
 \name{facilities}
 \alias{facilities}
-\title{Title: facility NPI across years}
+\title{Combine Facility NPI across years}
 \usage{
 facilities(
   year,
@@ -24,10 +24,10 @@ facilities(
 \item{mapping_data:}{select medicare original vars to mapped vars}
 }
 \value{
-a combined  list of facility NPI
+
 }
 \description{
-Title: facility NPI across years
+Combine Facility NPI across years
 }
 \details{
 combine years facility NPI and delete duplications

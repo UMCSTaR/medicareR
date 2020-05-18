@@ -1,6 +1,5 @@
 library(tidyverse)
 library(data.table)
-source("../../code/functions/membership.R")
 
 # import data
 import_mapping <- readr::read_csv("../data/import_mapping.csv")

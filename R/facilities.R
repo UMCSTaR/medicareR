@@ -1,4 +1,4 @@
-#' Title: facility NPI across years
+#' Combine Facility NPI across years
 #' @details combine years facility NPI and delete duplications
 #'
 #' @param year : year of MEDPAR data
@@ -7,7 +7,7 @@
 #' @param src_root : MedPAR dataset locations
 #' @param mapping_data: select medicare original vars to mapped vars
 #'
-#' @return a combined  list of facility NPI
+#' @return
 #' @export
 #'
 #' @examples
