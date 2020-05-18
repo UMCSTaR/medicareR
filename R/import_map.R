@@ -1,12 +1,13 @@
-#' import schema and where the schema come from (medicare data)
-#' include: dataset name, select varaible and map to variable names
-#' @param schema : schema of the output file defined in the mapping csv files. for example ""membership" is a schema
-#' @param source: defualt "source_schema" to generate std medicare data
-#' "source_file": get medicare data files name; This option is used for standarzation process
-#' "source_schema": to get user defined schema name; only use to get all vars under the same
+#' import pre-defined mapping schema
+#' @description  Output are: medicare dataset name, standarzied dataset name, select varaible from medicare
+#'      and map to std variable names
+#' @param schema  schema of the output file defined in the mapping csv files. for example ""membership" is a schema
+#' @param source defualt "source_schema" to generate std medicare data.
+#'     "source_file": get medicare data files name; This option is used for standarzation process.
+#'     "source_schema": to get user defined schema name; only use to get all vars under the same
 #' medicare dataset. This was used to create sas code.
-#' @param import_src: dataset that includes medicare original data to mapped std data
-#' @param import_mapping: dataset that includes medicare original variable names to std data var names
+#' @param import_src csv dataset that includes medicare original data to mapped std data
+#' @param mapping_data csv dataset that includes medicare original variable names to std data var names
 #'
 #' @return
 #' @export
