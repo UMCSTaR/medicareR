@@ -16,7 +16,6 @@ Suggests:
     testthat,
     usethis,
     rmarkdown
-Imports: 
-    data.table
 Depends: 
-    R (>= 2.10)
+    R (>= 2.10),
+    data.table
