@@ -55,7 +55,8 @@ fac_clm <-
   # to set all names toupper case
   # 2007 and 2008 medpar has bene_id variable as lowercase, other years as upper case
   setnames(fac_claim, toupper(names(fac_claim)))
-  # rename all to target columns in std data
+  # subset and rename all to target columns in std data
+  fac_claim = fac_claim[,  map$source_column, with = FALSE]
   setnames(fac_claim, map$source_column, map$target_column)
 
   # deduplicate based on member_id and medpar claim_id
