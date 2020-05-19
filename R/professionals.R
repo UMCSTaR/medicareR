@@ -1,12 +1,12 @@
-#' Title: read in physicains data
-#' @details: used in step3_professional
+#' Read in physicains npi data
+#' @description  used in step3_professional
 #'      combine all years physician to one dataset and delete who have missing NPI
 #'
-#' @inheritParams facilitise
-#' @param year : year of medicare data
-#' @param data_file_name : original medicare dataset names
-#' @param schema : defined in csv file. defult is "professional"
-#' @param src_root : locations of carrier line on database
+#' @param year  year of medicare data
+#' @param data_file_name  original medicare dataset names
+#' @param schema  defined in csv file. defult is "professional"
+#' @param src_root  locations of carrier line on database
+#' @param mapping_data: select medicare original vars to mapped vars
 #'
 #' @return combined physician NPI across years
 #' @export

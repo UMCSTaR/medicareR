@@ -27,8 +27,5 @@ facilities(
 
 }
 \description{
-Combine Facility NPI across years
-}
-\details{
 combine years facility NPI and delete duplications
 }

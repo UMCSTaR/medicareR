@@ -2,7 +2,7 @@
 % Please edit documentation in R/professionals.R
 \name{professionals}
 \alias{professionals}
-\title{Title: read in physicains data}
+\title{Read in physicains npi data}
 \usage{
 professionals(
   year,
@@ -13,21 +13,20 @@ professionals(
 )
 }
 \arguments{
-\item{year}{: year of medicare data}
+\item{year}{year of medicare data}
 
-\item{data_file_name}{: original medicare dataset names}
+\item{data_file_name}{original medicare dataset names}
 
-\item{schema}{: defined in csv file. defult is "professional"}
+\item{schema}{defined in csv file. defult is "professional"}
 
-\item{src_root}{: locations of carrier line on database}
+\item{src_root}{locations of carrier line on database}
+
+\item{mapping_data:}{select medicare original vars to mapped vars}
 }
 \value{
 combined physician NPI across years
 }
 \description{
-Title: read in physicains data
-}
-\details{
-: used in step3_professional
+used in step3_professional
 combine all years physician to one dataset and delete who have missing NPI
 }

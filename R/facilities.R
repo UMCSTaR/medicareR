@@ -1,5 +1,5 @@
 #' Combine Facility NPI across years
-#' @details combine years facility NPI and delete duplications
+#' @description combine years facility NPI and delete duplications
 #'
 #' @param year : year of MEDPAR data
 #' @param data_file_name : MEDPAR dataset names
