@@ -34,7 +34,7 @@ find_maize_folder <- function(your_BG_folder_loc = NA) {
         stop(
           "Mac Envirment; Brian_George_folder_loc is NOT located at:",
           Brian_George_folder_loc,
-          ". Please Check if you are connected to Maize"
+          ". Please Check if you are connected to Maize; "
         )
       }
 
