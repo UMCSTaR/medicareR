@@ -1,25 +1,27 @@
-#' Title professional claim data
-#' @details use carrier claim and carrier line file. Physician and procedure
-#' info is located at carrier line file.
+#' Professional claim data
+#' @description  use carrier claim and carrier line files. Physician and procedure
+#'     info is located at carrier line file.
 #'
-#' @param year
+#' @param year year of mecicare
 #' @param schema defined in csv mapping files, e.g. "prof_clm1"
 #' @param data_file_name_clm carrier claim file names
 #' @param data_file_name_ln  carrier line file names
 #' @param src_root_clm       carrier claim file loc
 #' @param src_root_ln        carrier claim line loc
+#' @param mapping_data       select medicare original vars to mapped vars
 #'
 #' @return
 #' @export
 #'
-#' @examples
+
 prof_clm <-
   function(year,
            schema,
            data_file_name_clm,
            data_file_name_ln,
            src_root_clm,
-           src_root_ln) {
+           src_root_ln,
+           mapping_data = import_mapping) {
 
     # read src carrier claim
     src_file_loc_clm <- paste0(src_root_clm, data_file_name_clm)
@@ -41,7 +43,7 @@ prof_clm <-
       "icd_dx_prncpal_vrsn"
     )
     # file map
-    prof_clm_map <- import_mapping %>%
+    prof_clm_map <- mapping_data %>%
       filter(
         source_schema == schema,
         on_claim_line == 0,
@@ -61,7 +63,7 @@ prof_clm <-
 
     # 2. line file ------
     # file map
-    line_map <- import_mapping %>%
+    line_map <- mapping_data %>%
       filter(
         source_schema == schema,
         on_claim_line == 1

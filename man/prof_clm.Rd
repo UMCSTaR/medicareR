@@ -2,7 +2,7 @@
 % Please edit documentation in R/prof_clm.R
 \name{prof_clm}
 \alias{prof_clm}
-\title{Title professional claim data}
+\title{Professional claim data}
 \usage{
 prof_clm(
   year,
@@ -10,10 +10,13 @@ prof_clm(
   data_file_name_clm,
   data_file_name_ln,
   src_root_clm,
-  src_root_ln
+  src_root_ln,
+  mapping_data = import_mapping
 )
 }
 \arguments{
+\item{year}{year of mecicare}
+
 \item{schema}{defined in csv mapping files, e.g. "prof_clm1"}
 
 \item{data_file_name_clm}{carrier claim file names}
@@ -28,9 +31,6 @@ prof_clm(
 
 }
 \description{
-Title professional claim data
-}
-\details{
-use carrier claim and carrier line file. Physician and procedure
+use carrier claim and carrier line files. Physician and procedure
 info is located at carrier line file.
 }
