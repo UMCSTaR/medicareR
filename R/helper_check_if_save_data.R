@@ -11,10 +11,9 @@ helper_check_if_save_data <- function(save_or_not,
                                       wd = NULL,
                                       rdata_name = NULL,
                                       csv_name = NULL) {
-
   if (save_or_not == "yes") {
     # check if data already existed
-    dataset_exist = file.exists(paste0(wd, csv_name))
+    dataset_exist <- file.exists(paste0(wd, csv_name))
 
     if (dataset_exist == TRUE) {
       res <- menu(
@@ -35,5 +34,4 @@ helper_check_if_save_data <- function(save_or_not,
   } else if (save_or_not == "no") {
     message(paste0("Dataset was not requested to be saved."))
   }
-
 }

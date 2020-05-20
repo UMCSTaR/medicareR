@@ -21,11 +21,7 @@ professionals <- function(year, data_file_name, schema, src_root, mapping_data =
 
   # read medicare files
   data.table::fread(src_file_loc, select = map$source_column, colClasses = "character") %>%
-    rename_all(~map$target_column) %>%
+    rename_all(~ map$target_column) %>%
     filter(!is.na(provider_npi) & provider_npi != "") %>%
     setDT()
 }
-
-
-
-

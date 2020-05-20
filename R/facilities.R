@@ -21,7 +21,7 @@ facilities <- function(year, data_file_name, schema, src_root,
 
   # read files
   fread(src_file_loc, select = map$source_column, colClasses = "character") %>%
-    rename_all(~map$target_column) %>%
+    rename_all(~ map$target_column) %>%
     filter(!is.na(facility_npi) & facility_npi != "") %>%
     setDT()
 }

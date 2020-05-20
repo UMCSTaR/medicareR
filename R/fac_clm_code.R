@@ -15,7 +15,6 @@ fac_clm_code <- function(year,
                          schema,
                          src_root,
                          mapping_data = import_mapping) {
-
   src_file_loc <- paste0(src_root, data_file_name)
 
   id_var <- c("BENE_ID", "MEDPAR_ID")
@@ -40,15 +39,16 @@ fac_clm_code <- function(year,
   setnames(fac_claim_code, toupper(names(fac_claim_code)))
 
   # diagnosis code ---------
-  dx_var = str_subset(names(fac_claim_code), "ID|DGNS") # detect vars
+  dx_var <- str_subset(names(fac_claim_code), "ID|DGNS") # detect vars
 
   dx <- fac_claim_code[, dx_var, with = FALSE] # subset vars
 
   # icd code ------
   dx_long <-
-    #subset
+    # subset
     dx[, str_subset(names(fac_claim_code), "DGNS_\\d+_CD|ID"),
-       with = FALSE] %>%
+      with = FALSE
+    ] %>%
     melt(
       id.vars = id_var,
       measure.vars = patterns("DGNS_\\d+_CD"),
@@ -83,7 +83,6 @@ fac_clm_code <- function(year,
 
     # full join dx_long and dx_poa
     dx_long <- merge(dx_long, dx_poa, all = TRUE)
-
   }
 
   # add ICD version

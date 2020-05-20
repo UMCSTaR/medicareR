@@ -17,7 +17,7 @@
 #' \dontrun{
 #' working_dir_config(data_root = "sample",
 #'                    medicare_file = "Denom_MBSF",
-#'                    george_file = /Volumes/George_Surgeon_Projects")
+#'                    george_file = "/Volumes/George_Surgeon_Projects")
 #' }
 
 mk_data_dir_path <- function(data_root = "sample",
