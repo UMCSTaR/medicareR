@@ -19,8 +19,10 @@ and assign variable \code{Brian_George_folder_loc} to an detected directory.
 If the locations can't be detected, you manually assign  value to Brian_George_folder_loc
 }
 \examples{
+\dontrun{
 # if this can't detect your BG folder, you can assign it by
 find_maize_folder(your_BG_folder_loc = "/Volumes/George_Surgeon_Projects")
+}
 
 
 }

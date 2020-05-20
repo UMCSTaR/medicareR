@@ -6,6 +6,8 @@
 #'
 #' @return
 #' @export
+#' @import data.table
+#' @import stringr
 #'
 #' @examples
 fac_clm_code <- function(year,

@@ -10,8 +10,10 @@
 #' @export
 #'
 #' @examples
+#' \dontrun{
 #' # if this can't detect your BG folder, you can assign it by
 #' find_maize_folder(your_BG_folder_loc = "/Volumes/George_Surgeon_Projects")
+#' }
 #'
 #'
 find_maize_folder <- function(your_BG_folder_loc = NA) {
