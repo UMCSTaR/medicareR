@@ -4,7 +4,7 @@
 <!-- badges: start -->
 <!-- badges: end -->
 
-The goal of medicareR is to standardize medicare datasets including: 
+The goal of medicareR is to make standardized medicare datasets across years including: 
 - MBSF
 - MedPAR
 - Carrier Line 

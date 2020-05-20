@@ -11,6 +11,7 @@
 #' @return combined facility claims over years (no dup)
 #'
 #' @export
+#' @import dplyr
 #'
 #' @examples
 fac_clm <-
