@@ -24,5 +24,4 @@ If the locations can't be detected, you manually assign  value to Brian_George_f
 find_maize_folder(your_BG_folder_loc = "/Volumes/George_Surgeon_Projects")
 }
 
-
 }

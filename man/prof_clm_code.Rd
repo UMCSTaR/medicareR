@@ -4,7 +4,13 @@
 \alias{prof_clm_code}
 \title{Title: professional claim diagnosis code}
 \usage{
-prof_clm_code(year, schema, data_file_name_clm, src_root_clm)
+prof_clm_code(
+  year,
+  schema,
+  data_file_name_clm,
+  src_root_clm,
+  mapping_data = import_mapping
+)
 }
 \arguments{
 \item{year}{year of medicare}

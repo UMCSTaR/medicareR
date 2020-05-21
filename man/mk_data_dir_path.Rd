@@ -31,3 +31,10 @@ list items of data directory locactions.
 working directory location may change based on the computers and file locations;
 This was based on the mapped Maize location on Xilin Chen's Mac and Windows
 }
+\examples{
+\dontrun{
+working_dir_config(data_root = "sample",
+                   medicare_file = "Denom_MBSF",
+                   george_file = "/Volumes/George_Surgeon_Projects")
+}
+}

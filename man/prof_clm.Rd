@@ -26,6 +26,8 @@ prof_clm(
 \item{src_root_clm}{carrier claim file loc}
 
 \item{src_root_ln}{carrier claim line loc}
+
+\item{mapping_data}{select medicare original vars to mapped vars}
 }
 \value{
 

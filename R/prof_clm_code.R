@@ -8,20 +8,22 @@
 #'
 #' @return
 #' @export
+#' @importFrom dplyr mutate select rename_at
 #'
 #' @examples
 prof_clm_code <-
   function(year,
            schema,
            data_file_name_clm,
-           src_root_clm) {
+           src_root_clm,
+           mapping_data = import_mapping) {
+
     # read src carrier claim
     src_file_loc_clm <- paste0(src_root_clm, data_file_name_clm)
-    prof_clm <-
-      fread(src_file_loc_clm, colClasses = "character")
+    prof_clm <- fread(src_file_loc_clm, colClasses = "character")
 
     # pre defined variable map
-    clm_code_map <- import_mapping %>%
+    clm_code_map <- mapping_data %>%
       filter(
         source_schema == schema,
         on_claim_line == 0
@@ -33,7 +35,7 @@ prof_clm_code <-
       )
 
     # id vars
-    id_var_tbl <- import_mapping %>%
+    id_var_tbl <- mapping_data %>%
       filter(
         source_schema == schema,
         on_claim_line == 0,
