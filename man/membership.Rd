@@ -4,13 +4,7 @@
 \alias{membership}
 \title{read in membership data (demon/MBSF)}
 \usage{
-membership(
-  year,
-  data_file_name,
-  schema,
-  src_root,
-  mapping_data = import_mapping
-)
+membership(year, data_file_name, schema, src_root, mapping_data)
 }
 \arguments{
 \item{year}{year of medicare data}
