@@ -18,10 +18,6 @@ prof_clm_code <-
            src_root_clm,
            mapping_data = import_mapping) {
 
-    # read src carrier claim
-    src_file_loc_clm <- paste0(src_root_clm, data_file_name_clm)
-    prof_clm <- fread(src_file_loc_clm, colClasses = "character")
-
     # pre defined variable map
     clm_code_map <- mapping_data %>%
       filter(
@@ -42,13 +38,23 @@ prof_clm_code <-
         str_detect(source_column, "ID")
       )
 
-    # select code ralated vars
-    prof_clm_code <- prof_clm %>%
-      select(
-        id_var_tbl$source_column,
-        matches(clm_code_map$source_column)
-      ) %>%
-      rename_at(vars(id_var_tbl$source_column), ~ id_var_tbl$target_column)
+    # medicare dt location
+    src_file_loc_clm <- paste0(src_root_clm, data_file_name_clm)
+
+    # select var names to read in
+    # to reduce memory burden for computer
+    prof_clm_vars <- fread(src_file_loc_clm, nrows = 0) %>%
+      select(id_var_tbl$source_column,
+             matches(clm_code_map$source_column)) %>%
+      names()
+
+    # read src carrier claim
+    message(paste0("reading Carrier Claim year ", year, "..."))
+    prof_clm_code <- fread(src_file_loc_clm, select = prof_clm_vars,
+                      colClasses = "character")
+
+    # rename id vars
+    setnames(prof_clm_code, id_var_tbl$source_column, id_var_tbl$target_column)
 
     # icd code
     prof_clm_code_icd <-
@@ -74,8 +80,6 @@ prof_clm_code <-
       .[icd_version != ""] %>%
       .[, `:=`(seq = str_extract(seq, "\\d+"), code_type = "DX")] %>%
       setorder(member_id)
-
-
 
     # combine icd code with icd version
     prof_clm_dx_code <- merge(prof_clm_code_icd, prof_clm_code_version, all.x = TRUE) %>%

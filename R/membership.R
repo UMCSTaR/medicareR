@@ -17,7 +17,7 @@ membership <- function(year,
                        data_file_name,
                        schema,
                        src_root,
-                       mapping_data = import_mapping) {
+                       mapping_data) {
   # read in data loc, variable names
   map <- mapping_data %>%
     filter(source_schema == schema)
@@ -26,6 +26,8 @@ membership <- function(year,
 
   # read Medpar files
   message(paste0("reading MBSF data year ", year, "..."))
-  fread(src_file_loc, select = map$source_column) %>%
+  data = fread(src_file_loc, select = map$source_column) %>%
     setnames(., map$source_column, map$target_column)
+
+  data
 }

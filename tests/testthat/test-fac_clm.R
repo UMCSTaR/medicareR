@@ -40,10 +40,27 @@ test_that("facility claim only include selected vars", {
                           "admit_dx",
                           "admit_dx_vrsn",
                           "icd_dx_cnt",
-                          "icd_pr_cnt",
-                          "claim_line_id"
+                          "icd_pr_cnt"
                         )) %>%
                  pull(target_column)
                   )
 })
+
+test_that("facility claim vars match with sas processed vars", {
+  expect_equal(fac_clm(mapping_data = import_mapping,
+                       year = 2010,
+                       src_root = "data/",
+                       data_file_name = "medpar2010_not_real_data.csv",
+                       schema = "fac_clm2") %>%
+                 names() %>%
+                 sort(),
+               read.csv("data/sas_name_fac_clm.csv") %>%
+                 dplyr::filter(x != "claim_line_id")  %>% # this var doesn't exist in original fac claim data, it is on fac line data
+                 dplyr::pull(x) %>%
+                 sort()
+  )
+})
+
+
+
 

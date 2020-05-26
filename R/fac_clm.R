@@ -40,8 +40,7 @@ fac_clm <-
       "admit_dx",
       "admit_dx_vrsn",
       "icd_dx_cnt",
-      "icd_pr_cnt",
-      "claim_line_id"
+      "icd_pr_cnt"
     )
 
     map <- mapping_data %>%
