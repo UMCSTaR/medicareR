@@ -1,6 +1,5 @@
 #' Select Procedures from Professional Claim data
-#' @details select procedure realted claims using CPT
-#'     use in creating analytic file
+#' @description select procedure related claims using CPT
 #'
 #' @param std_data_root profesisonal claim data location
 #' @param professional_clm_data_name profesisonal claim data name; has to be csv format
@@ -10,17 +9,26 @@
 #' @export
 #'
 #' @examples
-select_procedure <- function(std_data_root = wd$std_data_root,
+procedure_selection <- function(std_data_root = wd$std_data_root,
                              professional_clm_data_name = "prof_clm.csv",
                              cpt_map = define_proc_by_cpt) {
+  # check cpt_map data has 3 variables
+  if (any(!c("cpt_cd", "e_proc_grp", "e_proc_grp_lbl") %in%
+  names(cpt_map))){
+    stop("assigned cpt_map doesn't include all vars: cpt_cd, e_proc_grp, e_proc_grp_lbl")
+  }
+
   # unique claim based on
   clm_distinct_vars <- c("member_id", "svc_start_dt", "svc_end_dt", "provider_npi", "cpt_cd", "cpt_mod")
 
   # read std pro claim data
+  message("raading prof_clm data....")
   prof_clm <- fread((paste0(std_data_root, professional_clm_data_name)))
 
   # keep defined CPT code and
   # drop professional claim that don't have NPI
+  message("filtering procedures....")
+
   prof_clm_select <- prof_clm[cpt_cd %in% cpt_map$cpt_cd &
     provider_npi != ""]
 
@@ -53,12 +61,12 @@ select_procedure <- function(std_data_root = wd$std_data_root,
       cpt_cd
     ) %>%
     mutate(mod_n = row_number()) %>%
-    pivot_wider(names_from = mod_n, values_from = cpt_mod, names_prefix = "mod") %>%
-    unite("cpt_mod", starts_with("mod"), remove = TRUE, na.rm = TRUE, sep = ", ") %>%
+    tidyr::pivot_wider(names_from = mod_n, values_from = cpt_mod, names_prefix = "mod") %>%
+    tidyr::unite("cpt_mod", starts_with("mod"), remove = TRUE, na.rm = TRUE, sep = ", ") %>%
     ungroup()
 
   # add cpt names label
-  analytic_cpt <- analytic_cpt %>%
+  analytic_cpt %>%
     left_join(cpt_map, by = "cpt_cd") %>%
     rename(
       dt_profsvc_start = svc_start_dt, # rename to distinguish from facility claim
