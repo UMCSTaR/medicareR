@@ -58,3 +58,15 @@
 # usethis::use_data(denom17)
 #
 
+
+
+# std prof_clm----------
+
+# prof_clm = fread("/Volumes/George_Surgeon_Projects/standardized_medicare_data_using_R/std/sample/prof_clm.csv", nrows = 1000)
+# prof_clm_data = prof_clm %>%
+#   sample_n(10) %>%
+#   mutate_at(vars("member_id", "claim_id"), ~stringi::stri_rand_strings(10,8)) %>%
+#   mutate_at(vars(contains("provider")), ~stringi::stri_rand_strings(10,5, "[0-9]"))
+#
+# usethis::use_data(prof_clm_data)
+

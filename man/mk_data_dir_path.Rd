@@ -9,7 +9,8 @@ mk_data_dir_path(
   medicare_file = NULL,
   george_file,
   medicare_data_file = "/original_medicare_selected_vars/data",
-  medicare_std_data_file = "/standardized_medicare_data_using_R/std"
+  medicare_std_data_file = "/standardized_medicare_data_using_R",
+  input_data_file = "/standardized_medicare_data_using_R/input/"
 )
 }
 \arguments{
@@ -19,10 +20,11 @@ mk_data_dir_path(
 
 \item{george_file}{Brian_George folder loc on Maize}
 
-\item{medicare_data_file}{original medicare locations}
+\item{medicare_data_file}{original medicare location}
 
-\item{medicare_std_data_file}{where the std medicare data will be saved to location
-name is "Denom_MBSF"}
+\item{medicare_std_data_file}{where the std medicare data will be saved to location}
+
+\item{input_data_file}{location of outsource datasets, e.g. npppes npi files.}
 }
 \value{
 list items of data directory locactions.
