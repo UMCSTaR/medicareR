@@ -70,21 +70,23 @@ mk_data_dir_path <- function(data_root = "sample",
     wd
   }
 
-  # check file exist
-  if (file.exists(wd$input_data) == FALSE) {
-    stop(paste0("path doesn't exist: ", wd$input_data))
-  }
+  # check file exist only for mac envir
+  if (stringr::str_detect(george_file, "Volumes")) {
+    if (file.exists(wd$input_data) == FALSE) {
+      stop(paste0("path doesn't exist: ", wd$input_data))
+    }
 
-  if (file.exists(wd$std_data_root) == FALSE) {
-    stop(paste0("path doesn't exist: ", wd$std_data_root))
-  }
+    if (file.exists(wd$std_data_root) == FALSE) {
+      stop(paste0("path doesn't exist: ", wd$std_data_root))
+    }
 
-  if (file.exists(wd$std_analytic_root) == FALSE) {
-    stop(paste0("path doesn't exist: ", wd$std_analytic_root))
-  }
+    if (file.exists(wd$std_analytic_root) == FALSE) {
+      stop(paste0("path doesn't exist: ", wd$std_analytic_root))
+    }
 
-  if (file.exists(wd$src_data_root) == FALSE) {
-    stop(paste0("path doesn't exist: ", wd$src_data_root))
+    if (file.exists(wd$src_data_root) == FALSE) {
+      stop(paste0("path doesn't exist: ", wd$src_data_root))
+    }
   }
 
   wd
