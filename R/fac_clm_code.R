@@ -19,6 +19,11 @@ fac_clm_code <- function(year,
 
   id_var <- c("BENE_ID", "MEDPAR_ID")
 
+  # get ID var names
+  id_var_tbl = mapping_data %>%
+    filter(source_schema == schema,
+           source_column %in% id_var)
+
   # import vars -----
   map <- mapping_data %>%
     filter(
@@ -213,6 +218,9 @@ fac_clm_code <- function(year,
       "pr_date"
     )
   )
+
+  # rename ID variables
+  setnames(fac_claim_code, id_var_tbl$source_column, id_var_tbl$target_column)
 
   fac_claim_code
 }

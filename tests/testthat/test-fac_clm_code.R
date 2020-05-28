@@ -1,9 +1,7 @@
-library(tidyverse)
-library(data.table)
-
 # import data
 import_mapping <- readr::read_csv("data/import_mapping.csv")
 import_src <- readr::read_csv("data/import_source.csv")
+
 
 test_that("facility claim code dataset", {
   expect_s3_class(
@@ -17,5 +15,4 @@ test_that("facility claim code dataset", {
     "data.table"
   )
 })
-
 
