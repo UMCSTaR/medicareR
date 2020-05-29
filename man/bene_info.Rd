@@ -4,12 +4,12 @@
 \alias{bene_info}
 \title{Patient demographics}
 \usage{
-bene_info(data_loc, data_name, original_data)
+bene_info(std_data_root, member_data_name, original_data)
 }
 \arguments{
-\item{data_loc}{data path to the membership info folder}
+\item{std_data_root}{data path to the membership info folder}
 
-\item{data_name}{data name for the membership dataset}
+\item{member_data_name}{data name for the membership dataset}
 
 \item{original_data}{data name for the data you want to add the patient info to}
 }
@@ -17,5 +17,5 @@ bene_info(data_loc, data_name, original_data)
 Add patient demographics to the analytic file
 }
 \details{
-Add dob, dod, gener and race; Limit the patient population to age 65-99
+Add dob, dod, gender and race; Limit the patient population to age 65-99
 }

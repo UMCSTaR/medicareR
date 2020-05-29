@@ -12,6 +12,11 @@
 procedure_selection <- function(std_data_root = wd$std_data_root,
                              professional_clm_data_name = "prof_clm.csv",
                              cpt_map = define_proc_by_cpt) {
+  # check data name
+  if (!str_detect(professional_clm_data_name, ".csv")){
+    stop("professional_clm_data_name has to be .csv format")
+  }
+
   # check cpt_map data has 3 variables
   if (any(!c("cpt_cd", "e_proc_grp", "e_proc_grp_lbl") %in%
   names(cpt_map))){

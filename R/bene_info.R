@@ -1,22 +1,22 @@
 #' Patient demographics
 #' @description Add patient demographics to the analytic file
-#' @details Add dob, dod, gener and race; Limit the patient population to age 65-99
+#' @details Add dob, dod, gender and race; Limit the patient population to age 65-99
 #'
-#' @param data_loc data path to the membership info folder
-#' @param data_name data name for the membership dataset
+#' @param std_data_root data path to the membership info folder
+#' @param member_data_name data name for the membership dataset
 #' @param original_data data name for the data you want to add the patient info to
 #'
 #' @export
 #'
-bene_info <- function(data_loc,
-                      data_name,
+bene_info <- function(std_data_root,
+                      member_data_name,
                       original_data) {
 
-  if (!str_detect(data_name, ".csv")){
-    stop("data_name has to be .csv format")
+  if (!str_detect(member_data_name, ".csv")){
+    stop("member_data_name has to be .csv format")
   }
 
-  membership <- fread((paste0(data_loc, data_name)))
+  membership <- fread((paste0(std_data_root, member_data_name)))
 
   membership_process <- membership %>%
     mutate(
