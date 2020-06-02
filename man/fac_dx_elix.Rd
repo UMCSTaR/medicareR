@@ -2,7 +2,7 @@
 % Please edit documentation in R/fac_dx_elix.R
 \name{fac_dx_elix}
 \alias{fac_dx_elix}
-\title{Elixhauser flgs based on Dx ICD code using ahrq map}
+\title{Elixhauser flags based on Dx ICD code using ahrq map}
 \usage{
 fac_dx_elix(original_data)
 }
