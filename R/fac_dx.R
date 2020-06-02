@@ -3,7 +3,7 @@
 #'
 #' @param std_data_root data path to the standardized data folder
 #' @param fac_codes_folder folder name for fac_code
-#' @param fac_clm_name  data name for fac_clm data
+#' @param fac_clm_name  data name for fac_clm data (.csv format is a must)
 #' @param original_data data name for the data you want to add the info to
 #'
 #' @return
@@ -22,28 +22,9 @@ fac_dx <- function(std_data_root = wd$std_data_root,
   message("reading fac_clm dataset...")
   fac_clm <- fread(paste0(std_data_root, fac_clm_name))
 
-  # read fac clm and fac clm code data ------
-  fac_codes_loc = paste0(std_data_root, fac_codes_folder, "/",
-                         list.files(paste0(std_data_root, fac_codes_folder)))
-  # read in all fac_code cross year
-  # fac_code datasets were saved by year due to sample size too big
-  facclm_dx_list = list()
-  message("reading fac_clm_code dataset...")
-
-  for (i in seq_along(fac_codes_loc)) {
-
-    fac_clm_codes = fread(fac_codes_loc[i])
-
-    # Facility claim codes file:
-    # Transpose dx codes from long to wide format
-    facclm_dx_by_yr <-
-      fac_clm_codes[code_type == "DX"][, var_name := paste0(code_type, seq)] %>% #diagnosis code
-      dcast(member_id + claim_id ~ var_name, value.var = c("value"))
-
-    facclm_dx_list[[i]] = facclm_dx_by_yr
-  }
-  # combine as one dataset
-  facclm_dx = rbindlist(facclm_dx_list, fill = T)
+  # read fac clm code data ------
+  facclm_dx = medicareR:::load_fac_code_data(std_data_root = std_data_root,
+                                             fac_codes_folder = fac_codes_folder)
 
   # Add DRG and DX from MEDPAR to the analytic file:
   # preparing the data for calculating Elixhauser comorbidity flags
@@ -104,6 +85,7 @@ fac_dx <- function(std_data_root = wd$std_data_root,
 
   # Since there are duplicated Medpar records mapped to professional claim, the below is to drop the duplicated records
   analytic_fac %>%
+    # use "id_physician_npi, dt_profsvc_start, cpt_cd" as unique key
     add_count(id_physician_npi, dt_profsvc_start, cpt_cd) %>%
     filter(n == 1) %>% # delete dup
     select(-n)

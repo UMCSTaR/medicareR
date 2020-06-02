@@ -16,7 +16,7 @@ fac_dx(
 
 \item{fac_codes_folder}{folder name for fac_code}
 
-\item{fac_clm_name}{data name for fac_clm data}
+\item{fac_clm_name}{data name for fac_clm data (.csv format is a must)}
 
 \item{original_data}{data name for the data you want to add the info to}
 }
