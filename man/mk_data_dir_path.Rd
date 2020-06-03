@@ -16,7 +16,8 @@ mk_data_dir_path(
 \arguments{
 \item{data_root}{: "sample" or "full_data"}
 
-\item{medicare_file}{: original medicare data file folder name. e.g. demon data folder}
+\item{medicare_file}{: source (raw) medicare data file folder name. e.g. Denom_MBSF folder;
+This is used to create source medicare data location.}
 
 \item{george_file}{Brian_George folder loc on Maize}
 

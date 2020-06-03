@@ -4,7 +4,8 @@
 
 #' @param data_root : "sample" or "full_data"
 #'
-#' @param medicare_file : original medicare data file folder name. e.g. demon data folder
+#' @param medicare_file : source (raw) medicare data file folder name. e.g. Denom_MBSF folder;
+#'     This is used to create source medicare data location.
 #' @param george_file Brian_George folder loc on Maize
 #' @param medicare_data_file original medicare location
 #' @param medicare_std_data_file  where the std medicare data will be saved to location
