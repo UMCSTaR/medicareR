@@ -2,6 +2,7 @@
 
 export(bene_info)
 export(complication_flags)
+export(cormorbidity_6m)
 export(fac_clm)
 export(fac_clm_code)
 export(fac_dx)
