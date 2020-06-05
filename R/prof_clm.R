@@ -1,8 +1,10 @@
 #' Professional claim data
 #' @description  use carrier claim and carrier line files. Physician and procedure
 #'     info is located at carrier line file.
+#' @details  variables included are:     "member_id", "claim_id", "clm_from_dt", "clm_thru_dt",
+#'    "clm_disp_cd", "icd_dx_prncpal", "icd_dx_prncpal_vrsn"
 #'
-#' @param year year of mecicare
+#' @param year year of medicare
 #' @param schema defined in csv mapping files, e.g. "prof_clm1"
 #' @param data_file_name_clm carrier claim file names
 #' @param data_file_name_ln  carrier line file names

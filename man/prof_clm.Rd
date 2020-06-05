@@ -15,7 +15,7 @@ prof_clm(
 )
 }
 \arguments{
-\item{year}{year of mecicare}
+\item{year}{year of medicare}
 
 \item{schema}{defined in csv mapping files, e.g. "prof_clm1"}
 
@@ -35,4 +35,8 @@ prof_clm(
 \description{
 use carrier claim and carrier line files. Physician and procedure
 info is located at carrier line file.
+}
+\details{
+variables included are:     "member_id", "claim_id", "clm_from_dt", "clm_thru_dt",
+"clm_disp_cd", "icd_dx_prncpal", "icd_dx_prncpal_vrsn"
 }
