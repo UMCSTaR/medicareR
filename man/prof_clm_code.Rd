@@ -2,7 +2,7 @@
 % Please edit documentation in R/prof_clm_code.R
 \name{prof_clm_code}
 \alias{prof_clm_code}
-\title{Title: professional claim diagnosis code}
+\title{professional claim diagnosis code}
 \usage{
 prof_clm_code(
   year,
@@ -25,8 +25,5 @@ prof_clm_code(
 
 }
 \description{
-Title: professional claim diagnosis code
-}
-\details{
 process using carrier claim; produce long format dx icd and icd version
 }

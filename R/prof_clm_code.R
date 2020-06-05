@@ -1,5 +1,5 @@
-#' Title: professional claim diagnosis code
-#' @details process using carrier claim; produce long format dx icd and icd version
+#' professional claim diagnosis code
+#' @description  process using carrier claim; produce long format dx icd and icd version
 #'
 #' @param year   year of medicare
 #' @param schema defined in mapping csv, eg "prof_clm1"
