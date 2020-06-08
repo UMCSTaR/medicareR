@@ -2,7 +2,9 @@
 % Please edit documentation in R/complication_flags.R
 \name{complication_flags}
 \alias{complication_flags}
-\title{Complication Flags based on Prcedure and Diagnosis ICD}
+\title{check Not poa define
+
+Complication Flags based on Procedure and Diagnosis ICD}
 \usage{
 complication_flags(
   std_data_root = wd$std_data_root,
@@ -30,5 +32,10 @@ complication_flags(
 add two variables; complication and complication w/o POA
 }
 \description{
-Complication Flags based on Prcedure and Diagnosis ICD
+check Not poa define
+
+Complication Flags based on Procedure and Diagnosis ICD
+}
+\details{
+POA var only aviable after 2010
 }

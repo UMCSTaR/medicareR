@@ -16,3 +16,6 @@ ses_info(ses = ses, ses_zscore = NULL, original_dataset = analytic_elix)
 \description{
 social economic status based on zip code
 }
+\details{
+join by bene zip code
+}

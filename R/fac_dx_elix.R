@@ -1,11 +1,13 @@
 #' Elixhauser flags based on Dx ICD code using ahrq map
-#' @description main function is using ICD Package comorbid(, map = icd9_map_ahrq)
-#'     # ICD package map reference: https://rdrr.io/cran/icd/man/icd9_map_ahrq.html
+#' @description  main function is using ICD Package comorbid(, map = icd9_map_ahrq);
+#'     ICD package map reference: https://rdrr.io/cran/icd/man/icd9_map_ahrq.html
 #'
 #' @param original_data data to add on
 #'
 #' @return
 #' @export
+#'
+#' @note ICD9/10 transition date is "2015-10-1"; icd10 is service date >= "2015-10-1"
 #'
 fac_dx_elix <- function(original_data) {
   analytic_elix_vars <- original_data %>%

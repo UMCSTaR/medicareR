@@ -13,6 +13,9 @@ fac_dx_elix(original_data)
 
 }
 \description{
-main function is using ICD Package comorbid(, map = icd9_map_ahrq)
-# ICD package map reference: https://rdrr.io/cran/icd/man/icd9_map_ahrq.html
+main function is using ICD Package comorbid(, map = icd9_map_ahrq);
+ICD package map reference: https://rdrr.io/cran/icd/man/icd9_map_ahrq.html
+}
+\note{
+ICD9/10 transition date is "2015-10-1"; icd10 is service date >= "2015-10-1"
 }

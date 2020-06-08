@@ -1,5 +1,6 @@
 #' Readmission Flags
-#' @description    1. Find the 30-day readmission,  maybe multiple readmission
+#' @description using facility claim data, left join by member id
+#' @details    1. Find the 30-day readmission,  maybe multiple readmission
 #'    2. Roll up to a single row per member_id & prof_calim_id
 #'    3. Merge the 30-day readmission flag back to the main analytic file
 #'

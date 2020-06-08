@@ -1,5 +1,6 @@
-#' Add Reoperation Flags
-#' @description  1. Looking through the procedure codes across multiple admissions;
+#' 30 days Re-operation Flags
+#' @description  use procedure code ICD code to define reop
+#' @details  1. Looking through the procedure codes across multiple admissions;
 #'    2. Create the ICD9/10 procedure codes to re-operation mapping using pre-defined operation types;
 #'    3. Get the re-operation flags one row per professional claim for each patient;
 #'    4. Merge the re-operation flags back to main analytic file;
@@ -36,6 +37,7 @@ reoperation <- function(std_data_root = wd$std_data_root,
   fac_pr_list = list()
   message("reading fac_clm_code dataset...")
 
+  # filter to only procedure code
   for (i in seq_along(fac_codes_loc)) {
     fac_clm_codes = fread(fac_codes_loc[i])
 
@@ -48,6 +50,7 @@ reoperation <- function(std_data_root = wd$std_data_root,
 
   fac_pr = rbindlist(fac_pr_list)
 
+  # reop map ---
   # icd9
   icd9_reop <- reop_map %>%
     filter(code_set == "pr9")
@@ -71,11 +74,11 @@ reoperation <- function(std_data_root = wd$std_data_root,
 
   reop_id <- reop_pre %>%
     mutate(flg_util_reop = ifelse(
+      # with in 30 days after discharge from previous admission
       pr_date - as_date(dt_profsvc_end) <= 30 &
         pr_date - as_date(dt_profsvc_end) > 0 &
-        # with in 30 days after discharge from previous admission
+        # cpt is defined as reop
         value %in% reop,
-      # cpt is defined as reop
       1,
       0
     )) %>%

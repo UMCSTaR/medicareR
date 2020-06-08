@@ -2,7 +2,7 @@
 % Please edit documentation in R/reoperation.R
 \name{reoperation}
 \alias{reoperation}
-\title{Add Reoperation Flags}
+\title{30 days Re-operation Flags}
 \usage{
 reoperation(
   std_data_root = wd$std_data_root,
@@ -24,6 +24,9 @@ reoperation(
 
 }
 \description{
+use procedure code ICD code to define reop
+}
+\details{
 \enumerate{
 \item Looking through the procedure codes across multiple admissions;
 \item Create the ICD9/10 procedure codes to re-operation mapping using pre-defined operation types;

@@ -1,4 +1,5 @@
-#' Complication Flags based on Prcedure and Diagnosis ICD
+#' # check Not poa define
+#' Complication Flags based on Procedure and Diagnosis ICD
 #'
 #' @inheritParams fac_dx
 #' @param cmp_pr procedure ICD code list used to define complication
@@ -7,6 +8,8 @@
 #'
 #' @return add two variables; complication and complication w/o POA
 #' @export
+#'
+#' @details POA var only aviable after 2010
 #'
 #' @examples
 
@@ -99,13 +102,14 @@ complication_flags <- function(std_data_root = wd$std_data_root,
   # adding poa vars to any complication definition
   # defined as: 1: flg_poa != yes, 2, dx and pr are mapped (same as any complication)
   id_not_poa <- code_val %>%
+    # poa vars becomes available after 2010
     filter(dt_facclm_dschg >= "2010-01-01") %>%
     # dx_n: "5" "3" "4" "6" "7"
     mutate(
       flg_cmp_po_any_not_poa = ifelse(
         str_detect(code_type, "DX") &
           # diagnosis!flg_poa %in% c("y", "Y", "1") &
-          # poa diagonisis is not "Y" or 1
+          # poa diagnosis is not "Y" or 1
           (
             value %in% cmp_dx |
               # https://www.resdac.org/cms-data/variables/medpar-diagnosis-e-code-present-admission-indicator

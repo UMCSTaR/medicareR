@@ -12,8 +12,9 @@
 #' @details 1. read std fac_clm and fac_clm_code data;
 #'   2. join fac_clm and prof_clm by memberID and service date info.
 #'Prof claim dates should be within facility claim dates
-#'   3. create admission_type(urgent/not), 30d death; attach dx code info
-#'   4. facility claim code are saved by year within fac_clm_code folder (due to data size)
+#'   3. then join fac_clm_code with analytic dataset by memberID and facility claim ID (attach dx code info)
+#'   4. create admission_type(urgent/not), 30d death
+#'   5. facility claim code are saved by year within fac_clm_code folder (due to data size)
 #'
 #' @examples
 

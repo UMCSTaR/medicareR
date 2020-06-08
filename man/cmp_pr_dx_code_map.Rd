@@ -7,12 +7,17 @@
 cmp_pr_dx_code_map(complication_map = cmp_define)
 }
 \arguments{
-\item{complication_map}{: pre-defined csv input data names located at input dta folder
+\item{complication_map}{: pre-defined csv input data names located at input data folder
 "icd910_dx_pr_2cmp_fmt.sas7bdat"}
 }
 \value{
-two list: cmp_pr = ICD9/10 for procedures, cmp_dx = ICD9/10 for diagnosis
+cmp_pr = ICD9/10 for procedures;
+cmp_dx = ICD9/10 for diagnosis;
+all_n = number of digits to match with
 }
 \description{
-use for define complications with function: complication_flags
+create procedure and diagnosis icd list using for complication definition
+}
+\details{
+use for define complications (complication_flags)
 }

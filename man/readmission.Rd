@@ -17,6 +17,9 @@ readmission(std_data_root, fac_clm_name, original_data)
 
 }
 \description{
+using facility claim data, left join by member id
+}
+\details{
 \enumerate{
 \item Find the 30-day readmission,  maybe multiple readmission
 \item Roll up to a single row per member_id & prof_calim_id

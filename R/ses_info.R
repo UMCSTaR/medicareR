@@ -1,4 +1,5 @@
 #' social economic status based on zip code
+#' @details join by bene zip code
 #'
 #' @param ses input ses dataset name
 #' @param ses_zscore input ses dataset name; leave as NULL if you don't want to add Zscore
