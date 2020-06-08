@@ -1,6 +1,7 @@
 #' Patient demographics
 #' @description Add patient demographics to the analytic file
-#' @details Add dob, dod, gender and race; Limit the patient population to age 65-99
+#' @details 1. Add dob, dod, gender and race
+#'   2. Limit the patient population to age 65-99
 #'
 #' @param std_data_root data path to the membership info folder
 #' @param member_data_name data name for the membership dataset

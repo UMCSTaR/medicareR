@@ -1,7 +1,7 @@
-#' load standardized fac clm code data across years
+#' load standardized fac clm dx code across years
+#' @details filter to only diagnosis code
 #'
-#' @param std_data_root
-#' @param fac_codes_folder
+#' @inheritParams fac_dx
 #'
 #' @return
 #'

@@ -27,6 +27,11 @@ fac_dx(
 add facility code info to the analytic dataset
 }
 \details{
-read std fac_clm and fac_clm_code data; join fac_clm and prof_clm by memberID
-and service date info; create admission_type(urgent/not), 30d death; attach dx code info
+\enumerate{
+\item read std fac_clm and fac_clm_code data;
+\item join fac_clm and prof_clm by memberID and service date info.
+Prof claim dates should be within facility claim dates
+\item create admission_type(urgent/not), 30d death; attach dx code info
+\item facility claim code are saved by year within fac_clm_code folder (due to data size)
+}
 }

@@ -2,16 +2,21 @@
 % Please edit documentation in R/load_fac_dx_code.R
 \name{load_fac_code_data}
 \alias{load_fac_code_data}
-\title{load standardized fac clm code data across years}
+\title{load standardized fac clm dx code across years}
 \usage{
 load_fac_code_data(std_data_root, fac_codes_folder)
 }
 \arguments{
-\item{fac_codes_folder}{}
+\item{std_data_root}{data path to the standardized data folder}
+
+\item{fac_codes_folder}{folder name for fac_code}
 }
 \value{
 
 }
 \description{
-load standardized fac clm code data across years
+load standardized fac clm dx code across years
+}
+\details{
+filter to only diagnosis code
 }

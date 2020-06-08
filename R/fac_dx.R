@@ -9,8 +9,11 @@
 #' @return
 #' @export
 #'
-#' @details read std fac_clm and fac_clm_code data; join fac_clm and prof_clm by memberID
-#'     and service date info; create admission_type(urgent/not), 30d death; attach dx code info
+#' @details 1. read std fac_clm and fac_clm_code data;
+#'   2. join fac_clm and prof_clm by memberID and service date info.
+#'Prof claim dates should be within facility claim dates
+#'   3. create admission_type(urgent/not), 30d death; attach dx code info
+#'   4. facility claim code are saved by year within fac_clm_code folder (due to data size)
 #'
 #' @examples
 

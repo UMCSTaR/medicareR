@@ -17,5 +17,8 @@ bene_info(std_data_root, member_data_name, original_data)
 Add patient demographics to the analytic file
 }
 \details{
-Add dob, dod, gender and race; Limit the patient population to age 65-99
+\enumerate{
+\item Add dob, dod, gender and race
+\item Limit the patient population to age 65-99
+}
 }

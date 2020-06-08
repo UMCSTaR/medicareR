@@ -11,9 +11,9 @@ procedure_selection(
 )
 }
 \arguments{
-\item{std_data_root}{profesisonal claim data location}
+\item{std_data_root}{professional claim data location}
 
-\item{professional_clm_data_name}{profesisonal claim data name; has to be csv format}
+\item{professional_clm_data_name}{professional claim data name; has to be csv format}
 
 \item{cpt_map}{should include 3 variable: cpt_cd, e_proc_grp and e_proc_grp_lbl}
 }
@@ -22,4 +22,12 @@ procedure_selection(
 }
 \description{
 select procedure related claims using CPT
+}
+\details{
+\enumerate{
+\item select procedure based on CPT
+\item delete missing NPI procedures(can't link to surgeons)
+\item delete duplicated claims
+\item aggregate cpt_mode (if two cases have same info but diff cpt_mode, aggregate as one case include two cpt_mode code)
+}
 }
