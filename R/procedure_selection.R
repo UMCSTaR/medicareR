@@ -14,18 +14,27 @@
 #'  4. aggregate cpt_mode (if two cases have same info but diff cpt_mode, aggregate as one case include two cpt_mode code)
 #'
 procedure_selection <- function(std_data_root = wd$std_data_root,
-                                professional_clm_data_name = "prof_clm.csv",
+                                prof_codes_folder = "prof_clm",
                                 cpt_map = define_proc_by_cpt) {
-  # check data name
-  if (!str_detect(professional_clm_data_name, ".csv")) {
-    stop("professional_clm_data_name has to be .csv format")
-  }
 
   # check cpt_map data has 3 variables
   if (any(!c("cpt_cd", "e_proc_grp", "e_proc_grp_lbl") %in%
     names(cpt_map))) {
     stop("assigned cpt_map doesn't include all vars: cpt_cd, e_proc_grp, e_proc_grp_lbl")
   }
+
+  # check if file loc exist
+  if (!file.exists(paste0(std_data_root, prof_codes_folder))) {
+    stop(paste0(
+      "file location doesn't exist: ",
+      std_data_root,
+      prof_codes_folder
+    ))
+  }
+
+  # read prof clm code data ------
+  prof_clm_loc = paste0(std_data_root, prof_codes_folder, "/",
+                         list.files(paste0(std_data_root, prof_codes_folder)))
 
   # unique claim based on
   clm_distinct_vars <-
@@ -39,18 +48,27 @@ procedure_selection <- function(std_data_root = wd$std_data_root,
     )
 
   # read std pro claim data
-  message("raading prof_clm data....")
-  prof_clm <-
-    fread((paste0(
-      std_data_root, professional_clm_data_name
-    )))
+  prof_clm_select_list = list()
+  for (i in seq_along(prof_clm_loc)) {
+    message(
+      "reading prof_clm year ",
+      stringr::str_extract(prof_clm_loc, "[0-9]+")[i],
+      " data...."
+    )
+    prof_clm <- fread(prof_clm_loc[i], colClasses = "character")
 
-  # keep defined CPT code and
-  # drop professional claim that don't have NPI
-  message("filtering procedures....")
+    # keep defined CPT code and
+    # drop professional claim that don't have NPI
+    message("filtering procedures....")
 
-  prof_clm_select <- prof_clm[cpt_cd %in% cpt_map$cpt_cd &
-    provider_npi != ""]
+    # filter procedure and NPI
+    prof_clm_select <- prof_clm[cpt_cd %in% cpt_map$cpt_cd &
+                                  provider_npi != ""]
+
+    prof_clm_select_list[[i]] = prof_clm_select
+  }
+
+  prof_clm_select = rbindlist(prof_clm_select_list, fill = T)
 
   # cpt mod wide to long format
   analytic_cptmod <- prof_clm_select %>%
