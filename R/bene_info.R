@@ -18,7 +18,10 @@ bene_info <- function(std_data_root,
     membership <- fread((paste0(std_data_root, member_data_name)))
   } else if (str_detect(member_data_name, ".sas")) {
     membership <-
-      haven::read_sas((paste0(std_data_root, member_data_name)))
+      haven::read_sas((paste0(std_data_root, member_data_name))) %>%
+      # date format to match with fread inputs (otherwise the code to process membership has date format error)
+      mutate_at(vars(contains("dt")), ~ as_date(., origin = "1960-01-01")) %>%
+      mutate_at(vars(contains("dt")), ~format(., "%d/%m/%Y"))
   } else {
     stop(member_data_name, " has to be .csv or .sas files")
   }

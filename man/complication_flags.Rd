@@ -37,5 +37,5 @@ check Not poa define
 Complication Flags based on Procedure and Diagnosis ICD
 }
 \details{
-POA var only aviable after 2010
+POA var only available after 2010
 }

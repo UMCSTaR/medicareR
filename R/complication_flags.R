@@ -9,7 +9,7 @@
 #' @return add two variables; complication and complication w/o POA
 #' @export
 #'
-#' @details POA var only aviable after 2010
+#' @details POA var only available after 2010
 #'
 #' @examples
 

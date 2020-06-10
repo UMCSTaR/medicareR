@@ -6,16 +6,21 @@
 \usage{
 procedure_selection(
   std_data_root = wd$std_data_root,
-  professional_clm_data_name = "prof_clm.csv",
-  cpt_map = define_proc_by_cpt
+  prof_codes_folder = "prof_clm",
+  cpt_map = define_proc_by_cpt,
+  test_sas_processed_data_loc = NA
 )
 }
 \arguments{
 \item{std_data_root}{professional claim data location}
 
-\item{professional_clm_data_name}{professional claim data name; has to be csv format}
+\item{prof_codes_folder}{professional claim folder name}
 
 \item{cpt_map}{should include 3 variable: cpt_cd, e_proc_grp and e_proc_grp_lbl}
+
+\item{test_sas_processed_data_loc}{this is for testing, only assign value when you wnat to test.
+Otherwise leave it NA. When testing assign the location of sas pre processed prof_clm data.
+eg. "/Volumes/George_Surgeon_Projects/medicare_data/sample_npct_std/prof_clm.sas7bdat"}
 }
 \value{
 
