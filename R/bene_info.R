@@ -13,11 +13,16 @@ bene_info <- function(std_data_root,
                       member_data_name,
                       original_data) {
 
-  if (!str_detect(member_data_name, ".csv")){
-    stop("member_data_name has to be .csv format")
+  # validate input
+  if (str_detect(member_data_name, ".csv")) {
+    membership <- fread((paste0(std_data_root, member_data_name)))
+  } else if (str_detect(member_data_name, ".sas")) {
+    membership <-
+      haven::read_sas((paste0(std_data_root, member_data_name)))
+  } else {
+    stop(member_data_name, " has to be .csv or .sas files")
   }
 
-  membership <- fread((paste0(std_data_root, member_data_name)))
 
   membership_process <- membership %>%
     mutate(

@@ -2,8 +2,11 @@
 #' @description select procedure related claims using CPT
 #'
 #' @param std_data_root professional claim data location
-#' @param professional_clm_data_name professional claim data name; has to be csv format
+#' @param prof_codes_folder professional claim folder name
 #' @param cpt_map should include 3 variable: cpt_cd, e_proc_grp and e_proc_grp_lbl
+#' @param test_sas_processed_data_loc this is for testing, only assign value when you wnat to test.
+#'     Otherwise leave it NA. When testing assign the location of sas pre processed prof_clm data.
+#'     eg. "/Volumes/George_Surgeon_Projects/medicare_data/sample_npct_std/prof_clm.sas7bdat"
 #'
 #' @return
 #' @export
@@ -15,7 +18,8 @@
 #'
 procedure_selection <- function(std_data_root = wd$std_data_root,
                                 prof_codes_folder = "prof_clm",
-                                cpt_map = define_proc_by_cpt) {
+                                cpt_map = define_proc_by_cpt,
+                                test_sas_processed_data_loc = NA) {
 
   # check cpt_map data has 3 variables
   if (any(!c("cpt_cd", "e_proc_grp", "e_proc_grp_lbl") %in%
@@ -48,6 +52,8 @@ procedure_selection <- function(std_data_root = wd$std_data_root,
     )
 
   # read std pro claim data
+  if(is.na(test_sas_processed_data_loc)){
+
   prof_clm_select_list = list()
   for (i in seq_along(prof_clm_loc)) {
     message(
@@ -69,6 +75,15 @@ procedure_selection <- function(std_data_root = wd$std_data_root,
   }
 
   prof_clm_select = rbindlist(prof_clm_select_list, fill = T)
+
+  } else if (!is.na(test_sas_processed_data_loc)) {
+    # for test purpose, comparing with SAS processed data
+    prof_clm = haven::read_sas(paste0(test_sas_processed_data_loc))
+
+    data.table::setDT(prof_clm)
+    prof_clm_select <- prof_clm[cpt_cd %in% cpt_map$cpt_cd &
+                                  provider_npi != ""]
+  }
 
   # cpt mod wide to long format
   analytic_cptmod <- prof_clm_select %>%
@@ -123,7 +138,4 @@ procedure_selection <- function(std_data_root = wd$std_data_root,
       id_physician_npi = provider_npi
     )
 
-  # check note ------
-  # CPT_mod trasfer in sas had dropped the "80" to "8"
-  # this will make assist surgeon definition differ
 }
