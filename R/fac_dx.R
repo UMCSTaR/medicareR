@@ -2,7 +2,9 @@
 #' @description add facility code info to the analytic dataset
 #'
 #' @param std_data_root data path to the standardized data folder
-#' @param fac_codes_folder folder name for fac_code
+#' @param fac_codes_folder folder name for fac_code;
+#'     if in test for one combined sas data, put datset name
+#'     as ".sas7bdat" (don't use it unless you want to test)
 #' @param fac_clm_name  data name for fac_clm data (.csv format is a must)
 #' @param original_data data name for the data you want to add the info to
 #'
@@ -22,13 +24,36 @@ fac_dx <- function(std_data_root = wd$std_data_root,
                    fac_codes_folder = "fac_clm_code",
                    fac_clm_name = "fac_clm.csv",
                    original_data = analytic_demo) {
-  # read fac clm and fac clm code data ------
-  message("reading fac_clm dataset...")
-  fac_clm <- fread(paste0(std_data_root, fac_clm_name))
 
-  # read fac clm code data ------
-  facclm_dx = medicareR:::load_fac_code_data(std_data_root = std_data_root,
-                                             fac_codes_folder = fac_codes_folder)
+
+  if (str_detect(fac_clm_name, ".csv")) {
+    # read fac clm and fac clm code data ------
+    message("reading fac_clm dataset...")
+    fac_clm <- fread(paste0(std_data_root, fac_clm_name))
+
+    # read fac clm code data ------
+    facclm_dx = medicareR:::load_fac_code_data(std_data_root = std_data_root,
+                                               fac_codes_folder = fac_codes_folder)
+
+  } else if (str_detect(fac_clm_name, ".sas")) {
+    # read fac clm and fac clm code data ------
+    message("reading fac_clm dataset...")
+    fac_clm <- haven::read_sas(paste0(std_data_root, fac_clm_name))
+
+    # read fac clm code data ------
+    message("reading fac_clm_code dataset...")
+    fac_clm_codes <- haven::read_sas(paste0(std_data_root, fac_codes_folder))
+
+    setDT(fac_clm_codes)
+    facclm_dx <-
+      fac_clm_codes[code_type == "DX"][, var_name := paste0(code_type, seq)] %>% #diagnosis code
+      dcast(member_id + claim_id ~ var_name, value.var = c("value"))
+
+  } else {
+    stop(fac_clm_name, " has to be .csv or .sas7bdat files")
+  }
+
+
 
   # Add DRG and DX from MEDPAR to the analytic file:
   # preparing the data for calculating Elixhauser comorbidity flags
@@ -53,6 +78,8 @@ fac_dx <- function(std_data_root = wd$std_data_root,
       # 30-day mortality after discharge
       flg_death_30d = ifelse(dt_dod - svc_end_dt >= 0 &
                                dt_dod - svc_end_dt <= 30, 1, 0),
+      # missing date indicate no death
+      flg_death_30d = ifelse(is.na(flg_death_30d), 0, flg_death_30d),
 
       # LOS
       val_los = svc_end_dt - svc_from_dt,

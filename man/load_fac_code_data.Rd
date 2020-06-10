@@ -9,7 +9,9 @@ load_fac_code_data(std_data_root, fac_codes_folder)
 \arguments{
 \item{std_data_root}{data path to the standardized data folder}
 
-\item{fac_codes_folder}{folder name for fac_code}
+\item{fac_codes_folder}{folder name for fac_code;
+if in test for one combined sas data, put datset name
+as ".sas7bdat" (don't use it unless you want to test)}
 }
 \value{
 

@@ -14,7 +14,9 @@ fac_dx(
 \arguments{
 \item{std_data_root}{data path to the standardized data folder}
 
-\item{fac_codes_folder}{folder name for fac_code}
+\item{fac_codes_folder}{folder name for fac_code;
+if in test for one combined sas data, put datset name
+as ".sas7bdat" (don't use it unless you want to test)}
 
 \item{fac_clm_name}{data name for fac_clm data (.csv format is a must)}
 
