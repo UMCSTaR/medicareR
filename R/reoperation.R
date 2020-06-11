@@ -7,7 +7,7 @@
 
 #'
 #' @param std_data_root data path to the standardized data folder
-#' @param fac_codes_folder names of the fac_clm_code data folder
+#' @param fac_codes_folder names of the fac_clm_code data folder; or .sas files for only testing
 #' @param reop_map predefined re-operation and ICD map
 #' @param original_data data to add on
 #'
@@ -19,36 +19,65 @@
 reoperation <- function(std_data_root = wd$std_data_root,
                         reop_map,
                         fac_codes_folder = "fac_clm_code",
-                        original_data ) {
+                        original_data) {
 
   # read fac clm code data ------
   datset_names = list.files(paste0(std_data_root, fac_codes_folder))
 
-  fac_codes_loc = paste0(std_data_root, fac_codes_folder, "/",
-                         datset_names)
+  if (length(datset_names) > 0) {
+    fac_codes_loc = paste0(std_data_root, fac_codes_folder, "/",
+                           datset_names)
 
-  if (!all(stringr::str_detect(datset_names, ".csv"))) {
-    stop(paste0("Check datasets under fac code file folder ", fac_codes_folder, ". All should have.csv format"))
-  } else {
-    message("selected datases: ", datset_names)
-  }
+    if (!all(stringr::str_detect(datset_names, ".csv"))) {
+      stop(
+        paste0(
+          "Check datasets under fac code file folder ",
+          fac_codes_folder,
+          ". All should have.csv format"
+        )
+      )
+    } else {
+      message("selected datases: ", datset_names)
+    }
 
-  # fac_code datasets were saved by year due to sample size too big
-  fac_pr_list = list()
-  message("reading fac_clm_code dataset...")
+    # fac_code datasets were saved by year due to sample size too big
+    fac_pr_list = list()
+    message("reading fac_clm_code dataset...")
 
-  # filter to only procedure code
-  for (i in seq_along(fac_codes_loc)) {
-    fac_clm_codes = fread(fac_codes_loc[i])
+    # filter to only procedure code
+    for (i in seq_along(fac_codes_loc)) {
+      fac_clm_codes = fread(fac_codes_loc[i])
 
+      fac_clm_codes <-
+        fac_clm_codes[, pr_date := as_date(pr_date)] # date format
+
+      fac_pr_list[[i]] = fac_clm_codes[code_type == "PR"] %>%
+        select(member_id, icd_version, value, pr_date)
+    }
+
+    fac_pr = rbindlist(fac_pr_list)
+
+  } else if (str_detect(fac_codes_folder, ".sas")) {
+    # for testing sas files
+    fac_clm_codes = haven::read_sas(paste0(std_data_root, fac_codes_folder))
+
+    setDT(fac_clm_codes)
     fac_clm_codes <-
-      fac_clm_codes[, pr_date := as_date(pr_date)] # date format
+      fac_clm_codes[, dt_pr := as_date(dt_pr, origin = "1960-01-01")] # date format
 
-    fac_pr_list[[i]] = fac_clm_codes[code_type == "PR"] %>%
-      select(member_id, icd_version, value, pr_date)
+    fac_pr = fac_clm_codes[code_type == "PR"] %>%
+      # old sas data has slightly different name
+      select(member_id,
+             icd_version = code,
+             value,
+             pr_date = dt_pr)
+
+  } else {
+    stop(
+      fac_codes_folder,
+      " has to be a the fac_codes folder that contain csv fiels (or .sas files for testing)"
+    )
   }
-
-  fac_pr = rbindlist(fac_pr_list)
 
   # reop map ---
   # icd9
@@ -68,7 +97,7 @@ reoperation <- function(std_data_root = wd$std_data_root,
 
   reop <- c(icd9_reop, icd10_reop)
 
-  reop_pre <- left_join(analytic_ses, # prof claim
+  reop_pre <- left_join(original_data, # prof claim
                         fac_pr, # fac claim
                         by = "member_id") # join all fac admissions for every bene cross different time
 

@@ -16,7 +16,7 @@ reoperation(
 
 \item{reop_map}{predefined re-operation and ICD map}
 
-\item{fac_codes_folder}{names of the fac_clm_code data folder}
+\item{fac_codes_folder}{names of the fac_clm_code data folder; or .sas files for only testing}
 
 \item{original_data}{data to add on}
 }
