@@ -9,7 +9,8 @@ readmission(std_data_root, fac_clm_name, original_data)
 \arguments{
 \item{std_data_root}{data path to the standardized data folder}
 
-\item{fac_clm_name}{facility claim dataset name, ".csv"}
+\item{fac_clm_name}{facility claim dataset name, ".csv"; you can use ".sas7bdat" data too.
+But it is much slower due to read_sas is slow for big data.}
 
 \item{original_data}{data to add on}
 }

@@ -5,7 +5,8 @@
 #'    3. Merge the 30-day readmission flag back to the main analytic file
 #'
 #' @inheritParams reoperation
-#' @param fac_clm_name facility claim dataset name, ".csv"
+#' @param fac_clm_name facility claim dataset name, ".csv"; you can use ".sas7bdat" data too.
+#'      But it is much slower due to read_sas is slow for big data.
 #'
 #' @return
 #' @export
@@ -14,8 +15,15 @@
 readmission <- function(std_data_root,
                         fac_clm_name,
                         original_data) {
+
   message("reading fac_clm dataset...")
-  fac_clm <- fread(paste0(std_data_root, fac_clm_name))
+  if (str_detect(fac_clm_name, ".csv")) {
+    fac_clm <- fread(paste0(std_data_root, fac_clm_name))
+  } else if (str_detect(fac_clm_name, ".sas7bdat")) {
+    fac_clm <- haven::read_sas(paste0(std_data_root, fac_clm_name))
+  } else {
+    stop(fac_clm_name, " has to be.csv or sas data format")
+  }
 
   readmit_id <- original_data %>%
     left_join(fac_clm %>% transmute(
