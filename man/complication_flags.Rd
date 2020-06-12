@@ -2,9 +2,7 @@
 % Please edit documentation in R/complication_flags.R
 \name{complication_flags}
 \alias{complication_flags}
-\title{check Not poa define
-
-Complication Flags based on Procedure and Diagnosis ICD}
+\title{Complication Flags based on Procedure and Diagnosis ICD}
 \usage{
 complication_flags(
   std_data_root = wd$std_data_root,
@@ -26,7 +24,7 @@ as ".sas7bdat" (don't use it unless you want to test)}
 
 \item{cmp_pr}{procedure ICD code list used to define complication}
 
-\item{cmp_dx}{diagnsis ICD code list used to define complication}
+\item{cmp_dx}{diagnosis ICD code list used to define complication}
 
 \item{all_n}{number of digits to match with ICD code}
 }
@@ -34,10 +32,14 @@ as ".sas7bdat" (don't use it unless you want to test)}
 add two variables; complication and complication w/o POA
 }
 \description{
-check Not poa define
-
-Complication Flags based on Procedure and Diagnosis ICD
+complication flag and complication excluding POA
 }
 \details{
-POA var only available after 2010
+POA var only available after 2010.
+\enumerate{
+\item Create the ICD9/10 Dx/PR to complications mapping format
+\item Create the complication flags at the DX/PR code level (poa and w/o poa)
+note: both DX and pr code are used to define complication,
+however pr should be within 30days, dx has no time frame.
+}
 }

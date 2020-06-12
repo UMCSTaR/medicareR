@@ -1,6 +1,12 @@
 #' Procedure and Diagnosis code that defines complication
 #' @description create procedure and diagnosis icd list using for complication definition
-#' @details  use for define complications (complication_flags)
+#' @details    use for define complications (complication_flags).
+#' 1. Create the ICD9/10 Dx/PR to complications mapping format
+#' 2. Create the complication flags at the DX/PR code level: two sets of complication flags, one w/o POA, another set w. poa
+#' 3. Rollup the complication flags to facility claim level
+#' 4. Merge the complication flags to the main analytic file
+#' note: both DX and pr code are used to define complication, however pr should be within 30days, dx has no time frame.
+
 #'
 #' @param complication_map : pre-defined csv input data names located at input data folder
 #'     "icd910_dx_pr_2cmp_fmt.sas7bdat"
@@ -83,7 +89,8 @@ cmp_pr_dx_code_map <- function(complication_map = cmp_define) {
     filter(str_detect(code_set, "dx10")) %>%
     # if there are more numbers between star and end
     mutate(
-      alph = str_sub(start, 0, -3),
+      # error if the first severl letters are not the same
+      alph = ifelse(str_sub(start, 0, -3) == str_sub(end, 0, -3), str_sub(start, 0, -3), "error"),
       start_2 = str_sub(start, -2),
       end_2 = str_sub(end, -2)
     )

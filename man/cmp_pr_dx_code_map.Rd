@@ -19,5 +19,12 @@ all_n = number of digits to match with
 create procedure and diagnosis icd list using for complication definition
 }
 \details{
-use for define complications (complication_flags)
+use for define complications (complication_flags).
+\enumerate{
+\item Create the ICD9/10 Dx/PR to complications mapping format
+\item Create the complication flags at the DX/PR code level: two sets of complication flags, one w/o POA, another set w. poa
+\item Rollup the complication flags to facility claim level
+\item Merge the complication flags to the main analytic file
+note: both DX and pr code are used to define complication, however pr should be within 30days, dx has no time frame.
+}
 }

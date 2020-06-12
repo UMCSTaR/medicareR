@@ -1,15 +1,19 @@
-#' # check Not poa define
 #' Complication Flags based on Procedure and Diagnosis ICD
+#' @description complication flag and complication excluding POA
 #'
 #' @inheritParams fac_dx
 #' @param cmp_pr procedure ICD code list used to define complication
-#' @param cmp_dx diagnsis ICD code list used to define complication
+#' @param cmp_dx diagnosis ICD code list used to define complication
 #' @param all_n  number of digits to match with ICD code
 #'
 #' @return add two variables; complication and complication w/o POA
 #' @export
 #'
-#' @details POA var only available after 2010
+#' @details POA var only available after 2010.
+#'  1. Create the ICD9/10 Dx/PR to complications mapping format
+#'  2. Create the complication flags at the DX/PR code level (poa and w/o poa)
+#'  note: both DX and pr code are used to define complication,
+#' however pr should be within 30days, dx has no time frame.
 #'
 #' @examples
 
@@ -21,6 +25,8 @@ complication_flags <- function(std_data_root = wd$std_data_root,
                                cmp_dx,
                                all_n) {
   # read fac clm code data ------
+  # read csv files
+  if (!str_detect(fac_codes_folder,".sas")) {
   fac_codes_loc = paste0(std_data_root, fac_codes_folder, "/",
                          list.files(paste0(std_data_root, fac_codes_folder)))
 
@@ -49,6 +55,25 @@ complication_flags <- function(std_data_root = wd$std_data_root,
   # combine as one dataset
   code_val = rbindlist(code_val_list, fill = T)
 
+  } else if (str_detect(fac_codes_folder,".sas")){
+    # read sas file
+    fac_clm_codes <- haven::read_sas(paste0(std_data_root, fac_codes_folder))
+
+    fac_clm_codes = fac_clm_codes %>%
+      rename(pr_date = dt_pr)
+
+    code_val <- original_data %>%
+      left_join(fac_clm_codes,
+                by = c("member_id", "fac_claim_id" = "claim_id")) %>%
+      select(id,
+             code_type,
+             value,
+             pr_date,
+             dt_profsvc_end,
+             flg_poa,
+             dt_facclm_dschg)
+  }
+
 
   # create icd code in facility clm based on the number of requiring matching digits
   value_n <- paste0("value_", all_n, "_d")
@@ -58,8 +83,9 @@ complication_flags <- function(std_data_root = wd$std_data_root,
       mutate(!!value_n[i] := str_sub(value, 1, all_n[i]))
   }
 
+  message("adding complication flag...")
   # any complication-------
-  cmp_any_id <- code_val %>%
+  add_cmp_flg <- code_val %>%
     # dx_n: "5" "3" "4" "6" "7"
     mutate(
       flg_cmp_po_any = ifelse(
@@ -91,8 +117,9 @@ complication_flags <- function(std_data_root = wd$std_data_root,
         1,
         flg_cmp_po_any
       )
-    ) %>%
-    select(-dt_profsvc_end) %>%
+    )
+
+  cmp_any_id = add_cmp_flg %>%
     filter(flg_cmp_po_any == 1) %>%
     pull(id) %>%
     unique() # get unique id that has complication
@@ -101,46 +128,14 @@ complication_flags <- function(std_data_root = wd$std_data_root,
   # POA any complication -------
   # adding poa vars to any complication definition
   # defined as: 1: flg_poa != yes, 2, dx and pr are mapped (same as any complication)
-  id_not_poa <- code_val %>%
-    # poa vars becomes available after 2010
-    filter(dt_facclm_dschg >= "2010-01-01") %>%
-    # dx_n: "5" "3" "4" "6" "7"
-    mutate(
-      flg_cmp_po_any_not_poa = ifelse(
-        str_detect(code_type, "DX") &
-          # diagnosis!flg_poa %in% c("y", "Y", "1") &
-          # poa diagnosis is not "Y" or 1
-          (
-            value %in% cmp_dx |
-              # https://www.resdac.org/cms-data/variables/medpar-diagnosis-e-code-present-admission-indicator
-              value_3_d %in% cmp_dx |
-              value_4_d %in% cmp_dx |
-              value_7_d %in% cmp_dx |
-              value_5_d %in% cmp_dx |
-              value_6_d %in% cmp_dx
-          ),
-        1,
-        0
-      ),
-      # pr_n: "3" "4" "7"
-      flg_cmp_po_any_not_poa = ifelse(
-        str_detect(code_type, "PR") & # diagnosis
-          as_date(pr_date) - as_date(dt_profsvc_end) <= 30 &
-          as_date(pr_date) - as_date(dt_profsvc_end) >= 0 &
-          (
-            value %in% cmp_pr |
-              value_3_d %in% cmp_pr |
-              value_4_d %in% cmp_pr |
-              value_7_d %in% cmp_pr
-          ),
-        1,
-        flg_cmp_po_any_not_poa
-      )
-    ) %>%
-    select(-dt_profsvc_end) %>%
-    filter(flg_cmp_po_any_not_poa == 1) %>%
+
+  message("adding complication flag excluding POA...")
+
+  id_not_poa <- add_cmp_flg %>%
+    filter(!flg_poa %in% c("y", "Y", "1"),
+           flg_cmp_po_any == 1) %>%
     pull(id) %>%
-    unique() # get unique ids that have no poa complication
+    unique() # get unique ids that have no poa and had complication
 
 
   # add any complication and any comp POA to facility clm
