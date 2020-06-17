@@ -35,7 +35,7 @@ add two variables; complication and complication w/o POA
 complication flag and complication excluding POA
 }
 \details{
-POA var only available after 2010.
+POA var only available after 2010-01-01.(no poa var recorded before)
 \enumerate{
 \item Create the ICD9/10 Dx/PR to complications mapping format
 \item Create the complication flags at the DX/PR code level (poa and w/o poa)

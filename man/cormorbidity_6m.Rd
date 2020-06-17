@@ -2,7 +2,7 @@
 % Please edit documentation in R/cormorbidity_6m.R
 \name{cormorbidity_6m}
 \alias{cormorbidity_6m}
-\title{6 months prior comorbidty flags}
+\title{6 months prior comorbidity flags}
 \usage{
 cormorbidity_6m(original_data = analytic_30dcmp)
 }

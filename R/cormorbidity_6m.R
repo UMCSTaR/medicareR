@@ -1,4 +1,4 @@
-#' 6 months prior comorbidty flags
+#' 6 months prior comorbidity flags
 #' @description 1.	Self merge the data
 #'    2.	Identify the 6-month prior comorbidities
 #'    3.	Merge back to main analytic file
