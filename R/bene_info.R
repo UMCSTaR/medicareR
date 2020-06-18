@@ -43,7 +43,7 @@ bene_info <- function(std_data_root,
       e_race_wbho = case_when(race == 5 ~ 3,!race %in% c(1, 2, 5) ~ 4,
                               TRUE ~ race)
     ) %>%
-    mutate_at(vars(c("dob_dt", "dod_dt")), dmy)
+    mutate_at(vars(c("dob_dt", "dod_dt")), as_date)
 
   # add bene info to professional claim by member_id and member_yr
   original_data %>%
