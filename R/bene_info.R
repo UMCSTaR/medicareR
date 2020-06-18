@@ -43,8 +43,10 @@ bene_info <- function(std_data_root,
     ) %>%
     mutate_at(vars(c("dob_dt","dod_dt")), dmy)
 
+
+
   # add bene info to professional claim by member_id and member_yr
-  analytic_demo <- original_data %>%
+  original_data %>%
     mutate_at(vars(starts_with("dt")), dmy) %>%
     mutate(member_yr = year(dt_profsvc_end)) %>%
     left_join(membership_process, by = c("member_id", "member_yr")) %>%
@@ -61,6 +63,4 @@ bene_info <- function(std_data_root,
       cpt_mod, e_proc_grp, e_proc_grp_lbl, dt_dob, dt_dod, zip_cd, flg_male,
       e_race_wbho
     )
-
-  analytic_demo
 }

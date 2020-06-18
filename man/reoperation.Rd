@@ -30,7 +30,6 @@ use procedure code ICD code to define reop
 \enumerate{
 \item Looking through the procedure codes across multiple admissions;
 \item Create the ICD9/10 procedure codes to re-operation mapping using pre-defined operation types;
-\item Get the re-operation flags one row per professional claim for each patient;
-\item Merge the re-operation flags back to main analytic file;
+\item Get the re-operation flags if defined re operation happened within <=30 days
 }
 }
