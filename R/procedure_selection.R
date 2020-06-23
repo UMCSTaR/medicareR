@@ -86,26 +86,23 @@ procedure_selection <- function(std_data_root = wd$std_data_root,
   }
 
   # cpt mod wide to long format
-  analytic_cptmod <- prof_clm_select %>%
+  prof_clm_select = prof_clm_select %>%
     melt(
       measure = patterns("cpt_mod"),
       value.name = "cpt_mod"
-    ) %>%
-    .[, variable := NULL] %>%
-    # selected unique key
-    distinct(
-      member_id,
-      svc_start_dt,
-      svc_end_dt,
-      provider_npi,
-      cpt_cd,
-      cpt_mod
     )
 
+  analytic_cptmod = unique(prof_clm_select[, .(member_id,
+                                               svc_start_dt,
+                                               svc_end_dt,
+                                               provider_npi,
+                                               cpt_cd,
+                                               cpt_mod)])
 
   # keep cpt_mod code to one cell if it is has the same group_by info
   # e.g. if two claims have the same group_by listed vars, then two claims become one with two mod code
   analytic_cpt <- analytic_cptmod %>%
+    as_tibble() %>%
     group_by(
       member_id,
       svc_start_dt,
