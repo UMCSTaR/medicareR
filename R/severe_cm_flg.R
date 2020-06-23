@@ -20,7 +20,11 @@ severe_cmp_flags <- function(original_data,
           val_los > quantile(val_los, perc, na.rm = T),
         1,
         0
-      )
+      ),
+      # POA flag not available before 2010
+      flg_cmp_po_severe_not_poa = ifelse(facility_clm_yr < 2010,
+                                         "N/A (no var)",
+                                         flg_cmp_po_severe_not_poa)
     ) %>%
     ungroup()
 }
