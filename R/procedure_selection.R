@@ -92,12 +92,18 @@ procedure_selection <- function(std_data_root = wd$std_data_root,
       value.name = "cpt_mod"
     )
 
-  analytic_cptmod = unique(prof_clm_select[, .(member_id,
-                                               svc_start_dt,
-                                               svc_end_dt,
-                                               provider_npi,
-                                               cpt_cd,
-                                               cpt_mod)])
+  # select vars
+  prof_clm_select_splty = prof_clm_select[, .(member_id,
+                                              svc_start_dt,
+                                              svc_end_dt,
+                                              provider_npi,
+                                              cpt_cd,
+                                              cpt_mod,
+                                              provider_splty)]
+
+  # unique cases
+  analytic_cptmod = distinct(prof_clm_select_splty, across(clm_distinct_vars), .keep_all = TRUE)
+
 
   # keep cpt_mod code to one cell if it is has the same group_by info
   # e.g. if two claims have the same group_by listed vars, then two claims become one with two mod code
