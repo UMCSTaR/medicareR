@@ -39,4 +39,18 @@ fac_dx_elix <- function(original_data) {
   # merge elix flg to original dataset
   analytic_elix <- original_data %>%
     left_join(analytic_elix_icd, by = "id")
+
+  # test if the icd9/10 maps generated comorbilidty flags by year ----
+  flg_by_year = analytic_elix %>%
+    select(facility_clm_yr, CHF:HTN_C) %>%
+    rowwise() %>%
+    mutate(tot = sum(CHF:HTN_C)) %>%
+    group_by(facility_clm_yr) %>%
+    summarise(perc_comorbidity = mean(tot))
+
+  if(any(flg_by_year$perc_comorbidity == 0)) {
+    stop("comorbidity is not properly signed (icd9/10 to cmb flgs), some year don't have any pts have any comorbility flags")
+  }
+
+  analytic_elix
 }
