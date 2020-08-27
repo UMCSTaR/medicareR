@@ -14,6 +14,7 @@ fac_dx_elix(original_data)
 }
 \description{
 main function is using ICD Package comorbid(, map = icd9_map_ahrq);
+icd9_map_ahrq for icd9; icd10_map_ahrq for icd10
 ICD package map reference: https://rdrr.io/cran/icd/man/icd9_map_ahrq.html
 }
 \note{

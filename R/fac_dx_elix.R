@@ -1,5 +1,6 @@
 #' Elixhauser flags based on Dx ICD code using ahrq map
 #' @description  main function is using ICD Package comorbid(, map = icd9_map_ahrq);
+#'     icd9_map_ahrq for icd9; icd10_map_ahrq for icd10
 #'     ICD package map reference: https://rdrr.io/cran/icd/man/icd9_map_ahrq.html
 #'
 #' @param original_data data to add on
@@ -25,7 +26,7 @@ fac_dx_elix <- function(original_data) {
     mutate(HTN_C = ifelse(HTN == 1 | HTNcx == 1, 1, 0)) %>%
     select(-HTN, -HTNcx)
 
-  icd10_elix <- comorbid(icd10, map = icd9_map_ahrq, return_df = TRUE) %>%
+  icd10_elix <- comorbid(icd10, map = icd10_map_ahrq, return_df = TRUE) %>%
     as_tibble() %>%
     mutate_if(is.logical, as.numeric) %>%
     mutate(HTN_C = ifelse(HTN == 1 | HTNcx == 1, 1, 0)) %>%
