@@ -18,8 +18,9 @@ procedure_selection(
 
 \item{cpt_map}{should include 3 variable: cpt_cd, e_proc_grp and e_proc_grp_lbl}
 
-\item{test_sas_processed_data_loc}{this is for testing, only assign value when you wnat to test.
-Otherwise leave it NA. When testing assign the location of sas pre processed prof_clm data.
+\item{test_sas_processed_data_loc}{this is for testing, only assign value when you want to test,
+eg. compare the processing results with SAS code Zhaohui Fan created.
+Otherwise leave it NA. When testing, assign the location of sas pre processed prof_clm data.
 eg. "/Volumes/George_Surgeon_Projects/medicare_data/sample_npct_std/prof_clm.sas7bdat"}
 }
 \value{
