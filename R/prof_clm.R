@@ -1,15 +1,15 @@
 #' Professional claim data
-#' @description  use carrier claim and carrier line files. Physician and procedure
-#'     info is located at carrier line file.
-#' @details  variables included are:     "member_id", "claim_id", "clm_from_dt", "clm_thru_dt",
+#' @description  use carrier claim and carrier line files.
+#'      Physician and procedure info is located at carrier line file.
+#' @details  variables included are:  "member_id", "claim_id", "clm_from_dt", "clm_thru_dt",
 #'    "clm_disp_cd", "icd_dx_prncpal", "icd_dx_prncpal_vrsn"
 #'
-#' @param year year of medicare
-#' @param schema defined in csv mapping files, e.g. "prof_clm1"
+#' @param year               year of medicare
+#' @param schema             defined in csv mapping files, e.g. "prof_clm1"
 #' @param data_file_name_clm carrier claim file names
 #' @param data_file_name_ln  carrier line file names
 #' @param src_root_clm       carrier claim file loc
-#' @param src_root_ln        carrier claim line loc
+#' @param src_root_ln        carrier line loc
 #' @param mapping_data       select medicare original vars to mapped vars
 #'
 #' @return
@@ -34,24 +34,14 @@ prof_clm <-
     prof_ln <- fread(src_file_loc_ln, colClasses = "character")
 
     # 1. claim file ---------
-    # var to include in prof claim file
-    prof_clm_var <- c(
-      "member_id",
-      "claim_id",
-      "clm_from_dt",
-      "clm_thru_dt",
-      "clm_disp_cd",
-      "icd_dx_prncpal",
-      "icd_dx_prncpal_vrsn"
-    )
     # file map
     prof_clm_map <- mapping_data %>%
       filter(
         source_schema == schema,
         on_claim_line == 0,
         # src file, not line file
-        target_column %in% prof_clm_var
-      ) # leave out icd code for seperate data file
+        claim_or_code == 1 # var to include in prof claim file
+      ) # leave out icd code for separate data file
 
     # select var
     var <- prof_clm_map$source_column
