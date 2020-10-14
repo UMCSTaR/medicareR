@@ -4,13 +4,7 @@
 \alias{prof_clm}
 \title{Professional claim data}
 \usage{
-prof_clm(
-  year,
-  schema,
-  prof_clm = prof_clm_dt,
-  prof_ln = prof_ln_dt,
-  mapping_data = import_mapping
-)
+prof_clm(year, schema, prof_clm, prof_ln, mapping_data = import_mapping)
 }
 \arguments{
 \item{year}{year of medicare}
