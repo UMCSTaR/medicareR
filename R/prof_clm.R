@@ -6,10 +6,8 @@
 #'
 #' @param year               year of medicare
 #' @param schema             defined in csv mapping files, e.g. "prof_clm1"
-#' @param data_file_name_clm carrier claim file names
-#' @param data_file_name_ln  carrier line file names
-#' @param src_root_clm       carrier claim file loc
-#' @param src_root_ln        carrier line loc
+#' @param prof_clm           carrier claim file name (rdata)
+#' @param prof_ln            carrier line file name (rdata)
 #' @param mapping_data       select medicare original vars to mapped vars
 #'
 #' @return
@@ -19,19 +17,9 @@
 prof_clm <-
   function(year,
            schema,
-           data_file_name_clm,
-           data_file_name_ln,
-           src_root_clm,
-           src_root_ln,
+           prof_clm,
+           prof_ln,
            mapping_data = import_mapping) {
-
-    # read src carrier claim
-    src_file_loc_clm <- paste0(src_root_clm, data_file_name_clm)
-    prof_clm <- fread(src_file_loc_clm, colClasses = "character")
-
-    # read src carrier line data
-    src_file_loc_ln <- paste0(src_root_ln, data_file_name_ln)
-    prof_ln <- fread(src_file_loc_ln, colClasses = "character")
 
     # 1. claim file ---------
     # file map

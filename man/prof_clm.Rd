@@ -7,10 +7,8 @@
 prof_clm(
   year,
   schema,
-  data_file_name_clm,
-  data_file_name_ln,
-  src_root_clm,
-  src_root_ln,
+  prof_clm = prof_clm_dt,
+  prof_ln = prof_ln_dt,
   mapping_data = import_mapping
 )
 }
@@ -19,13 +17,9 @@ prof_clm(
 
 \item{schema}{defined in csv mapping files, e.g. "prof_clm1"}
 
-\item{data_file_name_clm}{carrier claim file names}
+\item{prof_clm}{carrier claim file name (rdata)}
 
-\item{data_file_name_ln}{carrier line file names}
-
-\item{src_root_clm}{carrier claim file loc}
-
-\item{src_root_ln}{carrier line loc}
+\item{prof_ln}{carrier line file name (rdata)}
 
 \item{mapping_data}{select medicare original vars to mapped vars}
 }
