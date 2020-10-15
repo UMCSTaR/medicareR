@@ -31,7 +31,7 @@ select procedure related claims using CPT
 }
 \details{
 \enumerate{
-\item select procedure based on CPT
+\item select procedures base on CPT
 \item delete missing NPI procedures(can't link to surgeons)
 \item delete duplicated claims
 \item aggregate cpt_mode (if two cases have same info but diff cpt_mode, aggregate as one case include two cpt_mode code)
