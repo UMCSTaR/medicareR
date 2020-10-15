@@ -1,12 +1,12 @@
 #' Diagnosis Code from Facility Claim
 #' @description add facility code info to the analytic dataset
 #'
-#' @param std_data_root data path to the standardized data folder
+#' @param std_data_root    data path to the standardized data folder
 #' @param fac_codes_folder folder name for fac_code;
-#'     if in test for one combined sas data, put datset name
-#'     as ".sas7bdat" (don't use it unless you want to test)
-#' @param fac_clm_name  data name for fac_clm data (.csv format is a must)
-#' @param original_data data name for the data you want to add the info to
+#'                         if in test for one combined sas data, put datset name
+#'                         as ".sas7bdat" (don't use it unless you want to test)
+#' @param fac_clm_name     data name for fac_clm data (.csv format is a must)
+#' @param original_data    data name for the data you want to add the info to
 #'
 #' @return
 #' @export
@@ -18,7 +18,6 @@
 #'   4. create admission_type(urgent/not), 30d death
 #'   5. facility claim code are saved by year within fac_clm_code folder (due to data size)
 #'
-#' @examples
 
 fac_dx <- function(std_data_root = wd$std_data_root,
                    fac_codes_folder = "fac_clm_code",
@@ -59,6 +58,7 @@ fac_dx <- function(std_data_root = wd$std_data_root,
   # preparing the data for calculating Elixhauser comorbidity flags
 
   analytic_fac <- original_data %>%
+    lazy_dt(immutable = T) %>%
     left_join(fac_clm, by = "member_id") %>% # prof clm join with facility clm by member_id
     filter(
       dt_profsvc_start <= svc_end_dt & # make sure service date is within fac clm window
@@ -67,8 +67,8 @@ fac_dx <- function(std_data_root = wd$std_data_root,
         dt_profsvc_end >= svc_from_dt &
         !is.na(svc_from_dt) & !is.na(svc_end_dt) # no missing facility service date (can't match with prof date if missing)
     ) %>%
-    left_join(facclm_dx, by = c("member_id", "claim_id")) # join by fac clm id
-
+    left_join(facclm_dx, by = c("member_id", "claim_id")) %>%   # join by fac clm id
+    as_tibble()
 
   # los, mortality, admission type,-------
   analytic_fac <- analytic_fac %>%
@@ -119,5 +119,6 @@ fac_dx <- function(std_data_root = wd$std_data_root,
     # use "id_physician_npi, dt_profsvc_start, cpt_cd" as unique key
     add_count(id_physician_npi, dt_profsvc_start, cpt_cd) %>%
     filter(n == 1) %>% # delete dup
-    select(-n)
+    select(-n) %>%
+    as.data.table()
 }
