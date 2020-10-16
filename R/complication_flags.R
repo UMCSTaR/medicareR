@@ -39,6 +39,7 @@ complication_flags <- function(std_data_root = wd$std_data_root,
       fac_clm_codes = fread(fac_codes_loc[i])
 
       code_val <- original_data %>%
+        lazy_dt() %>%
         left_join(fac_clm_codes,
                   by = c("member_id", "fac_claim_id" = "claim_id")) %>%
         select(id,
@@ -47,7 +48,8 @@ complication_flags <- function(std_data_root = wd$std_data_root,
                pr_date,
                dt_profsvc_end,
                flg_poa,
-               dt_facclm_dschg)
+               dt_facclm_dschg) %>%
+      as.data.table()
 
       code_val_list[[i]] = code_val
     }
@@ -82,13 +84,14 @@ complication_flags <- function(std_data_root = wd$std_data_root,
   value_n <- paste0("value_", all_n, "_d")
 
   for (i in seq_along(all_n)) {
-    code_val <- code_val %>%
+    code_val <- code_val %>% as_tibble() %>%
       mutate(!!value_n[i] := str_sub(value, 1, all_n[i]))
   }
 
   message("adding complication flag...")
   # any complication-------
   add_cmp_flg <- code_val %>%
+    as_tibble() %>%
     # dx_n: "5" "3" "4" "6" "7"
     mutate(
       flg_cmp_po_any = ifelse(
@@ -144,6 +147,7 @@ complication_flags <- function(std_data_root = wd$std_data_root,
 
   # add any complication and any comp POA to facility clm
   original_data %>%
+    lazy_dt() %>%
     mutate(
       flg_cmp_po_any = ifelse(id %in% cmp_any_id, 1, 0),
       flg_cmp_po_any_not_poa = ifelse(id %in% id_not_poa, 1, 0)
@@ -155,5 +159,6 @@ complication_flags <- function(std_data_root = wd$std_data_root,
         "N/A (no var)" ,
         flg_cmp_po_any_not_poa
       )
-    )
+    ) %>%
+    as.data.table()
 }
