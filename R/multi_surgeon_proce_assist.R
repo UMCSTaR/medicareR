@@ -11,6 +11,7 @@
 multi_surgeon_proc_assit_flags <- function(original_data) {
   message("add multiple surgeons flags.....")
   multi_doc <- original_data %>%
+    as_tibble() %>%
     filter(id_physician_npi != "" | is.na(id_physician_npi)) %>%
     distinct(
       member_id,
@@ -30,6 +31,7 @@ multi_surgeon_proc_assit_flags <- function(original_data) {
   message("add multiple procedures flags.....")
 
   multi_proc <- original_data %>%
+    as_tibble() %>%
     distinct(
       member_id,
       dt_facclm_adm,
@@ -46,12 +48,12 @@ multi_surgeon_proc_assit_flags <- function(original_data) {
   # add flg
   message("add assistant surgeon flags.....")
 
-  analytic_phy <- left_join(original_data, multi_doc) %>%
+  analytic_phy <- left_join(lazy_dt(original_data), multi_doc) %>%
     left_join(multi_proc) %>%
     distinct(id, .keep_all = T) %>%
     mutate(
       flg_multi_surgeon = ifelse(n_doc > 1, 1, 0),
       flg_multi_cpt = ifelse(n_proc > 1, 1, 0),
       flg_assistant_surgeon = ifelse(str_detect(cpt_mod, "80|82"), 1, 0)  # assistant physician
-    )
+    ) %>% as.data.table()
 }
