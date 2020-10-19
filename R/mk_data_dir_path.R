@@ -41,8 +41,6 @@ mk_data_dir_path <- function(data_root = "sample",
   if (dir.exists(wd$george_file) == FALSE) {
     stop(wd$george_file,
          " doesn't exist in your computer Make sure connect to maize or change the file location based on your computer config")
-  } else if (dir.exists(wd$george_file) == TRUE) {
-    message("the Brian George Maize folder is located at: ", wd$george_file)
   }
 
   # input data location: like neppes npi, etc.
@@ -89,6 +87,9 @@ mk_data_dir_path <- function(data_root = "sample",
       stop(paste0("path doesn't exist: ", wd$src_data_root))
     }
   }
+
+  message("data paths are crearted as:")
+  print(wd)
 
   wd
 
