@@ -29,6 +29,18 @@ procedure_selection <- function(std_data_root = wd$std_data_root,
     stop("assigned cpt_map doesn't include all vars: cpt_cd, e_proc_grp, e_proc_grp_lbl")
   }
 
+  # check if cpt_map has duplicated CPTs this will causes medicare case duplication during left join
+  if(anyDuplicated(cpt_map$cpt_cd) >1) {
+    warning("CPT duplications in your cpt_map.csv map!!!!!")
+    message("duplicated CPT glimpse below....")
+    cpt_map %>%
+      dplyr::add_count(cpt_cd) %>%
+      dplyr::filter(n>1) %>%
+      dplyr::select(-n) %>%
+      glimpse()
+  }
+
+
   # check if file loc exist
   if (!file.exists(paste0(std_data_root, prof_codes_folder))) {
     stop(paste0(
