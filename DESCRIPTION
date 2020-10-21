@@ -7,7 +7,7 @@ Authors@R:
            role = c("aut", "cre"),
            email = "xilinc@med.umch.edu")
 Description: Standardize Medicare files across years.
-License: MIT + file LICENSE
+License: GPL-3
 Encoding: UTF-8
 LazyData: true
 Roxygen: list(markdown = TRUE)
