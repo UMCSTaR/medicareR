@@ -1,5 +1,5 @@
-#' Find Brian Geroge folder location
-#' @description  This script detects the computer enviromnent automatically
+#' Find Brian George folder location
+#' @description  This script detects the computer environment automatically
 #'    and assign variable `Brian_George_folder_loc` to an detected directory.
 #'    If the locations can't be detected, you manually assign  value to Brian_George_folder_loc
 #'
