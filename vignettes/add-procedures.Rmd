@@ -1,0 +1,19 @@
+---
+title: "How to add more procedures to analytic files"
+output: rmarkdown::html_vignette
+vignette: >
+  %\VignetteIndexEntry{add-procedures}
+  %\VignetteEngine{knitr::rmarkdown}
+  %\VignetteEncoding{UTF-8}
+---
+
+```{r, include = FALSE}
+knitr::opts_chunk$set(
+  collapse = TRUE,
+  comment = "#>"
+)
+```
+
+
+## Background
+In 2019, we purchased more than 100 procedures that are commonly performed by general surgery surgeons from CMS. The purchased procedures went back from 2007. Since we already have Medicare data from 2007-2016 for the original 5 procedures, we received the purchased procedures in separate datasets. After 2016, all newly added procedures and original 5 procedures are together in one data file each year.

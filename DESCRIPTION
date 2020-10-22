@@ -15,7 +15,8 @@ RoxygenNote: 7.1.0
 Suggests: 
     testthat,
     usethis,
-    rmarkdown
+    rmarkdown,
+    knitr
 Depends: 
     R (>= 3.6.0),
     data.table
@@ -24,3 +25,4 @@ Imports:
     dplyr,
     stringr,
     purrr
+VignetteBuilder: knitr
