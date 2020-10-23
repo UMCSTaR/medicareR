@@ -4,22 +4,14 @@
 \alias{prof_clm_code}
 \title{professional claim diagnosis code}
 \usage{
-prof_clm_code(
-  year,
-  schema,
-  data_file_name_clm,
-  src_root_clm,
-  mapping_data = import_mapping
-)
+prof_clm_code(year, schema, prof_clm, mapping_data = import_mapping)
 }
 \arguments{
 \item{year}{year of medicare}
 
 \item{schema}{defined in mapping csv, eg "prof_clm1"}
 
-\item{data_file_name_clm}{original carrier claim dataset names}
-
-\item{src_root_clm}{location to carrier claim dataset}
+\item{prof_clm}{carrier claim data}
 }
 \value{
 

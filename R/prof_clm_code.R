@@ -3,8 +3,7 @@
 #'
 #' @param year   year of medicare
 #' @param schema defined in mapping csv, eg "prof_clm1"
-#' @param data_file_name_clm original carrier claim dataset names
-#' @param src_root_clm location to carrier claim dataset
+#' @param prof_clm carrier claim data
 #'
 #' @return
 #' @export
@@ -14,8 +13,7 @@
 prof_clm_code <-
   function(year,
            schema,
-           data_file_name_clm,
-           src_root_clm,
+           prof_clm,
            mapping_data = import_mapping) {
 
     # pre defined variable map
@@ -38,20 +36,12 @@ prof_clm_code <-
         str_detect(source_column, "ID")
       )
 
-    # medicare dt location
-    src_file_loc_clm <- paste0(src_root_clm, data_file_name_clm)
+    # select var names
+    tofind <- paste(clm_code_map$source_column, collapse="|") # create regx for str_extract format
+    to_select_vars = na.omit(stringr::str_extract(names(prof_clm), tofind)) # delete NA value
+    combo_select_vars = c(id_var_tbl$source_column, to_select_vars) # combine id vars with code vars
 
-    # select var names to read in
-    # to reduce memory burden for computer
-    prof_clm_vars <- fread(src_file_loc_clm, nrows = 0) %>%
-      select(id_var_tbl$source_column,
-             matches(clm_code_map$source_column)) %>%
-      names()
-
-    # read src carrier claim
-    message(paste0("reading Carrier Claim year ", year, "..."))
-    prof_clm_code <- fread(src_file_loc_clm, select = prof_clm_vars,
-                      colClasses = "character")
+    prof_clm_code = prof_clm[, ..combo_select_vars]
 
     # rename id vars
     setnames(prof_clm_code, id_var_tbl$source_column, id_var_tbl$target_column)

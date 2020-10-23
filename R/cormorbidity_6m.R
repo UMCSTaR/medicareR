@@ -14,7 +14,7 @@ comorbidity_6m <- function(original_data = analytic_30dcmp,
                                    month = 6) {
   # get unique cases
   cmb <- original_data %>%
-    dtplyr::lazy_dt() %>%
+    lazy_dt() %>%
     select(member_id, fac_claim_id, dt_facclm_adm, dt_facclm_dschg, CHF:HTN_C) %>%
     distinct(member_id, fac_claim_id, dt_facclm_adm, dt_facclm_dschg, .keep_all = T) %>%
     select(-fac_claim_id) %>%
@@ -73,8 +73,7 @@ comorbidity_6m <- function(original_data = analytic_30dcmp,
   # look back x month prior
   cut_date = as_date(paste0("2007-", (13-month),"-1"))
 
-  original_data %>%
-    filter(dt_facclm_adm >= cut_date) %>%
-    left_join(comorbitities_6mon_dedup, by = c("member_id", "dt_facclm_adm", "dt_facclm_dschg")) %>%
+  original_data[dt_facclm_adm >= cut_date] %>%
+    merge.data.table(comorbitities_6mon_dedup, by = c("member_id", "dt_facclm_adm", "dt_facclm_dschg"), all.x = TRUE) %>%
     ungroup()
 }

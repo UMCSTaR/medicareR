@@ -26,7 +26,8 @@ readmission <- function(std_data_root,
   }
 
   readmit_id <- original_data %>%
-    left_join(fac_clm %>% transmute(
+    lazy_dt() %>%
+    left_join(lazy_dt(fac_clm) %>% transmute(
       fac_claim_id = claim_id,
       member_id,
       svc_from_dt
@@ -39,8 +40,8 @@ readmission <- function(std_data_root,
       as_date(svc_from_dt) - as_date(dt_facclm_adm) >= 0
     ) %>%
     distinct(id) %>%
+    as_tibble() %>%
     pull()
 
-  original_data %>%
-    mutate(flg_readmit_30d = ifelse(id %in% readmit_id, 1, 0))
+  original_data[,flg_readmit_30d := ifelse(id %in% readmit_id, 1, 0)]
 }

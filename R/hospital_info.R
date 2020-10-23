@@ -21,6 +21,7 @@ hospital_info <- function(aha_data, original_data) {
     filter(n == 1)
 
   analytic_hosp <- original_data %>%
+    as_tibble() %>%
     anti_join(aha_dup, by = c(
       "facility_prvnumgrp" = "PRVNUMGRP",
       "facility_clm_yr" = "year"
@@ -63,5 +64,5 @@ hospital_info <- function(aha_data, original_data) {
     )
 
   # adding back vars
-  left_join(original_data, analytic_hosp, by = "id")
+  merge.data.table(original_data, analytic_hosp, by = "id", all.x = TRUE)
 }

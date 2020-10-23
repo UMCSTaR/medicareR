@@ -50,8 +50,7 @@ reoperation <- function(std_data_root = wd$std_data_root,
       fac_clm_codes <-
         fac_clm_codes[, pr_date := as_date(pr_date)] # date format
 
-      fac_pr_list[[i]] = fac_clm_codes[code_type == "PR"] %>%
-        select(member_id, icd_version, value, pr_date)
+      fac_pr_list[[i]] = fac_clm_codes[code_type == "PR", .(member_id, icd_version, value, pr_date)]
     }
 
     fac_pr = rbindlist(fac_pr_list)
@@ -96,11 +95,15 @@ reoperation <- function(std_data_root = wd$std_data_root,
 
   reop <- c(icd9_reop, icd10_reop)
 
-  reop_pre <- left_join(original_data, # prof claim
+  # join all fac admissions for every bene cross different time
+  # left join
+  reop_pre <- merge.data.table(original_data, # prof claim
                         fac_pr, # fac claim
-                        by = "member_id") # join all fac admissions for every bene cross different time
+                        by = "member_id",
+                        all.x = T)
 
   reop_id <- reop_pre %>%
+    lazy_dt() %>%
     mutate(flg_util_reop = ifelse(
       # with in 30 days after discharge from previous admission
       pr_date - as_date(dt_profsvc_end) <= 30 &
@@ -112,9 +115,11 @@ reoperation <- function(std_data_root = wd$std_data_root,
     )) %>%
     select(id, member_id, flg_util_reop) %>%
     filter(flg_util_reop == 1) %>%
+    as.data.table() %>%
     pull(id) %>%
     unique()
 
   original_data %>%
-    mutate(flg_util_reop = ifelse(id %in% reop_id, 1, 0))
+    lazy_dt() %>%
+    mutate(flg_util_reop = ifelse(id %in% reop_id, 1, 0)) %>% as.data.table()
 }

@@ -7,6 +7,7 @@
 severe_cmp_flags <- function(original_data,
                              perc = 0.75) {
   original_data %>%
+    lazy_dt() %>%
     group_by(e_proc_grp) %>%
     mutate(
       flg_cmp_po_severe = ifelse(
@@ -15,16 +16,12 @@ severe_cmp_flags <- function(original_data,
         1,
         0
       ),
-      flg_cmp_po_severe_not_poa = ifelse(
-        flg_cmp_po_any_not_poa == 1 &
-          val_los > quantile(val_los, perc, na.rm = T),
-        1,
-        0
-      ),
-      # POA flag not available before 2010
-      flg_cmp_po_severe_not_poa = ifelse(facility_clm_yr < 2010,
-                                         "N/A (no var)",
-                                         flg_cmp_po_severe_not_poa)
+      flg_cmp_po_severe_not_poa = case_when(
+        flg_cmp_po_any_not_poa == 1 & val_los > quantile(val_los, perc, na.rm = T) ~ "1",
+        facility_clm_yr < 2010 ~ "N/A (no var)",
+        TRUE ~ "0"
+      )
     ) %>%
-    ungroup()
+    ungroup() %>%
+    as.data.table()
 }

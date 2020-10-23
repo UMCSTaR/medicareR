@@ -20,32 +20,13 @@ fac_clm <-
            schema,
            src_root,
            mapping_data = import_mapping) {
-    # thses varaibles will be used to dedup facility claims
+    # these variables will be used to dedup facility claims
     dedup_key <- c("member_id", "claim_id")
-    # vars that are included in the stf fac_claim data
-    fac_clm_vars <- c(
-      "member_id",
-      "claim_id",
-      "claim_yr",
-      "facility_npi",
-      "facility_prvnumgrp",
-      "svc_from_dt",
-      "svc_end_dt",
-      "dischg_disp_cd",
-      "dischg_status_cd",
-      "admit_type_cd",
-      "claim_type_cd",
-      "primary_pyr_cd",
-      "drg_cd",
-      "admit_dx",
-      "admit_dx_vrsn",
-      "icd_dx_cnt",
-      "icd_pr_cnt"
-    )
 
+    # vars that are included in the std fac_claim data
     map <- mapping_data %>%
-      filter(source_schema == schema) %>%
-      filter(target_column %in% fac_clm_vars)
+      filter(source_schema == schema,
+             claim_or_code == 1)
 
     src_file_loc <- paste0(src_root, data_file_name)
 

@@ -13,12 +13,13 @@ helper_check_if_save_data <- function(save_or_not,
                                       csv_name = NULL) {
   if (save_or_not == "yes") {
     # check if data already existed
-    dataset_exist <- file.exists(paste0(wd, csv_name))
+    csv_data_path = paste0(wd, csv_name)
+    dataset_exist <- file.exists(csv_data_path)
 
     if (dataset_exist == TRUE) {
       res <- menu(
-        title = paste0("Overwrite ", csv_name, "?"),
-        choices = c("Yep", "No")
+        title = paste0("Overwrite ", csv_name, "?","at \n", csv_data_path),
+        choices = c("Yep", "Nope")
       )
     } else if (dataset_exist == FALSE) {
       res <- 1
@@ -27,9 +28,9 @@ helper_check_if_save_data <- function(save_or_not,
     # output after confirm
     if (res == 1) {
       fwrite(rdata_name, file = paste0(wd, csv_name))
-      message(paste0("README: saved the ", csv_name, " on the drive"))
+      message(paste0("README: saved the ", csv_name, "at \n", csv_data_path))
     } else if (res == 2) {
-      message(paste0("README: Didn't saved the ", csv_name, " on the drive"))
+      message(paste0("README: Didn't saved the ", csv_name))
     }
   } else if (save_or_not == "no") {
     message(paste0("Dataset was not requested to be saved."))
