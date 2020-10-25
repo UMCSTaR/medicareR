@@ -8,7 +8,8 @@ procedure_selection(
   std_data_root = wd$std_data_root,
   prof_codes_folder = "prof_clm",
   cpt_map = define_proc_by_cpt,
-  test_sas_processed_data_loc = NA
+  test_sas_processed_data_loc = NA,
+  n_worker = 2
 )
 }
 \arguments{
@@ -22,6 +23,8 @@ procedure_selection(
 eg. compare the processing results with SAS code Zhaohui Fan created.
 Otherwise leave it NA. When testing, assign the location of sas pre processed prof_clm data.
 eg. "/Volumes/George_Surgeon_Projects/medicare_data/sample_npct_std/prof_clm.sas7bdat"}
+
+\item{n_worker}{number of workers to use in future map}
 }
 \value{
 

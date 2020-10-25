@@ -2,7 +2,7 @@
 % Please edit documentation in R/computer_config.R
 \name{find_maize_folder}
 \alias{find_maize_folder}
-\title{Find Brian Geroge folder location}
+\title{Find Brian George folder location}
 \usage{
 find_maize_folder(your_BG_folder_loc = NA)
 }
@@ -14,7 +14,7 @@ Brian_George folder location on maize, if it can't automatically detect the loca
 can also manually specify the location
 }
 \description{
-This script detects the computer enviromnent automatically
+This script detects the computer environment automatically
 and assign variable \code{Brian_George_folder_loc} to an detected directory.
 If the locations can't be detected, you manually assign  value to Brian_George_folder_loc
 }
