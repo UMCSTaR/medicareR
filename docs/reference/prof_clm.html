@@ -47,8 +47,8 @@
 
 
 <meta property="og:title" content="Professional claim data — prof_clm" />
-<meta property="og:description" content="use carrier claim and carrier line files. Physician and procedure
-info is located at carrier line file." />
+<meta property="og:description" content="use carrier claim and carrier line files.
+Physician and procedure info is located at carrier line file." />
 <meta property="og:image" content="/logo.png" />
 
 
@@ -108,6 +108,9 @@ info is located at carrier line file." />
     </li>
   </ul>
 </li>
+<li>
+  <a href="../news/index.html">Changelog</a>
+</li>
       </ul>
       <ul class="nav navbar-nav navbar-right">
         
@@ -130,19 +133,11 @@ info is located at carrier line file." />
     </div>
 
     <div class="ref-description">
-    <p>use carrier claim and carrier line files. Physician and procedure
-info is located at carrier line file.</p>
+    <p>use carrier claim and carrier line files.
+Physician and procedure info is located at carrier line file.</p>
     </div>
 
-    <pre class="usage"><span class='fu'>prof_clm</span><span class='op'>(</span>
-  <span class='va'>year</span>,
-  <span class='va'>schema</span>,
-  <span class='va'>data_file_name_clm</span>,
-  <span class='va'>data_file_name_ln</span>,
-  <span class='va'>src_root_clm</span>,
-  <span class='va'>src_root_ln</span>,
-  mapping_data <span class='op'>=</span> <span class='va'>import_mapping</span>
-<span class='op'>)</span></pre>
+    <pre class="usage"><span class='fu'>prof_clm</span><span class='op'>(</span><span class='va'>year</span>, <span class='va'>schema</span>, <span class='va'>prof_clm</span>, <span class='va'>prof_ln</span>, mapping_data <span class='op'>=</span> <span class='va'>import_mapping</span><span class='op'>)</span></pre>
 
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
@@ -156,20 +151,12 @@ info is located at carrier line file.</p>
       <td><p>defined in csv mapping files, e.g. "prof_clm1"</p></td>
     </tr>
     <tr>
-      <th>data_file_name_clm</th>
-      <td><p>carrier claim file names</p></td>
+      <th>prof_clm</th>
+      <td><p>carrier claim file name (rdata)</p></td>
     </tr>
     <tr>
-      <th>data_file_name_ln</th>
-      <td><p>carrier line file names</p></td>
-    </tr>
-    <tr>
-      <th>src_root_clm</th>
-      <td><p>carrier claim file loc</p></td>
-    </tr>
-    <tr>
-      <th>src_root_ln</th>
-      <td><p>carrier claim line loc</p></td>
+      <th>prof_ln</th>
+      <td><p>carrier line file name (rdata)</p></td>
     </tr>
     <tr>
       <th>mapping_data</th>
@@ -184,7 +171,7 @@ info is located at carrier line file.</p>
 
     <h2 class="hasAnchor" id="details"><a class="anchor" href="#details"></a>Details</h2>
 
-    <p>variables included are:     "member_id", "claim_id", "clm_from_dt", "clm_thru_dt",
+    <p>variables included are:  "member_id", "claim_id", "clm_from_dt", "clm_thru_dt",
 "clm_disp_cd", "icd_dx_prncpal", "icd_dx_prncpal_vrsn"</p>
 
   </div>

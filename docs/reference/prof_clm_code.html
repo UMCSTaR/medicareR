@@ -107,6 +107,9 @@
     </li>
   </ul>
 </li>
+<li>
+  <a href="../news/index.html">Changelog</a>
+</li>
       </ul>
       <ul class="nav navbar-nav navbar-right">
         
@@ -132,13 +135,7 @@
     <p>process using carrier claim; produce long format dx icd and icd version</p>
     </div>
 
-    <pre class="usage"><span class='fu'>prof_clm_code</span><span class='op'>(</span>
-  <span class='va'>year</span>,
-  <span class='va'>schema</span>,
-  <span class='va'>data_file_name_clm</span>,
-  <span class='va'>src_root_clm</span>,
-  mapping_data <span class='op'>=</span> <span class='va'>import_mapping</span>
-<span class='op'>)</span></pre>
+    <pre class="usage"><span class='fu'>prof_clm_code</span><span class='op'>(</span><span class='va'>year</span>, <span class='va'>schema</span>, <span class='va'>prof_clm</span>, mapping_data <span class='op'>=</span> <span class='va'>import_mapping</span><span class='op'>)</span></pre>
 
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
@@ -152,12 +149,8 @@
       <td><p>defined in mapping csv, eg "prof_clm1"</p></td>
     </tr>
     <tr>
-      <th>data_file_name_clm</th>
-      <td><p>original carrier claim dataset names</p></td>
-    </tr>
-    <tr>
-      <th>src_root_clm</th>
-      <td><p>location to carrier claim dataset</p></td>
+      <th>prof_clm</th>
+      <td><p>carrier claim data</p></td>
     </tr>
     </table>
 

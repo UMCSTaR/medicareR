@@ -107,6 +107,9 @@
     </li>
   </ul>
 </li>
+<li>
+  <a href="../news/index.html">Changelog</a>
+</li>
       </ul>
       <ul class="nav navbar-nav navbar-right">
         
@@ -136,7 +139,8 @@
   std_data_root <span class='op'>=</span> <span class='va'>wd</span><span class='op'>$</span><span class='va'>std_data_root</span>,
   prof_codes_folder <span class='op'>=</span> <span class='st'>"prof_clm"</span>,
   cpt_map <span class='op'>=</span> <span class='va'>define_proc_by_cpt</span>,
-  test_sas_processed_data_loc <span class='op'>=</span> <span class='cn'>NA</span>
+  test_sas_processed_data_loc <span class='op'>=</span> <span class='cn'>NA</span>,
+  n_worker <span class='op'>=</span> <span class='fl'>2</span>
 <span class='op'>)</span></pre>
 
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
@@ -161,6 +165,10 @@ eg. compare the processing results with SAS code Zhaohui Fan created.
 Otherwise leave it NA. When testing, assign the location of sas pre processed prof_clm data.
 eg. "/Volumes/George_Surgeon_Projects/medicare_data/sample_npct_std/prof_clm.sas7bdat"</p></td>
     </tr>
+    <tr>
+      <th>n_worker</th>
+      <td><p>number of workers to use in future map</p></td>
+    </tr>
     </table>
 
     <h2 class="hasAnchor" id="value"><a class="anchor" href="#value"></a>Value</h2>
@@ -172,7 +180,7 @@ eg. "/Volumes/George_Surgeon_Projects/medicare_data/sample_npct_std/prof_clm.sas
 
     
 <ol>
-<li><p>select procedure based on CPT</p></li>
+<li><p>select procedures base on CPT</p></li>
 <li><p>delete missing NPI procedures(can't link to surgeons)</p></li>
 <li><p>delete duplicated claims</p></li>
 <li><p>aggregate cpt_mode (if two cases have same info but diff cpt_mode, aggregate as one case include two cpt_mode code)</p></li>
