@@ -61,7 +61,7 @@
   </a>
   <ul class="dropdown-menu" role="menu">
 <li>
-      <a href="articles/add-procedures.html">How to add more procedures to analytic files</a>
+      <a href="articles/add-procedures.html">Add more procedures to analytic files</a>
     </li>
   </ul>
 </li>
@@ -78,16 +78,14 @@
 
       </header><div class="row">
   <div class="contents col-md-9">
-
 <div id="medicarer-" class="section level1">
 <div class="page-header"><h1 class="hasAnchor">
 <a href="#medicarer-" class="anchor"></a>medicareR <img src="reference/figures/logo.png" width="175" height="200" align="right">
 </h1></div>
-<p>A package that helps you process medicare data to analytic ready files</p>
-</div>
-<div id="summary" class="section level1">
-<h1 class="hasAnchor">
-<a href="#summary" class="anchor"></a>Summary</h1>
+<p>A package that create analysis ready datasets from Medicare data. The code were designed specifically for UofM IHPI Medicare data format. however, it can also be generalized to other medicare data format. This package are used for CSTAR group at the department of surgery, University of Michigan</p>
+<div id="summary" class="section level2">
+<h2 class="hasAnchor">
+<a href="#summary" class="anchor"></a>Summary</h2>
 <p>The goal of medicareR is to make standardized medicare datasets across years including:</p>
 <ul>
 <li>MBSF</li>
@@ -95,6 +93,7 @@
 <li>Carrier Line</li>
 <li>Carrier Claim</li>
 </ul>
+</div>
 <div id="installation" class="section level2">
 <h2 class="hasAnchor">
 <a href="#installation" class="anchor"></a>Installation</h2>
@@ -105,13 +104,17 @@
 <div id="example" class="section level2">
 <h2 class="hasAnchor">
 <a href="#example" class="anchor"></a>Example</h2>
-<p>This is a basic example which shows you how to solve a common problem:</p>
 <div class="sourceCode" id="cb2"><pre class="downlit">
-<span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va">medicareR</span><span class="op">)</span>
-<span class="co">## basic example code</span></pre></div>
+<span class="co"># filter procedures</span>
+<span class="va">define_proc_by_cpt</span> <span class="op">&lt;-</span> <span class="fu">readr</span><span class="fu">::</span><span class="fu"><a href="https://readr.tidyverse.org/reference/read_delim.html">read_csv</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/paste.html">paste0</a></span><span class="op">(</span><span class="st">"your-data-path1"</span>, <span class="st">"cpt_ecs_map.csv"</span><span class="op">)</span><span class="op">)</span>
+  
+<span class="va">analytic_cpt</span> <span class="op">=</span> <span class="fu">medicareR</span><span class="fu">::</span><span class="fu"><a href="reference/procedure_selection.html">procedure_selection</a></span><span class="op">(</span>
+  std_data_root <span class="op">=</span> <span class="st">"your-data-path2"</span>,
+  prof_codes_folder <span class="op">=</span> <span class="st">"prof_clm"</span>,
+  cpt_map <span class="op">=</span> <span class="va">define_proc_by_cpt</span>
+<span class="op">)</span></pre></div>
 </div>
 </div>
-
   </div>
 
   <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">

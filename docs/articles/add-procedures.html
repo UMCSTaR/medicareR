@@ -5,7 +5,7 @@
 <meta charset="utf-8">
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>How to add more procedures to analytic files • medicareR</title>
+<title>Add more procedures to analytic files • medicareR</title>
 <!-- favicons --><link rel="icon" type="image/png" sizes="16x16" href="../favicon-16x16.png">
 <link rel="icon" type="image/png" sizes="32x32" href="../favicon-32x32.png">
 <link rel="apple-touch-icon" type="image/png" sizes="180x180" href="../apple-touch-icon.png">
@@ -17,7 +17,7 @@
 <script src="../bootstrap-toc.js"></script><!-- Font Awesome icons --><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.12.1/css/all.min.css" integrity="sha256-mmgLkCYLUQbXn0B1SRqzHar6dCnv9oZFPEC1g1cwlkk=" crossorigin="anonymous">
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.12.1/css/v4-shims.min.css" integrity="sha256-wZjR52fzng1pJHwx4aV2AO3yyTOXrcDW7jBpJtTwVxw=" crossorigin="anonymous">
 <!-- clipboard.js --><script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/2.0.6/clipboard.min.js" integrity="sha256-inc5kl9MA1hkeYUt+EC3BhlIgyp/2jDIyBLS6k3UxPI=" crossorigin="anonymous"></script><!-- headroom.js --><script src="https://cdnjs.cloudflare.com/ajax/libs/headroom/0.11.0/headroom.min.js" integrity="sha256-AsUX4SJE1+yuDu5+mAVzJbuYNPHj/WroHuZ8Ir/CkE0=" crossorigin="anonymous"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/headroom/0.11.0/jQuery.headroom.min.js" integrity="sha256-ZX/yNShbjqsohH1k95liqY9Gd8uOiE1S4vZc+9KQ1K4=" crossorigin="anonymous"></script><!-- pkgdown --><link href="../pkgdown.css" rel="stylesheet">
-<script src="../pkgdown.js"></script><meta property="og:title" content="How to add more procedures to analytic files">
+<script src="../pkgdown.js"></script><meta property="og:title" content="Add more procedures to analytic files">
 <meta property="og:description" content="medicareR">
 <meta property="og:image" content="/logo.png">
 <!-- mathjax --><script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/MathJax.js" integrity="sha256-nvJJv9wWKEm88qvoQl9ekL2J+k/RWIsaSScxxlsrv8k=" crossorigin="anonymous"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/config/TeX-AMS-MML_HTMLorMML.js" integrity="sha256-84DKXVJXs0/F8OTMzX4UR909+jtl4G7SPypPavF+GfA=" crossorigin="anonymous"></script><!--[if lt IE 9]>
@@ -61,7 +61,7 @@
   </a>
   <ul class="dropdown-menu" role="menu">
 <li>
-      <a href="../articles/add-procedures.html">How to add more procedures to analytic files</a>
+      <a href="../articles/add-procedures.html">Add more procedures to analytic files</a>
     </li>
   </ul>
 </li>
@@ -79,8 +79,10 @@
       </header><script src="add-procedures_files/header-attrs-2.1/header-attrs.js"></script><div class="row">
   <div class="col-md-9 contents">
     <div class="page-header toc-ignore">
-      <h1 data-toc-skip>How to add more procedures to analytic files</h1>
+      <h1 data-toc-skip>Add more procedures to analytic files</h1>
+                        <h4 class="author">Xilin Chen</h4>
             
+            <h4 class="date">2020-10-22</h4>
       
       
       <div class="hidden name"><code>add-procedures.Rmd</code></div>
@@ -91,27 +93,28 @@
     
 <div id="background" class="section level2">
 <h2 class="hasAnchor">
-<a href="#background" class="anchor"></a>Background</h2>
+<a href="#background" class="anchor"></a>1. Background</h2>
 <p>In 2019, we purchased more than 100 procedures that are commonly performed by general surgery surgeons from CMS. The purchased procedures went back from 2007. Since we already have Medicare data from 2007-2016 for the original 5 procedures, we received the purchased procedures in separate datasets. After 2016, all newly added procedures and original 5 procedures are together in one data file each year.</p>
 </div>
 <div id="datasets" class="section level2">
 <h2 class="hasAnchor">
-<a href="#datasets" class="anchor"></a>Datasets</h2>
-<p>Changes needed for professional claims.</p>
-<p>file location: the purchased procedures are located on Maize: <code>Shared3/DMH_Shared/Dimick_Improve_Surgical_Care/SAS_Files/New_Hernia_ECMD</code></p>
-<p>Note: in the data folder, you can find the datasets from 2007-2016. As mentioned above, after 2016, all procedures will be in one data file under yearly purchased, eg. Dimick_Improve_Surgical_Care/SAS_Files/2018.</p>
+<a href="#datasets" class="anchor"></a>2. Datasets</h2>
+<p>Changes needed for professional claims (Carrier claim and line files). New procedure files location on Maize: <code>Shared3/DMH_Shared/Dimick_Improve_Surgical_Care/SAS_Files/New_Hernia_ECMD</code>. We don’t need to rerun standardization process for MBSF and MedPAR because we already have 100% MedPAR and MBSF datasets each year. Added beneficiaries and MedPAR cases that are related to Carrier files are already included in the old files.</p>
+<p>Note: in the data folder, you can find the datasets from 2007-2017. As mentioned above, after 2016, all procedures will be in one data file under yearly purchased, eg. <code>Dimick_Improve_Surgical_Care/SAS_Files/2017</code>.</p>
+<div id="contents" class="section level3">
+<h3 class="hasAnchor">
+<a href="#contents" class="anchor"></a>Contents</h3>
+<p>The datasets we use are carrier files named as: <code>bcarrier_ln_20xx</code> and <code>bcarrier_clms_20xx</code></p>
 <ul>
-<li><p>Contents The datasets we use are carrier files named as: bcarrier_ln_20xx and bcarrier_clms_20xx</p></li>
 <li>
 <p>Combine new carrier files to the original 5 carrier files;</p>
 <ul>
 <li>append new data to old data from 2007-2016. After 2016, newly added procedures and the original 5 procedures data files are received as combined one file from CMS. Note: Data purchase was based on BeneIDs. All the benes that already have existing records in our original 5 procedures datasets were excluded from the new procedure data purchase. So there are no duplications in the original carrier claims and the newly purchased procedures.</li>
-<li>Newly added procedures claims are saved under file George_Surgeon_Projects/original_medicare_selected_vars/data/Carrier/ecs Combine ecs claim and line files with the original 5 procedures by year.</li>
+<li>Newly added procedures claims are saved under file <code>George_Surgeon_Projects/original\medicare\selectedvars/data/Carrier/ecs</code> Combine ecs claim and line files with the original 5 procedures by year.</li>
 </ul>
 </li>
-<li><p>Code</p></li>
+<li><p>Code used to combine datasets are at <a href="https://github.com/UMCSTaR/Medicare_Std_R/tree/add_procedures/code/other/add_new_procedure">add_procedure</a></p></li>
 </ul>
-<p>Code used to combine datasets are at <a href="https://github.com/UMCSTaR/Medicare_Std_R/tree/add_procedures/code/other/add_new_procedure">add_procedure</a></p>
 <div class="sourceCode" id="cb1"><pre class="downlit">
 <span class="co"># example</span>
 <span class="co"># do not run</span>
@@ -120,16 +123,14 @@
                               src_data_root <span class="op">=</span> <span class="st">"/Volumes/George_Surgeon_Projects/original_medicare_selected_vars/data/"</span>,
                               year <span class="op">=</span> <span class="va">.x</span><span class="op">)</span><span class="op">)</span></pre></div>
 </div>
+</div>
 <div id="process" class="section level2">
 <h2 class="hasAnchor">
-<a href="#process" class="anchor"></a>Process</h2>
-<ul>
-<li>Create a defined CPT to procedures names map. The map we use for the project is at <a href="https://docs.google.com/spreadsheets/d/1Fa2xWCRIe5-_3F7MpQPvJfCzy_lBtWFvB_TGevnZ60Q/edit#gid=1841533335">ecs_list</a>.
-<ul>
-<li>In the list, CPTs to ECS procedures are not uniquely mapped. Make sure to get unique maps between cpt to ECS to avoid data processing errors (introduce by left join process)</li>
-</ul>
-</li>
-</ul>
+<a href="#process" class="anchor"></a>3. Process</h2>
+<div id="create-a-defined-cpt-to-procedure-names-map-" class="section level3">
+<h3 class="hasAnchor">
+<a href="#create-a-defined-cpt-to-procedure-names-map-" class="anchor"></a>Create a defined CPT to procedure names map.</h3>
+<p>The map we use for the project is at <a href="https://docs.google.com/spreadsheets/d/1Fa2xWCRIe5-_3F7MpQPvJfCzy_lBtWFvB_TGevnZ60Q/edit#gid=1841533335">ecs_list</a>. - In the list, CPTs to ECS procedures are not uniquely mapped. Make sure to get unique maps between cpt to ECS to avoid data processing errors (introduce by left join process)</p>
 <div class="sourceCode" id="cb2"><pre class="downlit">
 <span class="co"># do not run</span>
 <span class="co"># ecs_list_with_coded_flg.csv was downloaded from https://docs.google.com/spreadsheets/d/1Fa2xWCRIe5-_3F7MpQPvJfCzy_lBtWFvB_TGevnZ60Q/edit#gid=1841533335</span>
@@ -137,39 +138,58 @@
 <span class="co"># one cpt to one procedure</span>
 <span class="va">cpt_ecs_map</span> <span class="op">=</span> <span class="va">cpt_map</span> <span class="op">%&gt;%</span> 
   <span class="fu">distinct</span><span class="op">(</span><span class="va">cpt</span>, <span class="va">ecs_id</span>, <span class="va">ECSProcedureName</span>, <span class="va">ProcedureGroup</span><span class="op">)</span></pre></div>
-<ul>
-<li>Coding steps
+</div>
+<div id="standardization-and-ceeating-analytic-files" class="section level3">
+<h3 class="hasAnchor">
+<a href="#standardization-and-ceeating-analytic-files" class="anchor"></a>Standardization and ceeating analytic files</h3>
+<div id="standardization" class="section level4">
+<h4 class="hasAnchor">
+<a href="#standardization" class="anchor"></a>standardization</h4>
 <ul>
 <li>
 <p>Create 0.1% sample data for the carrier claim and line files</p>
 <ul>
-<li>To avoid overwriting the original 5 procedures data, a new folder “original_5” was created to store the old data. <img src="images/maize_folder_structure.png" align="center">
+<li>To avoid overwriting the original 5 procedures data, a new folder “original_5” was created to store the old data as below. <img src="maize_folder_structure.png" alt="Maize">
 </li>
 </ul>
 </li>
-<li><p>Combine ecs files to the old datasets as described above</p></li>
+<li>
+<p>Combine ecs files to the old datasets as described above</p>
+<ul>
+<li>The ECS folder showing above has all the newly purchased Carrier claim and line files; All the datasets under ECS folder were added to the <code>Carrier/Claim</code> folder, so ECS folder should NOT be used after the combining process.</li>
+</ul>
+</li>
 <li>
 <p>Standardize the combined datasets using code std_master</p>
 <ul>
 <li><p>Import_mapping.csv and import_src.csv don’t need to be edited, because all the variables and file names didn’t change for the new ECS files.</p></li>
 <li><p>However, the year under import_src.csv needs to be customized to fit in your needs. In our situation, we only need 2007-2016.</p></li>
-<li><p>In the standardization process, rerun code for step3: Professional and step5: Professional Claim using the combined carrier claim and line files. The script can be found on github.</p></li>
-</ul>
-</li>
-</ul>
-</li>
-<li>Run the (step2_generate_analytic_file)[<a href="https://github.com/UMCSTaR/Medicare_Std_R/blob/add_procedures/code/step2_generate_analytic_file/analytic_master.R" class="uri">https://github.com/UMCSTaR/Medicare_Std_R/blob/add_procedures/code/step2_generate_analytic_file/analytic_master.R</a>] step.
-<ul>
-<li>update the procedure map (cpt to procedure map)</li>
 </ul>
 </li>
 </ul>
 <div class="sourceCode" id="cb3"><pre class="downlit">
+<span class="co"># you can control years by editing import_src</span>
+<span class="va">import_src</span> <span class="op">&lt;-</span> <span class="fu">read_csv</span><span class="op">(</span><span class="st">"data/2020/import_source.csv"</span><span class="op">)</span> <span class="op">%&gt;%</span> 
+  <span class="fu"><a href="https://rdrr.io/r/stats/filter.html">filter</a></span><span class="op">(</span><span class="va">source_dir</span><span class="op">&lt;</span><span class="fl">2017</span><span class="op">)</span></pre></div>
+<ul>
+<li>rerun code for step3: Professional and step5: Professional Claim using the combined carrier claim and line files.</li>
+</ul>
+</div>
+<div id="creating-analytic-files" class="section level4">
+<h4 class="hasAnchor">
+<a href="#creating-analytic-files" class="anchor"></a>Creating analytic files</h4>
+<ul>
+<li>Run the <a href="https://github.com/UMCSTaR/Medicare_Std_R/blob/add_procedures/code/step2_generate_analytic_file/analytic_master.R">step2</a> step.</li>
+<li>update the procedure map (cpt to procedure map)</li>
+</ul>
+<div class="sourceCode" id="cb4"><pre class="downlit">
 <span class="co"># do not run</span>
 <span class="co"># procedure map defined by cpt </span>
 <span class="va">define_proc_by_cpt</span> <span class="op">&lt;-</span> <span class="fu">readr</span><span class="fu">::</span><span class="fu"><a href="https://readr.tidyverse.org/reference/read_delim.html">read_csv</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/paste.html">paste0</a></span><span class="op">(</span><span class="va">wd</span><span class="op">$</span><span class="va">input_data</span>, <span class="st">"cpt_ecs_map.csv"</span><span class="op">)</span><span class="op">)</span> <span class="op">%&gt;%</span> 
   <span class="fu">transmute</span><span class="op">(</span>cpt_cd <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/character.html">as.character</a></span><span class="op">(</span><span class="va">cpt</span><span class="op">)</span>, e_proc_grp <span class="op">=</span> <span class="va">ecs_id</span>, e_proc_grp_lbl <span class="op">=</span> <span class="va">ECSProcedureName</span><span class="op">)</span> <span class="op">%&gt;%</span> 
   <span class="fu">distinct</span><span class="op">(</span><span class="op">)</span></pre></div>
+</div>
+</div>
 </div>
   </div>
 
