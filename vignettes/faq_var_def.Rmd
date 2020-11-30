@@ -1,0 +1,76 @@
+---
+title: "FAQ - Variable Definitions"
+output: rmarkdown::html_vignette
+vignette: >
+  %\VignetteIndexEntry{FAQ - Variable Definitions}
+  %\VignetteEngine{knitr::rmarkdown}
+  %\VignetteEncoding{UTF-8}
+---
+
+```{r, include = FALSE}
+knitr::opts_chunk$set(
+  collapse = TRUE,
+  comment = "#>"
+)
+```
+
+## Introduction
+
+In this article, we listed frequently asked questions regarding how we defined the variables in our medicare analytic files. it's working in progress document, since the definitions can change, and new variables can be added. 
+
+In our medicare analytic files, variables come from two sources:
+
+- CMS original files (e.g. patient gender, procedure date, etc.)
+- Derived variables (e.g. readmission, multi-procedure, etc.). 
+
+In this document, we focused on derived variables.
+
+
+## Variable Definitions
+
+### multi-surgeon
+
+multiple providers (not necessary to be surgeons, for example providers can be PA) operated in one hospital admission. It can be different procedures. For example, if one patient in *one hospital admission* had both Partial Colectomy and Cholecystectomy by different NPI, both the Cole and the Cholecystectomy procedures were flagged as multi-surgeon.
+
+```r
+original_data %>%
+    distinct(
+      member_id,
+      dt_facclm_adm,     # facility claim admission date
+      dt_facclm_dschg,   # facility claim discharge date
+      id_physician_npi
+    ) %>%
+    add_count(member_id,
+              dt_facclm_adm,
+              dt_facclm_dschg,
+              name = "n_doc"   # n_doc>1 was defined as multi-surgeon
+    )
+```
+
+### assistant_surgeon
+
+Assistant surgeon role was defined by CPT modifier code "80" or "82". So if a case has either "80" or "82" as the CPT modifier, then it is flagged as assistant_surgeon case.
+
+```r
+flg_assistant_surgeon = ifelse(str_detect(cpt_mod, "80|82"), 1, 0)
+```
+
+### multi_cpt
+
+Multiple CPT was defined as one patient has multiple CPTs performed in one hospital admission. Note CPT modifier code is not in cosideration here.
+
+```r
+data %>%
+    distinct(
+      member_id,
+      dt_facclm_adm,     # facility claim admission date
+      dt_facclm_dschg,   # facility claim discharge date
+      cpt_cd             # CPT code
+    ) %>%
+    add_count(member_id,
+              dt_facclm_adm,
+              dt_facclm_dschg,
+              name = "n_proc"
+    ) 
+```
+

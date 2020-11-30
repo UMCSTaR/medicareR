@@ -3,5 +3,6 @@ pkgdown: 1.6.1
 pkgdown_sha: ~
 articles:
   add-procedures: add-procedures.html
-last_built: 2020-10-27T20:21Z
+  faq_var_def: faq_var_def.html
+last_built: 2020-11-30T15:11Z
 
