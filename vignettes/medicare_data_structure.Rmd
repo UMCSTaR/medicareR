@@ -1,0 +1,84 @@
+---
+title: "Medicare Data Folder Structure"
+output: rmarkdown::html_vignette
+vignette: >
+  %\VignetteIndexEntry{medicare_data_structure}
+  %\VignetteEngine{knitr::rmarkdown}
+  %\VignetteEncoding{UTF-8}
+---
+
+```{r, include = FALSE}
+knitr::opts_chunk$set(
+  collapse = TRUE,
+  comment = "#>"
+)
+
+options(rmarkdown.html_vignette.check_title = FALSE)
+```
+
+## 1. Designed Data Structure
+
+This data structure is used in medicare 100 data standardization and analytic files creation. It's import to follow the data folder structure so the code can read and write data from valid paths.
+
+
+```{r, eval= F}
+Medicare 100
+1.    Full data
+1.1.  Selected vars csv
+1.1.1.         Denom_MBSF
+1.1.2.         MEDPAR
+1.1.3.         Carrier
+1.2.  Std
+1.2.1.         Fac_clm
+1.2.2.         Fac_clm_code
+1.2.3.         Prof_clm
+1.2.4.         Prof_clm_code
+1.2.5.         Membership
+1.2.6.         Professional
+1.2.7.         Original 5
+1.3.  Analytic
+1.3.1.         Fac_clm
+1.3.2.         Fac_clm_code
+1.3.3.         Prof_clm
+1.3.4.         Prof_clm_code
+1.3.5.         Membership
+1.3.6.         Professional
+2.     Sample data (same as full)
+3.     Analysis ready data
+4.     Raw sas
+4.1.  Sas code
+5.     Projects
+6.     Archived projects
+7.     Dump (to be cleaned regularly)
+
+Medicare 20 – same structure
+```
+
+
+## 2. How to point to the data 
+
+The code we used to create working paths are below
+
+```{r, eval = F}
+medicareR::mk_data_dir_path(data_root = "sample",
+                            # "sample", "full_data"
+                            george_file = medicareR::find_maize_folder()
+                            # Brian George folder path on maize, eg. "/Volumes/George_Surgeon_Projects"))
+                            )
+
+# for more input paths control, refer to
+?medicareR::mk_data_dir_path
+```
+
+
+The code above will assisgn all paths needed as below in your environment.
+
+```{r, eval = F}
+# Note: you care also manually assign/overwirte all the values in the wd list as below 
+wd$george_file = "/Volumes/George_Surgeon_Projects"
+wd$input_data = "/Volumes/George_Surgeon_Projects/standardized_medicare_data_using_R/input/"
+wd$src_data_root = "/Volumes/George_Surgeon_Projects/original_medicare_selected_vars/data/sample/"
+wd$std_data_root = "/Volumes/George_Surgeon_Projects/standardized_medicare_data_using_R/std/sample/"
+wd$std_analytic_root = "/Volumes/George_Surgeon_Projects/standardized_medicare_data_using_R/analytic/sample/"
+```
+

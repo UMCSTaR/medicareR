@@ -1,8 +1,9 @@
-pandoc: 2.9.2.1
+pandoc: 2.11.2
 pkgdown: 1.6.1
 pkgdown_sha: ~
 articles:
   add-procedures: add-procedures.html
   faq_var_def: faq_var_def.html
-last_built: 2020-11-30T15:11Z
+  medicare_data_structure: medicare_data_structure.html
+last_built: 2021-03-25T14:20Z
 
