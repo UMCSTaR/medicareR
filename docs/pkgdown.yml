@@ -3,7 +3,8 @@ pkgdown: 1.6.1
 pkgdown_sha: ~
 articles:
   add-procedures: add-procedures.html
+  add_more_variables: add_more_variables.html
   faq_var_def: faq_var_def.html
   medicare_data_structure: medicare_data_structure.html
-last_built: 2021-04-09T20:27Z
+last_built: 2021-04-26T20:00Z
 

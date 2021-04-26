@@ -8,6 +8,7 @@ procedure_selection(
   std_data_root = wd$std_data_root,
   prof_codes_folder = "prof_clm",
   cpt_map = define_proc_by_cpt,
+  year = 2007,
   test_sas_processed_data_loc = NA,
   n_worker = 2
 )
@@ -18,6 +19,8 @@ procedure_selection(
 \item{prof_codes_folder}{professional claim folder name}
 
 \item{cpt_map}{should include 3 variable: cpt_cd, e_proc_grp and e_proc_grp_lbl}
+
+\item{year}{select one year to process, e.g. 2007}
 
 \item{test_sas_processed_data_loc}{this is for testing, only assign value when you want to test,
 eg. compare the processing results with SAS code Zhaohui Fan created.
