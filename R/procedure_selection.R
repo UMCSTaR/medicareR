@@ -103,7 +103,6 @@ procedure_selection <- function(std_data_root = wd$std_data_root,
 
   if(is.na(test_sas_processed_data_loc)){
     # read csv data-----------------------
-    message("read in prof_clm_code data.....this takes awhile")
     plan(multisession, workers = n_worker)
 
     # show progress bar
