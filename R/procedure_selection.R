@@ -60,12 +60,7 @@ procedure_selection <- function(std_data_root = wd$std_data_root,
   # data processing ---------------------------------------------------------
 
   # read prof clm code data ------
-  if(year == "all") {
-    prof_clm_loc = paste0(std_data_root, prof_codes_folder, "/",
-                          list.files(paste0(std_data_root, prof_codes_folder)))
-  } else {
-    prof_clm_loc = paste0(std_data_root, prof_codes_folder, "/prof_clm_", year, ".csv")
-  }
+  prof_clm_loc = paste0(std_data_root, prof_codes_folder, "/prof_clm_", year, ".csv")
 
   # check if files locations existed
   # if any of the file location doesn't exist, error will occur
