@@ -6,37 +6,30 @@
 #' @return
 #'
 load_fac_code_data <- function(std_data_root,
-                               fac_codes_folder) {
+                               fac_codes_folder,
+                               year) {
+
+  # read fac clm code data ------
+  fac_codes_loc = paste0(std_data_root, fac_codes_folder, "/fac_clm_code_", year, ".csv")
+
   # check if file loc exist
-  if (!file.exists(paste0(std_data_root, fac_codes_folder))) {
+  if (!file.exists(fac_codes_loc)) {
     stop(paste0(
       "file location doesn't exist: ",
-      std_data_root,
-      fac_codes_folder
+      fac_codes_loc
     ))
   }
 
-  # read fac clm code data ------
-  fac_codes_loc = paste0(std_data_root, fac_codes_folder, "/",
-                         list.files(paste0(std_data_root, fac_codes_folder)))
-  # read in all fac_code cross year
-  # fac_code datasets were saved by year due to sample size too big
-  facclm_list = list()
-  message("reading fac_clm_code dataset...")
+  # read in all fac_clm_code
+  message("reading fac_clm_code dataset year ", year)
 
-  for (i in seq_along(fac_codes_loc)) {
-    fac_clm_codes = fread(fac_codes_loc[i])
+  fac_clm_codes = fread(fac_codes_loc)
 
-    # Facility claim codes file:
-    # Transpose dx codes from long to wide format
-    facclm_dx_by_yr <-
-      fac_clm_codes[code_type == "DX"][, var_name := paste0(code_type, seq)] %>% #diagnosis code
-      dcast(member_id + claim_id ~ var_name, value.var = c("value"))
+  # Facility claim codes file:
+  # Transpose dx codes from long to wide format
+  facclm_dx_by_yr <-
+    fac_clm_codes[code_type == "DX"][, var_name := paste0(code_type, seq)] %>% #diagnosis code
+    dcast(member_id + claim_id ~ var_name, value.var = c("value"))
 
-    facclm_list[[i]] = facclm_dx_by_yr
-  }
-
-  # combine as one dataset
-  rbindlist(facclm_list, fill = T)
-
+  facclm_dx_by_yr
 }

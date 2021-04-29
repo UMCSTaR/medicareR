@@ -6,19 +6,20 @@
 \usage{
 fac_dx(
   std_data_root = wd$std_data_root,
+  year = 2007,
   fac_codes_folder = "fac_clm_code",
-  fac_clm_name = "fac_clm.csv",
+  fac_clm_folder = "fac_clm",
   original_data = analytic_demo
 )
 }
 \arguments{
 \item{std_data_root}{data path to the standardized data folder}
 
-\item{fac_codes_folder}{folder name for fac_code;
-if in test for one combined sas data, put datset name
-as ".sas7bdat" (don't use it unless you want to test)}
+\item{year}{select one year to process, e.g. 2007}
 
-\item{fac_clm_name}{data name for fac_clm data (.csv format is a must)}
+\item{fac_codes_folder}{folder name for fac_code}
+
+\item{fac_clm_folder}{folder name for fac_clm data (.csv format is a must)}
 
 \item{original_data}{data name for the data you want to add the info to}
 }

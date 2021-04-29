@@ -4,14 +4,14 @@
 \alias{load_fac_code_data}
 \title{load standardized fac clm dx code across years}
 \usage{
-load_fac_code_data(std_data_root, fac_codes_folder)
+load_fac_code_data(std_data_root, fac_codes_folder, year)
 }
 \arguments{
 \item{std_data_root}{data path to the standardized data folder}
 
-\item{fac_codes_folder}{folder name for fac_code;
-if in test for one combined sas data, put datset name
-as ".sas7bdat" (don't use it unless you want to test)}
+\item{fac_codes_folder}{folder name for fac_code}
+
+\item{year}{select one year to process, e.g. 2007}
 }
 \value{
 
