@@ -5,14 +5,16 @@
 \title{Diagnosis Code from Facility Claim}
 \usage{
 fac_dx(
+  original_data = analytic_demo,
   std_data_root = wd$std_data_root,
   year = 2007,
   fac_codes_folder = "fac_clm_code",
-  fac_clm_folder = "fac_clm",
-  original_data = analytic_demo
+  fac_clm_folder = "fac_clm"
 )
 }
 \arguments{
+\item{original_data}{data name for the data you want to add the info to}
+
 \item{std_data_root}{data path to the standardized data folder}
 
 \item{year}{select one year to process, e.g. 2007}
@@ -20,8 +22,6 @@ fac_dx(
 \item{fac_codes_folder}{folder name for fac_code}
 
 \item{fac_clm_folder}{folder name for fac_clm data (.csv format is a must)}
-
-\item{original_data}{data name for the data you want to add the info to}
 }
 \value{
 

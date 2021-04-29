@@ -18,13 +18,12 @@
 #'   5. facility claim code are saved by year within fac_clm_code folder (due to data size)
 #'
 
-fac_dx <- function(std_data_root = wd$std_data_root,
+fac_dx <- function(original_data = analytic_demo,
+                   std_data_root = wd$std_data_root,
                    year = 2007,
                    fac_codes_folder = "fac_clm_code",
-                   fac_clm_folder = "fac_clm",
-                   original_data = analytic_demo) {
-
-
+                   fac_clm_folder = "fac_clm")
+{
   # read fac clm and fac clm code data ------
   message("reading fac_clm dataset year ", year)
   # fac_clm dataset name
@@ -76,7 +75,7 @@ fac_dx <- function(std_data_root = wd$std_data_root,
 
       # facility ID
       facility_npi,
-      facility_prvnumgrp,
+      facility_prvnumgrp = as.numeric(facility_prvnumgrp),
 
       # /* Facility claim year */
       facility_clm_yr = ifelse(is.na(claim_yr), year(dt_profsvc_end), claim_yr),

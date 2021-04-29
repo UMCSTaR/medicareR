@@ -23,17 +23,21 @@ fac_dx_elix <- function(original_data) {
     filter(dt_profsvc_start < "2015-10-1") %>%
     as.data.table()
 
+  if(nrow(icd9)>0){
   icd9_elix <- comorbid(icd9, map = icd9_map_ahrq, return_df = TRUE) %>%
     # as_tibble() %>%
     mutate_if(is.logical, as.numeric) %>%
     mutate(HTN_C = ifelse(HTN == 1 | HTNcx == 1, 1, 0)) %>%
     select(-HTN, -HTNcx)
+  } else icd9_elix = tibble()
 
+  if(nrow(icd10)>0){
   icd10_elix <- comorbid(icd10, map = icd10_map_ahrq, return_df = TRUE) %>%
     # as_tibble() %>%
     mutate_if(is.logical, as.numeric) %>%
     mutate(HTN_C = ifelse(HTN == 1 | HTNcx == 1, 1, 0)) %>%
     select(-HTN, -HTNcx)
+  } else icd10_elix = tibble()
 
   analytic_elix_icd <- rbind(icd9_elix, icd10_elix) %>%
     mutate(id = as.numeric(id)) %>%
