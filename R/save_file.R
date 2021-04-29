@@ -22,3 +22,23 @@ save_file <- function(data,
 
   fwrite(data, file = paste0(path, "/", year, ".csv"))
 }
+
+
+
+#' Read analytic file
+#'
+#' @param std_analytic_root
+#' @param folder_name
+#' @param year
+#' @param ... from fread
+#'
+#' @return
+#' @export
+
+read_file <- function(std_analytic_root = wd$std_analytic_root,
+                      folder_name = NULL,
+                      year,
+                      ...) {
+  fread(paste0(std_analytic_root, folder_name, "/", year, ".csv"), ...)
+}
+
