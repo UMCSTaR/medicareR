@@ -3,6 +3,7 @@
 export(bene_info)
 export(comorbidity_6m)
 export(complication_flags)
+export(emergent_merpar_claim_ids_all_year)
 export(fac_clm)
 export(fac_clm_code)
 export(fac_dx)

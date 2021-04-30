@@ -10,6 +10,7 @@ reoperation(
   std_data_root = wd$std_data_root,
   year,
   fac_codes_folder = "fac_clm_code",
+  emergent_admission_medpar_claim_ids,
   max_year = 2018
 )
 }
@@ -23,6 +24,8 @@ reoperation(
 \item{year}{select one year to process, e.g. 2007}
 
 \item{fac_codes_folder}{names of the fac_clm_code data folder; or .sas files for only testing}
+
+\item{emergent_admission_medpar_claim_ids}{a list of all emergent MedPAR admission claim IDs}
 
 \item{max_year}{the most recent medicare year we have; for example, in 2020, we have Medpar processed up to 2018}
 }

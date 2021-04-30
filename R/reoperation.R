@@ -11,6 +11,8 @@
 #' @param original_data data to add on
 #' @param year select one year to process, e.g. 2007
 #' @param max_year the most recent medicare year we have; for example, in 2020, we have Medpar processed up to 2018
+#' @param emergent_admission_medpar_claim_ids a list of all emergent MedPAR admission claim IDs
+#'
 #'
 #' @return
 #' @export
@@ -22,6 +24,7 @@ reoperation <- function(original_data,
                         std_data_root = wd$std_data_root,
                         year,
                         fac_codes_folder = "fac_clm_code",
+                        emergent_admission_medpar_claim_ids,
                         max_year = 2018) {
 
   # read fac clm code data ------
@@ -51,7 +54,7 @@ reoperation <- function(original_data,
     )
   }
 
-  # reop map ---
+  # reop map --------
   # icd9
   icd9_reop <- reop_map %>%
     filter(code_set == "pr9")
@@ -78,7 +81,8 @@ reoperation <- function(original_data,
   for (i in seq_along(fac_codes_loc)) {
     fac_clm_codes = fread(fac_codes_loc[i])
 
-    fac_clm_codes <- fac_clm_codes[value %in% reop] # filter to selected reoperations ICD
+    # filter to selected reoperations ICD; and keep only emergent admission
+    fac_clm_codes <- fac_clm_codes[value %in% reop & claim_id %in% emergent_admission_medpar_claim_ids]
     fac_clm_codes <- fac_clm_codes[,pr_date := as_date(pr_date)]        # date format
 
     fac_pr_list[[i]] = fac_clm_codes[code_type == "PR", .(member_id, icd_version, value, pr_date)]
