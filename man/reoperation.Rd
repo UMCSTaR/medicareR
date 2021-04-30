@@ -5,20 +5,26 @@
 \title{30 days Re-operation Flags}
 \usage{
 reoperation(
-  std_data_root = wd$std_data_root,
+  original_data,
   reop_map,
+  std_data_root = wd$std_data_root,
+  year,
   fac_codes_folder = "fac_clm_code",
-  original_data
+  max_year = 2018
 )
 }
 \arguments{
-\item{std_data_root}{data path to the standardized data folder}
+\item{original_data}{data to add on}
 
 \item{reop_map}{predefined re-operation and ICD map}
 
+\item{std_data_root}{data path to the standardized data folder}
+
+\item{year}{select one year to process, e.g. 2007}
+
 \item{fac_codes_folder}{names of the fac_clm_code data folder; or .sas files for only testing}
 
-\item{original_data}{data to add on}
+\item{max_year}{the most recent medicare year we have; for example, in 2020, we have Medpar processed up to 2018}
 }
 \value{
 

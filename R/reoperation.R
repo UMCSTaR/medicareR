@@ -9,73 +9,82 @@
 #' @param fac_codes_folder names of the fac_clm_code data folder; or .sas files for only testing
 #' @param reop_map predefined re-operation and ICD map
 #' @param original_data data to add on
+#' @param year select one year to process, e.g. 2007
+#' @param max_year the most recent medicare year we have; for example, in 2020, we have Medpar processed up to 2018
 #'
 #' @return
 #' @export
 #'
 #' @examples
 
-reoperation <- function(std_data_root = wd$std_data_root,
+reoperation <- function(original_data,
                         reop_map,
+                        std_data_root = wd$std_data_root,
+                        year,
                         fac_codes_folder = "fac_clm_code",
-                        original_data) {
+                        max_year = 2018) {
 
   # read fac clm code data ------
-  datset_names = list.files(paste0(std_data_root, fac_codes_folder))
-
-  if (length(datset_names) > 0) {
-    fac_codes_loc = paste0(std_data_root, fac_codes_folder, "/",
-                           datset_names)
-
-    if (!all(stringr::str_detect(datset_names, ".csv"))) {
-      stop(
-        paste0(
-          "Check datasets under fac code file folder ",
-          fac_codes_folder,
-          ". All should have.csv format"
-        )
-      )
-    } else {
-      message("selected datases: ", datset_names)
-    }
-
-    # fac_code datasets were saved by year due to sample size too big
-    fac_pr_list = list()
-    message("reading fac_clm_code dataset...")
-
-    # filter to only procedure code
-    for (i in seq_along(fac_codes_loc)) {
-      fac_clm_codes = fread(fac_codes_loc[i])
-
-      fac_clm_codes <-
-        fac_clm_codes[, pr_date := as_date(pr_date)] # date format
-
-      fac_pr_list[[i]] = fac_clm_codes[code_type == "PR", .(member_id, icd_version, value, pr_date)]
-    }
-
-    fac_pr = rbindlist(fac_pr_list)
-
-  } else if (str_detect(fac_codes_folder, ".sas")) {
-    # for testing sas files
-    fac_clm_codes = haven::read_sas(paste0(std_data_root, fac_codes_folder))
-
-    setDT(fac_clm_codes)
-    fac_clm_codes <-
-      fac_clm_codes[, dt_pr := as_date(dt_pr, origin = "1960-01-01")] # date format
-
-    fac_pr = fac_clm_codes[code_type == "PR"] %>%
-      # old sas data has slightly different name
-      select(member_id,
-             icd_version = code,
-             value,
-             pr_date = dt_pr)
-
+  # note: the reason we need the current year and the following next year is to get 30days followup for cases
+  # happened in December. So we need to load next years data to get follow up
+  # however, for the latest year, we don't have next year's data, we will filter out cases happened in December.
+  if (year<max_year){
+    datset_names = paste0("fac_clm_code_", c(year,year+1), ".csv")  # 2 years
   } else {
+    datset_names = paste0("fac_clm_code_", year, ".csv")  # 1 year, will exclude december cases
+  }
+
+  fac_codes_loc = file.path(std_data_root, fac_codes_folder, datset_names)
+
+  # check
+  if(!all(file.exists(fac_codes_loc))){
+    stop("path doesn't exist at ", fac_codes_loc)
+  }
+
+  if (!all(stringr::str_detect(datset_names, ".csv"))) {
     stop(
-      fac_codes_folder,
-      " has to be a the fac_codes folder that contain csv fiels (or .sas files for testing)"
+      paste0(
+        "Check datasets under fac code file folder ",
+        fac_codes_folder,
+        ". All should have.csv format"
+      )
     )
   }
+
+  # fac_code datasets were saved by year due to big dataset size
+  fac_pr_list = list()
+  message("process facility year ", year)
+
+  # filter to only procedure code
+  for (i in seq_along(fac_codes_loc)) {
+    fac_clm_codes = fread(fac_codes_loc[i])
+
+    fac_clm_codes <-
+      fac_clm_codes[, pr_date := as_date(pr_date)] # date format
+
+    fac_pr_list[[i]] = fac_clm_codes[code_type == "PR", .(member_id, icd_version, value, pr_date)]
+  }
+
+  fac_pr = rbindlist(fac_pr_list)
+  rm(fac_pr_list)
+
+  # deprecated code, not using sas data anymore
+  # if (str_detect(fac_codes_folder, ".sas")) {
+  #   # for testing sas files
+  #   fac_clm_codes = haven::read_sas(paste0(std_data_root, fac_codes_folder))
+  #
+  #   setDT(fac_clm_codes)
+  #   fac_clm_codes <-
+  #     fac_clm_codes[, dt_pr := as_date(dt_pr, origin = "1960-01-01")] # date format
+  #
+  #   fac_pr = fac_clm_codes[code_type == "PR"] %>%
+  #     # old sas data has slightly different name
+  #     select(member_id,
+  #            icd_version = code,
+  #            value,
+  #            pr_date = dt_pr)
+  # }
+
 
   # reop map ---
   # icd9
