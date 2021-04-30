@@ -51,6 +51,25 @@ reoperation <- function(original_data,
     )
   }
 
+  # reop map ---
+  # icd9
+  icd9_reop <- reop_map %>%
+    filter(code_set == "pr9")
+
+  # get unique icd9 code list that defines reop
+  icd9_reop <- purrr::map2(icd9_reop$start, icd9_reop$end, seq) %>%
+    unlist() %>%
+    unique()
+
+  # unique icd10 code list that defines reop
+  icd10_reop <- reop_map %>%
+    filter(code_set == "pr10") %>%
+    pull(start) %>%
+    unique()
+
+  reop <- c(icd9_reop, icd10_reop)
+
+  # facility claim data --------
   # fac_code datasets were saved by year due to big dataset size
   fac_pr_list = list()
   message("process facility year ", year)
@@ -59,8 +78,8 @@ reoperation <- function(original_data,
   for (i in seq_along(fac_codes_loc)) {
     fac_clm_codes = fread(fac_codes_loc[i])
 
-    fac_clm_codes <-
-      fac_clm_codes[, pr_date := as_date(pr_date)] # date format
+    fac_clm_codes <- fac_clm_codes[value %in% reop] # filter to selected reoperations ICD
+    fac_clm_codes <- fac_clm_codes[,pr_date := as_date(pr_date)]        # date format
 
     fac_pr_list[[i]] = fac_clm_codes[code_type == "PR", .(member_id, icd_version, value, pr_date)]
   }
@@ -86,24 +105,6 @@ reoperation <- function(original_data,
   # }
 
 
-  # reop map ---
-  # icd9
-  icd9_reop <- reop_map %>%
-    filter(code_set == "pr9")
-
-  # get unique icd9 code list that defines reop
-  icd9_reop <- purrr::map2(icd9_reop$start, icd9_reop$end, seq) %>%
-    unlist() %>%
-    unique()
-
-  # unique icd10 code list that defines reop
-  icd10_reop <- reop_map %>%
-    filter(code_set == "pr10") %>%
-    pull(start) %>%
-    unique()
-
-  reop <- c(icd9_reop, icd10_reop)
-
   # join all fac admissions for every bene cross different time
   # left join
   reop_pre <- merge.data.table(original_data, # prof claim
@@ -116,9 +117,7 @@ reoperation <- function(original_data,
     mutate(flg_util_reop = ifelse(
       # with in 30 days after discharge from previous admission
       pr_date - as_date(dt_profsvc_end) <= 30 &
-        pr_date - as_date(dt_profsvc_end) > 0 &
-        # cpt is defined as reop
-        value %in% reop,
+        pr_date - as_date(dt_profsvc_end) > 0,
       1,
       0
     )) %>%
@@ -132,3 +131,33 @@ reoperation <- function(original_data,
     lazy_dt() %>%
     mutate(flg_util_reop = ifelse(id %in% reop_id, 1, 0)) %>% as.data.table()
 }
+
+
+#' Emergent MedPAR claim ids
+#' @description This is used to refine readmission; readmission should only be defined as
+#' emergent admission after the index procedure. This helps exclude any planned visit after
+#' the index surgery
+#'
+#' @param std_data_root data path to the standardized data folder
+#' @param fac_clm_folder facility claim file folder name
+#'
+#' @return
+#' @export
+#'
+#' @examples
+emergent_merpar_claim_ids_all_year <- function(std_data_root = wd$std_data_root,
+                                               fac_clm_folder = "fac_clm") {
+  fac_codes_loc = list.files(paste0(std_data_root, fac_clm_folder),full.names = T)
+
+  claim_id = purrr::map(fac_codes_loc,
+                        # 1. read selected vars
+                        # 2. filter only emergent admission; https://resdac.org/cms-data/variables/inpatient-admission-type-code
+                        ~fread(.x, select = c("claim_id", "admit_type_cd"))[admit_type_cd %in% c(1,2)]$claim_id
+
+  )
+
+  unique(unlist(claim_id))
+}
+
+
+
