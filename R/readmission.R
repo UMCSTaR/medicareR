@@ -31,7 +31,7 @@ readmission <- function(original_data,
   fac_clm_loc = file.path(std_data_root, fac_clm_folder, fac_clm_name)
 
   if(!all(file.exists(fac_clm_loc))){
-    stop("path doesn't exist at ", fac_codes_loc)
+    stop("path doesn't exist at ", fac_clm_loc)
   }
 
   # read data -----

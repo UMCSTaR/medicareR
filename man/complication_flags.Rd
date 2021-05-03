@@ -5,20 +5,23 @@
 \title{Complication Flags based on Procedure and Diagnosis ICD}
 \usage{
 complication_flags(
+  original_data = analytic_readmit,
   std_data_root = wd$std_data_root,
   fac_codes_folder = "fac_clm_code",
-  original_data = analytic_readmit,
+  year = 2007,
   cmp_pr,
   cmp_dx,
   all_n
 )
 }
 \arguments{
+\item{original_data}{data name for the data you want to add the info to}
+
 \item{std_data_root}{data path to the standardized data folder}
 
 \item{fac_codes_folder}{folder name for fac_code}
 
-\item{original_data}{data name for the data you want to add the info to}
+\item{year}{select one year to process, e.g. 2007}
 
 \item{cmp_pr}{procedure ICD code list used to define complication}
 
