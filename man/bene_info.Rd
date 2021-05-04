@@ -4,12 +4,12 @@
 \alias{bene_info}
 \title{Patient demographics}
 \usage{
-bene_info(std_data_root, original_data, year)
+bene_info(original_data, std_data_root, year)
 }
 \arguments{
-\item{std_data_root}{data path to the membership info folder}
-
 \item{original_data}{data name for the data you want to add the patient info on}
+
+\item{std_data_root}{data path to the membership info folder}
 
 \item{year}{select one year to process, e.g. 2007}
 }

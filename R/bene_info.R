@@ -9,8 +9,8 @@
 #'
 #' @export
 #'
-bene_info <- function(std_data_root,
-                      original_data,
+bene_info <- function(original_data,
+                      std_data_root,
                       year) {
   # create member csv file name
   member_data_name = paste0("membership/member", year, ".csv")
