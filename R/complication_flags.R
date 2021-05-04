@@ -22,27 +22,35 @@ complication_flags <- function(original_data = analytic_readmit,
                                std_data_root = wd$std_data_root,
                                fac_codes_folder = "fac_clm_code",
                                year = 2007,
+                               max_year = 2018,
                                cmp_pr,
                                cmp_dx,
                                all_n) {
   # read fac clm code data ------
-  # read csv files
   if (!str_detect(fac_codes_folder, ".sas")) {
-    fac_code_name = paste0("fac_clm_code_", year, ".csv")
+    # read fac clm code data ------
+    # note: the reason we need the current year and the following next year is to get 30days followup for cases
+    # happened in December. So we need to load next years data to get follow up
+    # however, for the latest year, we don't have next year's data, we will filter out cases happened in December.
+    if (year<max_year){
+      datset_names = paste0("fac_clm_code_", c(year,year+1), ".csv")  # 2 years
+    } else {
+      datset_names = paste0("fac_clm_code_", year, ".csv")  # 1 year, will exclude december cases
+    }
 
-    fac_codes_loc = paste0(std_data_root, fac_codes_folder, "/",
-                           fac_code_name)
+    fac_codes_loc = file.path(std_data_root, fac_codes_folder, datset_names)
 
+    # check
     if(!all(file.exists(fac_codes_loc))){
       stop("path doesn't exist at ", fac_codes_loc)
     }
 
+
     # read in all fac_code cross year and left join with analytic file
     # fac_code datasets were saved by year due to sample size too big
-    code_val_list = list()
     message("reading fac_clm_code dataset...")
 
-    fac_clm_codes = fread(fac_codes_loc, colClasses = "character")
+    fac_clm_codes = map_df(fac_codes_loc, ~fread(.x, colClasses = "character"))
 
     code_val <- original_data %>%
       lazy_dt() %>%
@@ -125,6 +133,10 @@ complication_flags <- function(original_data = analytic_readmit,
       )
     )
 
+  # be careful of unique id here. It's unique within each claim year
+  # if combine professional claims (original data) across years, id
+  # is not unique anymore. This may cause duplication problems when
+  # combine all professional claim years
   cmp_any_id = add_cmp_flg %>%
     filter(flg_cmp_po_any == 1) %>%
     pull(id) %>%
