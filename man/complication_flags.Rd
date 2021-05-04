@@ -9,6 +9,7 @@ complication_flags(
   std_data_root = wd$std_data_root,
   fac_codes_folder = "fac_clm_code",
   year = 2007,
+  max_year = 2018,
   cmp_pr,
   cmp_dx,
   all_n
