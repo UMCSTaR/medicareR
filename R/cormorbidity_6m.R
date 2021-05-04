@@ -36,11 +36,13 @@ comorbidity_6m <- function(original_data = analytic_30dcmp,
 
   x <- joined_cmb %>%
     select(contains(".x"), -dt_facclm_adm.x, -dt_facclm_dschg.x) %>%
-    rename_all(., ~str_remove(., "\\.x")) # . is wildcard, so use \\\\ to excape
+    rename_all(., ~str_remove(., "\\.x")) %>%  # . is wildcard, so use \\\\ to escape
+    mutate_all(as.numeric)
 
   y <- joined_cmb %>%
     select(contains(".y"), -dt_facclm_adm.y, -dt_facclm_dschg.y) %>%
-    rename_all(., ~str_remove(., "\\.y"))
+    rename_all(., ~str_remove(., "\\.y")) %>%
+    mutate_all(as.numeric)
 
   # if any x month cmb is positive, then assign value 1
   # add cmb from x mons prior with current, eg, if 6mon prior and current both q, x+y =2>1 so, positive,
