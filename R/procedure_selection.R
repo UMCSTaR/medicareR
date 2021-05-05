@@ -29,7 +29,7 @@ procedure_selection <- function(std_data_root = wd$std_data_root,
                                 test_sas_processed_data_loc = NA,
                                 n_worker = 2) {
 
-  # Set uclm_distinct_varsp and checks -------------------------------------------------------
+  # Set and checks -------------------------------------------------------
   # check cpt_map data has 3 variables
   if (any(!c("cpt_cd", "e_proc_grp", "e_proc_grp_lbl") %in%
           names(cpt_map))) {

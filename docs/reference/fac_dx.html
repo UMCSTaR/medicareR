@@ -148,32 +148,35 @@
     </div>
 
     <pre class="usage"><span class='fu'>fac_dx</span><span class='op'>(</span>
+  original_data <span class='op'>=</span> <span class='va'>analytic_demo</span>,
   std_data_root <span class='op'>=</span> <span class='va'>wd</span><span class='op'>$</span><span class='va'>std_data_root</span>,
+  year <span class='op'>=</span> <span class='fl'>2007</span>,
   fac_codes_folder <span class='op'>=</span> <span class='st'>"fac_clm_code"</span>,
-  fac_clm_name <span class='op'>=</span> <span class='st'>"fac_clm.csv"</span>,
-  original_data <span class='op'>=</span> <span class='va'>analytic_demo</span>
+  fac_clm_folder <span class='op'>=</span> <span class='st'>"fac_clm"</span>
 <span class='op'>)</span></pre>
 
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
     <colgroup><col class="name" /><col class="desc" /></colgroup>
     <tr>
+      <th>original_data</th>
+      <td><p>data name for the data you want to add the info to</p></td>
+    </tr>
+    <tr>
       <th>std_data_root</th>
       <td><p>data path to the standardized data folder</p></td>
     </tr>
     <tr>
+      <th>year</th>
+      <td><p>select one year to process, e.g. 2007</p></td>
+    </tr>
+    <tr>
       <th>fac_codes_folder</th>
-      <td><p>folder name for fac_code;
-if in test for one combined sas data, put datset name
-as ".sas7bdat" (don't use it unless you want to test)</p></td>
+      <td><p>folder name for fac_code</p></td>
     </tr>
     <tr>
-      <th>fac_clm_name</th>
-      <td><p>data name for fac_clm data (.csv format is a must)</p></td>
-    </tr>
-    <tr>
-      <th>original_data</th>
-      <td><p>data name for the data you want to add the info to</p></td>
+      <th>fac_clm_folder</th>
+      <td><p>folder name for fac_clm data (.csv format is a must)</p></td>
     </tr>
     </table>
 

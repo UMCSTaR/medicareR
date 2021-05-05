@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>30 days Re-operation Flags — reoperation • medicareR</title>
+<title>Read analytic file — read_file • medicareR</title>
 
 <!-- favicons -->
 <link rel="icon" type="image/png" sizes="16x16" href="../favicon-16x16.png">
@@ -46,8 +46,8 @@
 
 
 
-<meta property="og:title" content="30 days Re-operation Flags — reoperation" />
-<meta property="og:description" content="use procedure code ICD code to define reop" />
+<meta property="og:title" content="Read analytic file — read_file" />
+<meta property="og:description" content="Read analytic file" />
 <meta property="og:image" content="/logo.png" />
 
 
@@ -138,55 +138,28 @@
 <div class="row">
   <div class="col-md-9 contents">
     <div class="page-header">
-    <h1>30 days Re-operation Flags</h1>
+    <h1>Read analytic file</h1>
     
-    <div class="hidden name"><code>reoperation.Rd</code></div>
+    <div class="hidden name"><code>read_file.Rd</code></div>
     </div>
 
     <div class="ref-description">
-    <p>use procedure code ICD code to define reop</p>
+    <p>Read analytic file</p>
     </div>
 
-    <pre class="usage"><span class='fu'>reoperation</span><span class='op'>(</span>
-  <span class='va'>original_data</span>,
-  <span class='va'>reop_map</span>,
-  std_data_root <span class='op'>=</span> <span class='va'>wd</span><span class='op'>$</span><span class='va'>std_data_root</span>,
+    <pre class="usage"><span class='fu'>read_file</span><span class='op'>(</span>
+  std_analytic_root <span class='op'>=</span> <span class='va'>wd</span><span class='op'>$</span><span class='va'>std_analytic_root</span>,
+  folder_name <span class='op'>=</span> <span class='cn'>NULL</span>,
   <span class='va'>year</span>,
-  fac_codes_folder <span class='op'>=</span> <span class='st'>"fac_clm_code"</span>,
-  <span class='va'>emergent_admission_medpar_claim_ids</span>,
-  max_year <span class='op'>=</span> <span class='fl'>2018</span>
+  <span class='va'>...</span>
 <span class='op'>)</span></pre>
 
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
     <colgroup><col class="name" /><col class="desc" /></colgroup>
     <tr>
-      <th>original_data</th>
-      <td><p>data to add on</p></td>
-    </tr>
-    <tr>
-      <th>reop_map</th>
-      <td><p>predefined re-operation and ICD map</p></td>
-    </tr>
-    <tr>
-      <th>std_data_root</th>
-      <td><p>data path to the standardized data folder</p></td>
-    </tr>
-    <tr>
-      <th>year</th>
-      <td><p>select one year to process, e.g. 2007</p></td>
-    </tr>
-    <tr>
-      <th>fac_codes_folder</th>
-      <td><p>names of the fac_clm_code data folder; or .sas files for only testing</p></td>
-    </tr>
-    <tr>
-      <th>emergent_admission_medpar_claim_ids</th>
-      <td><p>a list of all emergent MedPAR admission claim IDs</p></td>
-    </tr>
-    <tr>
-      <th>max_year</th>
-      <td><p>the most recent medicare year we have; for example, in 2020, we have Medpar processed up to 2018</p></td>
+      <th>...</th>
+      <td><p>from fread</p></td>
     </tr>
     </table>
 
@@ -194,15 +167,6 @@
 
     
 
-
-    <h2 class="hasAnchor" id="details"><a class="anchor" href="#details"></a>Details</h2>
-
-    
-<ol>
-<li><p>Looking through the procedure codes across multiple admissions;</p></li>
-<li><p>Create the ICD9/10 procedure codes to re-operation mapping using pre-defined operation types;</p></li>
-<li><p>Get the re-operation flags if defined re operation happened within &lt;=30 days</p></li>
-</ol>
 
 
   </div>

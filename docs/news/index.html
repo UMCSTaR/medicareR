@@ -149,9 +149,29 @@
 <a href="#add-more-procedures" class="anchor"></a>add more procedures</h2>
 <ul>
 <li>fixed all warnings from tidyverse by changing data processing to <code>dtplyr</code> back end.</li>
-<li>improve speed and memory usage for standardization step for prof claims (read claim data once for two dataset process)</li>
+<li>improved speed and memory usage for standardization step for prof claims (read claim data once for two dataset process)</li>
 <li>changed some loops to <code>furrr</code> map; multi-session processing</li>
 <li>moved out build-in constant variable selections to user input map flags (std fac_clm.r, prof_clm.r)</li>
+</ul>
+</div>
+<div id="update-2021" class="section level2">
+<h2 class="hasAnchor">
+<a href="#update-2021" class="anchor"></a>Update 2021</h2>
+<p><strong>1. Standardization</strong></p>
+<ul>
+<li>rerun sample sections from full data, because some years have no bene data. Code was not change, the data needed updates.</li>
+<li>Edited import mapping to include a new fac_clm variable <a href="https://resdac.org/cms-data/variables/medpar-short-staylong-staysnf-indicator-code">SS_LS_SNF_IND_CD</a>
+</li>
+<li>Created inpatient only MedPar facility claims. Saved inpatient Medpar claims under <code>fac_clm_hosp</code> folder. These were used for readmission and re-operation redefinition</li>
+<li>Changed standardization steps membership, professional, facility claim and professional claims to be processed and saved by year.</li>
+<li>added a profiling document for performance comparision before and after code changes</li>
+</ul>
+<p><strong>2. Analytic file functions</strong></p>
+<ul>
+<li>
+<em>procedure_selection</em>: process and save by year</li>
+<li>
+<em>bene_info</em>: process and save by year;</li>
 </ul>
 </div>
 </div>

@@ -148,9 +148,11 @@
     </div>
 
     <pre class="usage"><span class='fu'>complication_flags</span><span class='op'>(</span>
+  original_data <span class='op'>=</span> <span class='va'>analytic_readmit</span>,
   std_data_root <span class='op'>=</span> <span class='va'>wd</span><span class='op'>$</span><span class='va'>std_data_root</span>,
   fac_codes_folder <span class='op'>=</span> <span class='st'>"fac_clm_code"</span>,
-  original_data <span class='op'>=</span> <span class='va'>analytic_readmit</span>,
+  year <span class='op'>=</span> <span class='fl'>2007</span>,
+  max_year <span class='op'>=</span> <span class='fl'>2018</span>,
   <span class='va'>cmp_pr</span>,
   <span class='va'>cmp_dx</span>,
   <span class='va'>all_n</span>
@@ -160,18 +162,20 @@
     <table class="ref-arguments">
     <colgroup><col class="name" /><col class="desc" /></colgroup>
     <tr>
+      <th>original_data</th>
+      <td><p>data name for the data you want to add the info to</p></td>
+    </tr>
+    <tr>
       <th>std_data_root</th>
       <td><p>data path to the standardized data folder</p></td>
     </tr>
     <tr>
       <th>fac_codes_folder</th>
-      <td><p>folder name for fac_code;
-if in test for one combined sas data, put datset name
-as ".sas7bdat" (don't use it unless you want to test)</p></td>
+      <td><p>folder name for fac_code</p></td>
     </tr>
     <tr>
-      <th>original_data</th>
-      <td><p>data name for the data you want to add the info to</p></td>
+      <th>year</th>
+      <td><p>select one year to process, e.g. 2007</p></td>
     </tr>
     <tr>
       <th>cmp_pr</th>
