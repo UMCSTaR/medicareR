@@ -17,9 +17,9 @@ ses_info <- function(original_dataset = analytic_elix,
       # middle house hold income
       val_mhhi = suppressWarnings(as.numeric(MHHI__HC02_EST_VC02_)), # MHHI__HC02_EST_VC02_ has character value, but we only need number here,
       # so the warning is suppressed.
-      e_ses_quintile = ntile(val_mhhi, 5)
-    ) %>%
-    mutate(zip_cd = as.character(zip_cd))
+      e_ses_quintile = ntile(val_mhhi, 5),
+      zip_cd = as.character(zip_cd)
+    )
 
   # left join
   analytic_ses = merge.data.table(original_dataset, ses, by = "zip_cd", all.x = TRUE)

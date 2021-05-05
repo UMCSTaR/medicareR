@@ -62,7 +62,7 @@ fac_dx <- function(original_data = analytic_demo,
       year = (year + 1)
     )
 
-    facclm_dx = rbind(facclm_dx, facclm_dx_next)
+    facclm_dx = rbind(facclm_dx, facclm_dx_next, fill=TRUE)
     rm(facclm_dx_next)
   }
 
