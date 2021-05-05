@@ -1,11 +1,12 @@
 #' Diagnosis Code from Facility Claim
 #' @description add facility code info to the analytic dataset
 #'
+#' @param original_data    data name for the data you want to add the info to
 #' @param std_data_root    data path to the standardized data folder
 #' @param year  select one year to process, e.g. 2007
+#' @param max_year the most recent medicare year we have; for example, in 2020, we have Medpar processed up to 2018
 #' @param fac_codes_folder folder name for fac_code
 #' @param fac_clm_folder     folder name for fac_clm data (.csv format is a must)
-#' @param original_data    data name for the data you want to add the info to
 #'
 #' @return
 #' @export
@@ -21,21 +22,49 @@
 fac_dx <- function(original_data = analytic_demo,
                    std_data_root = wd$std_data_root,
                    year = 2007,
+                   max_year = 2018,
                    fac_codes_folder = "fac_clm_code",
                    fac_clm_folder = "fac_clm")
 {
-  # read fac clm and fac clm code data ------
+  # read fac clm data ------
+  # create file name
   message("reading fac_clm dataset year ", year)
-  # fac_clm dataset name
-  fac_clm_name = paste0(fac_clm_folder, "/fac_clm_", year, ".csv")
+  if (year<max_year){
+    fac_clm_name = paste0("fac_clm_", c(year,year+1), ".csv")  # 2 years
+  } else {
+    fac_clm_name = paste0("fac_clm_", year, ".csv")  # 1 year, will exclude December cases
+  }
 
-  fac_clm <- fread(paste0(std_data_root, fac_clm_name))
+  fac_clm_loc = file.path(std_data_root, fac_clm_folder, fac_clm_name)
 
-  # read fac clm code data ------
+  if(!all(file.exists(fac_clm_loc))){
+    stop("path doesn't exist at ", fac_clm_loc)
+  }
+
+  # read data
+  if(length(fac_clm_name)==1){
+    fac_clm <- fread(fac_clm_loc, colClasses = 'character')  # max year has no follow up
+  } else if(length(fac_clm_name)==2){
+    # to get 30 days follow up
+    fac_clm = map_df(fac_clm_loc, ~fread(.x, colClasses = 'character'))
+  }
+
+  # read fac_clm_code data ------
   facclm_dx = medicareR:::load_fac_code_data(std_data_root = std_data_root,
                                              fac_codes_folder = fac_codes_folder,
                                              year = year)
 
+  # if year is not max year, add next year to get patient 30 days death info
+  if(year<max_year){
+    facclm_dx_next = medicareR:::load_fac_code_data(
+      std_data_root = std_data_root,
+      fac_codes_folder = fac_codes_folder,
+      year = (year + 1)
+    )
+
+    facclm_dx = rbind(facclm_dx, facclm_dx_next)
+    rm(facclm_dx_next)
+  }
 
 
   # Add DRG and DX from MEDPAR to the analytic file:
