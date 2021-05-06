@@ -6,7 +6,7 @@
 
 #'
 #' @param std_data_root data path to the standardized data folder
-#' @param fac_codes_folder names of the fac_clm_code data folder; or .sas files for only testing
+#' @param fac_codes_folder names of the fac_clm_code data folder for inpatient medpar claims; or .sas files for only testing
 #' @param reop_map predefined re-operation and ICD map
 #' @param original_data data to add on
 #' @param year select one year to process, e.g. 2007

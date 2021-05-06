@@ -23,7 +23,7 @@ reoperation(
 
 \item{year}{select one year to process, e.g. 2007}
 
-\item{fac_codes_folder}{names of the fac_clm_code data folder; or .sas files for only testing}
+\item{fac_codes_folder}{names of the fac_clm_code data folder for inpatient medpar claims; or .sas files for only testing}
 
 \item{emergent_admission_medpar_claim_ids}{a list of all emergent MedPAR admission claim IDs}
 

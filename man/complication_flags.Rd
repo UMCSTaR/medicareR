@@ -24,6 +24,8 @@ complication_flags(
 
 \item{year}{select one year to process, e.g. 2007}
 
+\item{max_year}{the most recent medicare year we have; for example, in 2020, we have Medpar processed up to 2018}
+
 \item{cmp_pr}{procedure ICD code list used to define complication}
 
 \item{cmp_dx}{diagnosis ICD code list used to define complication}

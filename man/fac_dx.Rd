@@ -8,6 +8,7 @@ fac_dx(
   original_data = analytic_demo,
   std_data_root = wd$std_data_root,
   year = 2007,
+  max_year = 2018,
   fac_codes_folder = "fac_clm_code",
   fac_clm_folder = "fac_clm"
 )
@@ -18,6 +19,8 @@ fac_dx(
 \item{std_data_root}{data path to the standardized data folder}
 
 \item{year}{select one year to process, e.g. 2007}
+
+\item{max_year}{the most recent medicare year we have; for example, in 2020, we have Medpar processed up to 2018}
 
 \item{fac_codes_folder}{folder name for fac_code}
 

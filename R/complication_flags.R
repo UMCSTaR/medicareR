@@ -28,7 +28,6 @@ complication_flags <- function(original_data = analytic_readmit,
                                all_n) {
   # read fac clm code data ------
   if (!str_detect(fac_codes_folder, ".sas")) {
-    # read fac clm code data ------
     # note: the reason we need the current year and the following next year is to get 30days followup for cases
     # happened in December. So we need to load next years data to get follow up
     # however, for the latest year, we don't have next year's data, we will filter out cases happened in December.
@@ -136,7 +135,8 @@ complication_flags <- function(original_data = analytic_readmit,
   # be careful of unique id here. It's unique within each claim year
   # if combine professional claims (original data) across years, id
   # is not unique anymore. This may cause duplication problems when
-  # combine all professional claim years
+  # combine all professional claim years to process. I encountered this problem when
+  # I used combined all original data across years.
   cmp_any_id = add_cmp_flg %>%
     filter(flg_cmp_po_any == 1) %>%
     pull(id) %>%
