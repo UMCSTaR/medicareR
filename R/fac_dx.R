@@ -1,12 +1,12 @@
 #' Diagnosis Code from Facility Claim
 #' @description add facility code info to the analytic dataset
 #'
-#' @param std_data_root    data path to the standardized data folder
-#' @param fac_codes_folder folder name for fac_code;
-#'                         if in test for one combined sas data, put datset name
-#'                         as ".sas7bdat" (don't use it unless you want to test)
-#' @param fac_clm_name     data name for fac_clm data (.csv format is a must)
 #' @param original_data    data name for the data you want to add the info to
+#' @param std_data_root    data path to the standardized data folder
+#' @param year  select one year to process, e.g. 2007
+#' @param max_year the most recent medicare year we have; for example, in 2020, we have Medpar processed up to 2018
+#' @param fac_codes_folder folder name for fac_code
+#' @param fac_clm_folder     folder name for fac_clm data (.csv format is a must)
 #'
 #' @return
 #' @export
@@ -19,43 +19,61 @@
 #'   5. facility claim code are saved by year within fac_clm_code folder (due to data size)
 #'
 
-fac_dx <- function(std_data_root = wd$std_data_root,
+fac_dx <- function(original_data = analytic_demo,
+                   std_data_root = wd$std_data_root,
+                   year = 2007,
+                   max_year = 2018,
                    fac_codes_folder = "fac_clm_code",
-                   fac_clm_name = "fac_clm.csv",
-                   original_data = analytic_demo) {
-
-
-  if (str_detect(fac_clm_name, ".csv")) {
-    # read fac clm and fac clm code data ------
-    message("reading fac_clm dataset...")
-    fac_clm <- fread(paste0(std_data_root, fac_clm_name))
-
-    # read fac clm code data ------
-    facclm_dx = medicareR:::load_fac_code_data(std_data_root = std_data_root,
-                                               fac_codes_folder = fac_codes_folder)
-
-  } else if (str_detect(fac_clm_name, ".sas")) {
-    # read fac clm and fac clm code data ------
-    message("reading fac_clm dataset...")
-    fac_clm <- haven::read_sas(paste0(std_data_root, fac_clm_name))
-
-    # read fac clm code data ------
-    message("reading fac_clm_code dataset...")
-    fac_clm_codes <- haven::read_sas(paste0(std_data_root, fac_codes_folder))
-
-    setDT(fac_clm_codes)
-    facclm_dx <-
-      fac_clm_codes[code_type == "DX"][, var_name := paste0(code_type, seq)] %>% #diagnosis code
-      dcast(member_id + claim_id ~ var_name, value.var = c("value"))
-
+                   fac_clm_folder = "fac_clm")
+{
+  # read fac clm data ------
+  # create file name
+  message("reading fac_clm dataset year ", year)
+  if (year<max_year){
+    fac_clm_name = paste0("fac_clm_", c(year,year+1), ".csv")  # 2 years
   } else {
-    stop(fac_clm_name, " has to be .csv or .sas7bdat files")
+    fac_clm_name = paste0("fac_clm_", year, ".csv")  # 1 year, will exclude December cases
   }
 
+  fac_clm_loc = file.path(std_data_root, fac_clm_folder, fac_clm_name)
+
+  if(!all(file.exists(fac_clm_loc))){
+    stop("path doesn't exist at ", fac_clm_loc)
+  }
+
+  # read data
+  if(length(fac_clm_name)==1){
+    fac_clm <- fread(fac_clm_loc, colClasses = 'character')  # max year has no follow up
+  } else if(length(fac_clm_name)==2){
+    # to get 30 days follow up
+    fac_clm = map_df(fac_clm_loc, ~fread(.x, colClasses = 'character'))
+  }
+
+  # read fac_clm_code data ------
+  facclm_dx = medicareR:::load_fac_code_data(std_data_root = std_data_root,
+                                             fac_codes_folder = fac_codes_folder,
+                                             year = year)
+
+  # if year is not max year, add next year to get patient 30 days death info
+  if(year<max_year){
+    facclm_dx_next = medicareR:::load_fac_code_data(
+      std_data_root = std_data_root,
+      fac_codes_folder = fac_codes_folder,
+      year = (year + 1)
+    )
+
+    facclm_dx = rbind(facclm_dx, facclm_dx_next, fill=TRUE)
+    rm(facclm_dx_next)
+  }
 
 
   # Add DRG and DX from MEDPAR to the analytic file:
   # preparing the data for calculating Elixhauser comorbidity flags
+
+  # change date format
+  original_data[, `:=`(dt_profsvc_start  = ymd(dt_profsvc_start),
+                       dt_profsvc_end  = ymd(dt_profsvc_end))]
+
 
   analytic_fac <- original_data %>%
     lazy_dt(immutable = T) %>%
@@ -86,7 +104,7 @@ fac_dx <- function(std_data_root = wd$std_data_root,
 
       # facility ID
       facility_npi,
-      facility_prvnumgrp,
+      facility_prvnumgrp = as.numeric(facility_prvnumgrp),
 
       # /* Facility claim year */
       facility_clm_yr = ifelse(is.na(claim_yr), year(dt_profsvc_end), claim_yr),

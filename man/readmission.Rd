@@ -4,15 +4,27 @@
 \alias{readmission}
 \title{Readmission Flags}
 \usage{
-readmission(std_data_root, fac_clm_name, original_data)
+readmission(
+  original_data,
+  std_data_root = wd$std_data_root,
+  fac_clm_folder = "fac_clm",
+  emergent_admission_medpar_claim_ids,
+  year = 2007,
+  max_year = 2018
+)
 }
 \arguments{
+\item{original_data}{data to add on}
+
 \item{std_data_root}{data path to the standardized data folder}
 
-\item{fac_clm_name}{facility claim dataset name, ".csv"; you can use ".sas7bdat" data too.
-But it is much slower due to read_sas is slow for big data.}
+\item{fac_clm_folder}{facility claim folder name}
 
-\item{original_data}{data to add on}
+\item{emergent_admission_medpar_claim_ids}{a list of all emergent MedPAR admission claim IDs}
+
+\item{year}{select one year to process, e.g. 2007}
+
+\item{max_year}{the most recent medicare year we have; for example, in 2020, we have Medpar processed up to 2018}
 }
 \value{
 
@@ -25,5 +37,6 @@ using facility claim data, left join by member id
 \item Find the 30-day readmission,  maybe multiple readmission
 \item Roll up to a single row per member_id & prof_calim_id
 \item Merge the 30-day readmission flag back to the main analytic file
+\item readmission to emergent inpatient admission
 }
 }

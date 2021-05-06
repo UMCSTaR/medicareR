@@ -4,30 +4,36 @@
 #'   2. Limit the patient population to age 65-99
 #'
 #' @param std_data_root data path to the membership info folder
-#' @param member_data_name data name for the membership dataset
-#' @param original_data data name for the data you want to add the patient info to
+#' @param original_data data name for the data you want to add the patient info on
+#' @param year  select one year to process, e.g. 2007
 #'
 #' @export
 #'
-bene_info <- function(std_data_root,
-                      member_data_name,
-                      original_data) {
+bene_info <- function(original_data,
+                      std_data_root,
+                      year) {
+  # create member csv file name
+  member_data_name = paste0("membership/member", year, ".csv")
+
   # validate input
   if (str_detect(member_data_name, ".csv")) {
-    membership <- fread((paste0(std_data_root, member_data_name)))
+    file_path = paste0(std_data_root, member_data_name)
+
+    # check if file exist
+    if(!all(file.exists(file_path))) stop(file_path, " doesn't exist")
+
+    membership <- fread(file_path)
   } else if (str_detect(member_data_name, ".sas")) {
     membership <-
       haven::read_sas((paste0(std_data_root, member_data_name))) %>%
       # date format to match with fread inputs (otherwise the code to process membership has date format error)
       mutate_at(vars(contains("dt")), ~ as_date(., origin = "1960-01-01")) %>%
       mutate_at(vars(contains("dt")), ~ format(., "%d/%m/%Y"))
-  } else {
-    stop(member_data_name, " has to be .csv or .sas files")
   }
 
   # setup lazy eval for dtplyr
-  lazy_membership <- lazy_dt(membership, immutable = F)
-  original_data <- lazy_dt(original_data, immutable = F)
+  lazy_membership <- lazy_dt(membership)
+  lazy_original_data <- lazy_dt(original_data)
 
   membership_process <- lazy_membership %>%
     mutate(
@@ -46,9 +52,9 @@ bene_info <- function(std_data_root,
     mutate_at(vars(c("dob_dt", "dod_dt")), as_date)
 
   # add bene info to professional claim by member_id and member_yr
-  original_data %>%
+  lazy_original_data %>%
     mutate_at(vars(starts_with("dt")), dmy) %>%
-    mutate(member_yr = year(dt_profsvc_end)) %>%
+    mutate(member_yr = year) %>%
     left_join(membership_process, by = c("member_id", "member_yr")) %>%
     filter((dt_profsvc_end - dob_dt) / 365 <= 99,
            (dt_profsvc_end - dob_dt) / 365 >= 65) %>% # remove bene >99 and <65 yrs old

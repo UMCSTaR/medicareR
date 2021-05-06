@@ -4,14 +4,14 @@
 \alias{ses_info}
 \title{social economic status based on zip code}
 \usage{
-ses_info(ses = ses, ses_zscore = NULL, original_dataset = analytic_elix)
+ses_info(original_dataset = analytic_elix, ses = ses, ses_zscore = NULL)
 }
 \arguments{
+\item{original_dataset}{data to add on}
+
 \item{ses}{input ses dataset name}
 
 \item{ses_zscore}{input ses dataset name; leave as NULL if you don't want to add Zscore}
-
-\item{original_dataset}{data to add on}
 }
 \description{
 social economic status based on zip code

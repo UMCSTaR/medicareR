@@ -54,6 +54,8 @@ multi_surgeon_proc_assit_flags <- function(original_data) {
     mutate(
       flg_multi_surgeon = ifelse(n_doc > 1, 1, 0),
       flg_multi_cpt = ifelse(n_proc > 1, 1, 0),
-      flg_assistant_surgeon = ifelse(str_detect(cpt_mod, "80|82"), 1, 0)  # assistant physician
+      flg_assistant_surgeon = ifelse(str_detect(cpt_mod, "80|82"), 1, 0),
+      flg_two_surgeon = ifelse(str_detect(cpt_mod, "62"), 1, 0),
+      flg_surgical_team = ifelse(str_detect(cpt_mod, "66"), 1, 0)
     ) %>% as.data.table()
 }

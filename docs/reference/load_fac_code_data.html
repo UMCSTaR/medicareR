@@ -106,10 +106,16 @@
       <a href="../articles/add-procedures.html">Add more procedures to analytic files</a>
     </li>
     <li>
+      <a href="../articles/add_more_variables.html">Add More Variables</a>
+    </li>
+    <li>
       <a href="../articles/faq_var_def.html">FAQ - Variable Definitions</a>
     </li>
     <li>
       <a href="../articles/medicare_data_structure.html">Medicare Data Folder Structure</a>
+    </li>
+    <li>
+      <a href="../articles/profiling-results.html">Profiling Results</a>
     </li>
   </ul>
 </li>
@@ -141,7 +147,7 @@
     <p>load standardized fac clm dx code across years</p>
     </div>
 
-    <pre class="usage"><span class='fu'>load_fac_code_data</span><span class='op'>(</span><span class='va'>std_data_root</span>, <span class='va'>fac_codes_folder</span><span class='op'>)</span></pre>
+    <pre class="usage"><span class='fu'>load_fac_code_data</span><span class='op'>(</span><span class='va'>std_data_root</span>, <span class='va'>fac_codes_folder</span>, <span class='va'>year</span><span class='op'>)</span></pre>
 
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
@@ -152,9 +158,11 @@
     </tr>
     <tr>
       <th>fac_codes_folder</th>
-      <td><p>folder name for fac_code;
-if in test for one combined sas data, put datset name
-as ".sas7bdat" (don't use it unless you want to test)</p></td>
+      <td><p>folder name for fac_code</p></td>
+    </tr>
+    <tr>
+      <th>year</th>
+      <td><p>select one year to process, e.g. 2007</p></td>
     </tr>
     </table>
 

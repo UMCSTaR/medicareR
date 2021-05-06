@@ -5,22 +5,26 @@
 \title{Diagnosis Code from Facility Claim}
 \usage{
 fac_dx(
+  original_data = analytic_demo,
   std_data_root = wd$std_data_root,
+  year = 2007,
+  max_year = 2018,
   fac_codes_folder = "fac_clm_code",
-  fac_clm_name = "fac_clm.csv",
-  original_data = analytic_demo
+  fac_clm_folder = "fac_clm"
 )
 }
 \arguments{
+\item{original_data}{data name for the data you want to add the info to}
+
 \item{std_data_root}{data path to the standardized data folder}
 
-\item{fac_codes_folder}{folder name for fac_code;
-if in test for one combined sas data, put datset name
-as ".sas7bdat" (don't use it unless you want to test)}
+\item{year}{select one year to process, e.g. 2007}
 
-\item{fac_clm_name}{data name for fac_clm data (.csv format is a must)}
+\item{max_year}{the most recent medicare year we have; for example, in 2020, we have Medpar processed up to 2018}
 
-\item{original_data}{data name for the data you want to add the info to}
+\item{fac_codes_folder}{folder name for fac_code}
+
+\item{fac_clm_folder}{folder name for fac_clm data (.csv format is a must)}
 }
 \value{
 

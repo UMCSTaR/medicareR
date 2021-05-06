@@ -106,10 +106,16 @@
       <a href="../articles/add-procedures.html">Add more procedures to analytic files</a>
     </li>
     <li>
+      <a href="../articles/add_more_variables.html">Add More Variables</a>
+    </li>
+    <li>
       <a href="../articles/faq_var_def.html">FAQ - Variable Definitions</a>
     </li>
     <li>
       <a href="../articles/medicare_data_structure.html">Medicare Data Folder Structure</a>
+    </li>
+    <li>
+      <a href="../articles/profiling-results.html">Profiling Results</a>
     </li>
   </ul>
 </li>
@@ -141,23 +147,41 @@
     <p>using facility claim data, left join by member id</p>
     </div>
 
-    <pre class="usage"><span class='fu'>readmission</span><span class='op'>(</span><span class='va'>std_data_root</span>, <span class='va'>fac_clm_name</span>, <span class='va'>original_data</span><span class='op'>)</span></pre>
+    <pre class="usage"><span class='fu'>readmission</span><span class='op'>(</span>
+  <span class='va'>original_data</span>,
+  std_data_root <span class='op'>=</span> <span class='va'>wd</span><span class='op'>$</span><span class='va'>std_data_root</span>,
+  fac_clm_folder <span class='op'>=</span> <span class='st'>"fac_clm"</span>,
+  <span class='va'>emergent_admission_medpar_claim_ids</span>,
+  year <span class='op'>=</span> <span class='fl'>2007</span>,
+  max_year <span class='op'>=</span> <span class='fl'>2018</span>
+<span class='op'>)</span></pre>
 
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
     <colgroup><col class="name" /><col class="desc" /></colgroup>
     <tr>
+      <th>original_data</th>
+      <td><p>data to add on</p></td>
+    </tr>
+    <tr>
       <th>std_data_root</th>
       <td><p>data path to the standardized data folder</p></td>
     </tr>
     <tr>
-      <th>fac_clm_name</th>
-      <td><p>facility claim dataset name, ".csv"; you can use ".sas7bdat" data too.
-But it is much slower due to read_sas is slow for big data.</p></td>
+      <th>fac_clm_folder</th>
+      <td><p>facility claim folder name</p></td>
     </tr>
     <tr>
-      <th>original_data</th>
-      <td><p>data to add on</p></td>
+      <th>emergent_admission_medpar_claim_ids</th>
+      <td><p>a list of all emergent MedPAR admission claim IDs</p></td>
+    </tr>
+    <tr>
+      <th>year</th>
+      <td><p>select one year to process, e.g. 2007</p></td>
+    </tr>
+    <tr>
+      <th>max_year</th>
+      <td><p>the most recent medicare year we have; for example, in 2020, we have Medpar processed up to 2018</p></td>
     </tr>
     </table>
 
@@ -173,6 +197,7 @@ But it is much slower due to read_sas is slow for big data.</p></td>
 <li><p>Find the 30-day readmission,  maybe multiple readmission</p></li>
 <li><p>Roll up to a single row per member_id &amp; prof_calim_id</p></li>
 <li><p>Merge the 30-day readmission flag back to the main analytic file</p></li>
+<li><p>readmission to emergent inpatient admission</p></li>
 </ol>
 
 

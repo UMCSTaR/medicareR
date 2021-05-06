@@ -18,44 +18,51 @@
 #' @examples
 
 
-complication_flags <- function(std_data_root = wd$std_data_root,
+complication_flags <- function(original_data = analytic_readmit,
+                               std_data_root = wd$std_data_root,
                                fac_codes_folder = "fac_clm_code",
-                               original_data = analytic_readmit,
+                               year = 2007,
+                               max_year = 2018,
                                cmp_pr,
                                cmp_dx,
                                all_n) {
   # read fac clm code data ------
-  # read csv files
   if (!str_detect(fac_codes_folder, ".sas")) {
-    fac_codes_loc = paste0(std_data_root, fac_codes_folder, "/",
-                           list.files(paste0(std_data_root, fac_codes_folder)))
+    # note: the reason we need the current year and the following next year is to get 30days followup for cases
+    # happened in December. So we need to load next years data to get follow up
+    # however, for the latest year, we don't have next year's data, we will filter out cases happened in December.
+    if (year<max_year){
+      datset_names = paste0("fac_clm_code_", c(year,year+1), ".csv")  # 2 years
+    } else {
+      datset_names = paste0("fac_clm_code_", year, ".csv")  # 1 year, will exclude december cases
+    }
+
+    fac_codes_loc = file.path(std_data_root, fac_codes_folder, datset_names)
+
+    # check
+    if(!all(file.exists(fac_codes_loc))){
+      stop("path doesn't exist at ", fac_codes_loc)
+    }
+
 
     # read in all fac_code cross year and left join with analytic file
     # fac_code datasets were saved by year due to sample size too big
-    code_val_list = list()
     message("reading fac_clm_code dataset...")
 
-    for (i in seq_along(fac_codes_loc)) {
-      fac_clm_codes = fread(fac_codes_loc[i])
+    fac_clm_codes = map_df(fac_codes_loc, ~fread(.x, colClasses = "character"))
 
-      code_val <- original_data %>%
-        lazy_dt() %>%
-        left_join(fac_clm_codes,
-                  by = c("member_id", "fac_claim_id" = "claim_id")) %>%
-        select(id,
-               code_type,
-               value,
-               pr_date,
-               dt_profsvc_end,
-               flg_poa,
-               dt_facclm_dschg) %>%
+    code_val <- original_data %>%
+      lazy_dt() %>%
+      left_join(fac_clm_codes,
+                by = c("member_id", "fac_claim_id" = "claim_id")) %>%
+      select(id,
+             code_type,
+             value,
+             pr_date,
+             dt_profsvc_end,
+             flg_poa,
+             dt_facclm_dschg) %>%
       as.data.table()
-
-      code_val_list[[i]] = code_val
-    }
-
-    # combine as one dataset
-    code_val = rbindlist(code_val_list, fill = T)
 
   } else if (str_detect(fac_codes_folder, ".sas")) {
     # read sas file
@@ -88,7 +95,7 @@ complication_flags <- function(std_data_root = wd$std_data_root,
       mutate(!!value_n[i] := str_sub(value, 1, all_n[i]))
   }
 
-  message("adding complication flag...")
+  message("adding complication flag year ", year)
   # any complication-------
   add_cmp_flg <- code_val %>%
     as_tibble() %>%
@@ -125,6 +132,11 @@ complication_flags <- function(std_data_root = wd$std_data_root,
       )
     )
 
+  # be careful of unique id here. It's unique within each claim year
+  # if combine professional claims (original data) across years, id
+  # is not unique anymore. This may cause duplication problems when
+  # combine all professional claim years to process. I encountered this problem when
+  # I used combined all original data across years.
   cmp_any_id = add_cmp_flg %>%
     filter(flg_cmp_po_any == 1) %>%
     pull(id) %>%
@@ -150,7 +162,8 @@ complication_flags <- function(std_data_root = wd$std_data_root,
     lazy_dt() %>%
     mutate(
       flg_cmp_po_any = ifelse(id %in% cmp_any_id, 1, 0),
-      flg_cmp_po_any_not_poa = ifelse(id %in% id_not_poa, 1, 0)
+      # keep poa as character variable
+      flg_cmp_po_any_not_poa = ifelse(id %in% id_not_poa, "1", "0")
     ) %>%
     # change flg_cmp_po_any_not_poa to "N/A (no var)" before 2010-01-01
     mutate(
@@ -158,7 +171,6 @@ complication_flags <- function(std_data_root = wd$std_data_root,
         dt_facclm_dschg < "2010-01-01",
         "N/A (no var)" ,
         flg_cmp_po_any_not_poa
-      )
-    ) %>%
+      )) %>%
     as.data.table()
 }

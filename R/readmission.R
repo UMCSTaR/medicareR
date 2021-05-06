@@ -3,27 +3,47 @@
 #' @details    1. Find the 30-day readmission,  maybe multiple readmission
 #'    2. Roll up to a single row per member_id & prof_calim_id
 #'    3. Merge the 30-day readmission flag back to the main analytic file
+#'    4. readmission to emergent inpatient admission
 #'
 #' @inheritParams reoperation
-#' @param fac_clm_name facility claim dataset name, ".csv"; you can use ".sas7bdat" data too.
-#'      But it is much slower due to read_sas is slow for big data.
-#'
+#' @param fac_clm_folder facility claim folder name
 #' @return
 #' @export
 #'
 #' @examples
-readmission <- function(std_data_root,
-                        fac_clm_name,
-                        original_data) {
+readmission <- function(original_data,
+                        std_data_root = wd$std_data_root,
+                        fac_clm_folder = "fac_clm",
+                        emergent_admission_medpar_claim_ids,
+                        year = 2007,
+                        max_year = 2018
+                        ) {
 
-  message("reading fac_clm dataset...")
-  if (str_detect(fac_clm_name, ".csv")) {
-    fac_clm <- fread(paste0(std_data_root, fac_clm_name))
-  } else if (str_detect(fac_clm_name, ".sas7bdat")) {
-    fac_clm <- haven::read_sas(paste0(std_data_root, fac_clm_name))
+  message("reading fac_clm dataset year ", year)
+
+  # create file paths ----
+  if (year<max_year){
+    fac_clm_name = paste0("fac_clm_", c(year,year+1), ".csv")  # 2 years
   } else {
-    stop(fac_clm_name, " has to be.csv or sas data format")
+    fac_clm_name = paste0("fac_clm_", year, ".csv")  # 1 year, will exclude December cases
   }
+
+  fac_clm_loc = file.path(std_data_root, fac_clm_folder, fac_clm_name)
+
+  if(!all(file.exists(fac_clm_loc))){
+    stop("path doesn't exist at ", fac_clm_loc)
+  }
+
+  # read data -----
+  if(length(fac_clm_name)==1){
+    fac_clm <- fread(fac_clm_loc, colClasses = 'character')  # max year has no follow up
+  } else if(length(fac_clm_name)==2){
+    # to get 30 days follow up
+    fac_clm = map_df(fac_clm_loc, ~fread(.x, colClasses = 'character'))
+  }
+
+  # keep emergent admission medpar claims
+  fac_clm = fac_clm[claim_id %in% emergent_admission_medpar_claim_ids]
 
   readmit_id <- original_data %>%
     lazy_dt() %>%

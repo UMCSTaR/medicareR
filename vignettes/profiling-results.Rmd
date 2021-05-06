@@ -1,0 +1,92 @@
+---
+title: "Profiling Results"
+output: rmarkdown::html_vignette
+vignette: >
+  %\VignetteIndexEntry{profiling-results}
+  %\VignetteEngine{knitr::rmarkdown}
+  %\VignetteEncoding{UTF-8}
+---
+
+```{r, include = FALSE}
+knitr::opts_chunk$set(echo = FALSE,
+                      warning = FALSE,
+                      message = FALSE)
+
+
+library(profvis)
+options(rmarkdown.html_vignette.check_title = FALSE)
+```
+
+This summarize code optimization results in April 2021. All code profiling were based on 0.1% sample data.
+
+### 1. Standardization
+
+### 1.1 Membership
+
+- Memory: Improved 78MB (20%)
+- Time: Improved 1210ms (33%)
+
+**Before**
+
+```{r}
+data(profile_member_sample12yr_all, package = "medicareR")
+attach(member_sample12yr_all)
+
+member_sample12yr_all
+```
+
+**After**
+
+```{r}
+data(profile_member_sample12yr_by_yr, package = "medicareR")
+attach(member_sample12yr)
+
+member_sample12yr
+```
+
+
+### 1.2 Professional
+
+- Memory: Improve memory 99MB (10%)
+- Time: need more time 39760ms (400%)
+
+**Before**
+
+```{r}
+data(profile_professional_sample12yr_all, package = "medicareR")
+attach(profile_professional_sample12yr_all)
+
+profile_professional_sample12yr_all
+```
+
+**After**
+
+```{r}
+data(profile_professional_sample12yr_by_year, package = "medicareR")
+attach(profile_professional_sample12yr_by_year)
+
+profile_professional_sample12yr_by_year
+```
+
+### 1.3 Facility claims
+
+- Memory: Improve memory 78MB (33%)
+- Time: need more time 1790ms (200%)
+
+**Before**
+
+```{r}
+data("profile_fac_clm_sample12yr_all", package = "medicareR")
+attach(profile_fac_clm_sample12yr_all)
+
+profile_fac_clm_sample12yr_all
+```
+
+**After**
+
+```{r}
+data("profile_fac_clm_sample12yr_by_yr", package = "medicareR")
+attach(profile_fac_clm_sample12yr_by_yr)
+
+profile_fac_clm_sample12yr_by_yr
+```

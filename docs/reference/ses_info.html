@@ -106,10 +106,16 @@
       <a href="../articles/add-procedures.html">Add more procedures to analytic files</a>
     </li>
     <li>
+      <a href="../articles/add_more_variables.html">Add More Variables</a>
+    </li>
+    <li>
       <a href="../articles/faq_var_def.html">FAQ - Variable Definitions</a>
     </li>
     <li>
       <a href="../articles/medicare_data_structure.html">Medicare Data Folder Structure</a>
+    </li>
+    <li>
+      <a href="../articles/profiling-results.html">Profiling Results</a>
     </li>
   </ul>
 </li>
@@ -141,11 +147,15 @@
     <p>social economic status based on zip code</p>
     </div>
 
-    <pre class="usage"><span class='fu'>ses_info</span><span class='op'>(</span>ses <span class='op'>=</span> <span class='va'>ses</span>, ses_zscore <span class='op'>=</span> <span class='cn'>NULL</span>, original_dataset <span class='op'>=</span> <span class='va'>analytic_elix</span><span class='op'>)</span></pre>
+    <pre class="usage"><span class='fu'>ses_info</span><span class='op'>(</span>original_dataset <span class='op'>=</span> <span class='va'>analytic_elix</span>, ses <span class='op'>=</span> <span class='va'>ses</span>, ses_zscore <span class='op'>=</span> <span class='cn'>NULL</span><span class='op'>)</span></pre>
 
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
     <colgroup><col class="name" /><col class="desc" /></colgroup>
+    <tr>
+      <th>original_dataset</th>
+      <td><p>data to add on</p></td>
+    </tr>
     <tr>
       <th>ses</th>
       <td><p>input ses dataset name</p></td>
@@ -153,10 +163,6 @@
     <tr>
       <th>ses_zscore</th>
       <td><p>input ses dataset name; leave as NULL if you don't want to add Zscore</p></td>
-    </tr>
-    <tr>
-      <th>original_dataset</th>
-      <td><p>data to add on</p></td>
     </tr>
     </table>
 
