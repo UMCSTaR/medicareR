@@ -4,7 +4,7 @@
 \alias{bene_info}
 \title{Patient demographics}
 \usage{
-bene_info(original_data, std_data_root, year)
+bene_info(original_data, std_data_root = wd$std_data_root, year)
 }
 \arguments{
 \item{original_data}{data name for the data you want to add the patient info on}

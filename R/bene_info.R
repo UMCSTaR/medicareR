@@ -10,7 +10,7 @@
 #' @export
 #'
 bene_info <- function(original_data,
-                      std_data_root,
+                      std_data_root = wd$std_data_root,
                       year) {
   # create member csv file name
   member_data_name = paste0("membership/member", year, ".csv")

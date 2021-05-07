@@ -39,6 +39,5 @@ add facility code info to the analytic dataset
 Prof claim dates should be within facility claim dates
 \item then join fac_clm_code with analytic dataset by memberID and facility claim ID (attach dx code info)
 \item create admission_type(urgent/not), 30d death
-\item facility claim code are saved by year within fac_clm_code folder (due to data size)
 }
 }

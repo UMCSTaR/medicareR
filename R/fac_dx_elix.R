@@ -49,19 +49,20 @@ fac_dx_elix <- function(original_data) {
     left_join(analytic_elix_icd, by = "id") %>%
     as.data.table()
 
-  # test if the icd9/10 maps generated comorbididty flags by year ----
+  # test if the icd9/10 maps generated comorbididty flags ----
   flg_by_year = analytic_elix %>%
     as_tibble() %>%
     select(facility_clm_yr, CHF:HTN_C) %>%
     rowwise() %>%
     mutate(tot = sum(CHF:HTN_C)) %>%
-    group_by(facility_clm_yr) %>%
-    summarise(perc_comorbidity = mean(tot),
-              .groups = 'drop') # to remove warning, deatils: https://stackoverflow.com/questions/62140483/how-to-interpret-dplyr-message-summarise-regrouping-output-by-x-override
+    ungroup() %>%
+    summarise(perc_comorbidity = mean(tot)) # to remove warning, details: https://stackoverflow.com/questions/62140483/how-to-interpret-dplyr-message-summarise-regrouping-output-by-x-override
 
   if(any(flg_by_year$perc_comorbidity == 0)) {
     stop("comorbidity is not properly signed (icd9/10 to cmb flgs), some year don't have any pts have any comorbility flags")
   }
 
-  analytic_elix
+  # remove DX code; They were used to created comorbidity flags
+  analytic_elix %>%
+    select(-starts_with("DX"))
 }
