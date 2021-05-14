@@ -4,12 +4,19 @@
 \alias{bene_info}
 \title{Patient demographics}
 \usage{
-bene_info(original_data, std_data_root = wd$std_data_root, year)
+bene_info(
+  original_data,
+  std_data_root = wd$std_data_root,
+  filter_only_pt_65 = TRUE,
+  year
+)
 }
 \arguments{
 \item{original_data}{data name for the data you want to add the patient info on}
 
 \item{std_data_root}{data path to the membership info folder}
+
+\item{filter_only_pt_65}{TRUE: only keep patients ≥65 and ≤99; FLASE: no age limitation}
 
 \item{year}{select one year to process, e.g. 2007}
 }

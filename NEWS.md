@@ -19,7 +19,7 @@
   
 **2. Analytic file functions**
  - *procedure_selection*: process and save by year
- - *bene_info*:  process and save by year
+ - *bene_info*:  process and save by year; add option to not filter patient age
  - *fac_dx*: process and save by year; used fac_clm and fac_clm_code data folders; used current year and next year of facility claims data to make sure to have follow up like 30 days death
  - *fac_dx_elix*: make empty icd9 and icd10 tables if some years don't have both of them. Fix Null error. Remove row ICD diagnosis code from analytic file
  - *ses_info*: change zip code to be character to fix zip code that start with 0
@@ -29,3 +29,6 @@
  - *complication_flags*: process by year; use current year and the next year facility claim codes to ensure 30 days follow up
  - *multi_surgeon_proc_assit_flags*: add surgeon roles including two surgeons and surgical team
  - *save_file* and *read_fiile*: newly added functions that makes read and save files by year easier
+ 
+ **3. Analytic file**
+  - Create primary surgeon only claim cases; added if had assistant surgeon with the primary surgeon. We exclude any claims filed by assistant surgeon or surgical team.

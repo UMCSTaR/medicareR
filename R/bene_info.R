@@ -5,12 +5,14 @@
 #'
 #' @param std_data_root data path to the membership info folder
 #' @param original_data data name for the data you want to add the patient info on
+#' @param filter_only_pt_65 TRUE: only keep patients ≥65 and ≤99; FLASE: no age limitation
 #' @param year  select one year to process, e.g. 2007
 #'
 #' @export
 #'
 bene_info <- function(original_data,
                       std_data_root = wd$std_data_root,
+                      filter_only_pt_65 = TRUE,
                       year) {
   # create member csv file name
   member_data_name = paste0("membership/member", year, ".csv")
@@ -52,12 +54,10 @@ bene_info <- function(original_data,
     mutate_at(vars(c("dob_dt", "dod_dt")), as_date)
 
   # add bene info to professional claim by member_id and member_yr
-  lazy_original_data %>%
+  dt = lazy_original_data %>%
     mutate_at(vars(starts_with("dt")), dmy) %>%
     mutate(member_yr = year) %>%
     left_join(membership_process, by = c("member_id", "member_yr")) %>%
-    filter((dt_profsvc_end - dob_dt) / 365 <= 99,
-           (dt_profsvc_end - dob_dt) / 365 >= 65) %>% # remove bene >99 and <65 yrs old
     rename(dt_dob = dob_dt,
            dt_dod = dod_dt) %>%
     select(
@@ -76,4 +76,14 @@ bene_info <- function(original_data,
       e_race_wbho
     ) %>%
     as.data.table()
+
+
+  # if only keep older patients ---------------------------------------------
+  if (filter_only_pt_65 == TRUE) {
+    # remove bene >99 and <65 yrs old
+    dt[(dt_profsvc_end - dt_dob) / 365 <= 99 &
+         (dt_profsvc_end - dt_dob) / 365 >= 65]
+  } else if (filter_only_pt_65 == FALSE)
+    dt
+
 }
