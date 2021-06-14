@@ -63,6 +63,6 @@ fac_dx_elix <- function(original_data) {
   }
 
   # remove DX code; They were used to created comorbidity flags
-  analytic_elix %>%
-    select(-starts_with("DX"))
+  # columns matching a regex
+  analytic_elix[, grep("^DX", colnames(analytic_elix)):=NULL]
 }
