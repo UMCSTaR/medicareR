@@ -87,7 +87,7 @@
       <ul class="nav navbar-nav">
         <li>
   <a href="../index.html">
-    <span class="fas fa fas fa-home fa-lg"></span>
+    <span class="fas fa-home fa-lg"></span>
      
   </a>
 </li>
@@ -172,7 +172,7 @@
 <li>
 <em>procedure_selection</em>: process and save by year</li>
 <li>
-<em>bene_info</em>: process and save by year</li>
+<em>bene_info</em>: process and save by year; add option to not filter patient age</li>
 <li>
 <em>fac_dx</em>: process and save by year; used fac_clm and fac_clm_code data folders; used current year and next year of facility claims data to make sure to have follow up like 30 days death</li>
 <li>
@@ -191,6 +191,10 @@
 <em>multi_surgeon_proc_assit_flags</em>: add surgeon roles including two surgeons and surgical team</li>
 <li>
 <em>save_file</em> and <em>read_fiile</em>: newly added functions that makes read and save files by year easier</li>
+</ul>
+<p><strong>3. Analytic file</strong></p>
+<ul>
+<li>Create primary surgeon only claim cases; added if had assistant surgeon with the primary surgeon. We exclude any claims filed by assistant surgeon or surgical team.</li>
 </ul>
 </div>
 </div>

@@ -46,7 +46,7 @@
       <ul class="nav navbar-nav">
 <li>
   <a href="../index.html">
-    <span class="fas fa fas fa-home fa-lg"></span>
+    <span class="fas fa-home fa-lg"></span>
      
   </a>
 </li>
@@ -91,8 +91,7 @@
 
       
 
-      </header><script src="faq_var_def_files/header-attrs-2.5/header-attrs.js"></script><link href="faq_var_def_files/anchor-sections-1.0/anchor-sections.css" rel="stylesheet">
-<script src="faq_var_def_files/anchor-sections-1.0/anchor-sections.js"></script><div class="row">
+      </header><script src="faq_var_def_files/header-attrs-2.8/header-attrs.js"></script><div class="row">
   <div class="col-md-9 contents">
     <div class="page-header toc-ignore">
       <h1 data-toc-skip>FAQ - Variable Definitions</h1>
@@ -142,8 +141,8 @@
 <h3 class="hasAnchor">
 <a href="#multi-surgeon" class="anchor"></a>multi-surgeon</h3>
 <p>multiple providers (not necessary to be surgeons, for example providers can be PA) operated in one hospital admission. It can be different procedures. For example, if one patient in <em>one hospital admission</em> had both Partial Colectomy and Cholecystectomy by different NPI, both the Cole and the Cholecystectomy procedures were flagged as multi-surgeon.</p>
-<div class="sourceCode" id="cb2"><pre class="downlit">
-<span class="va">original_data</span> <span class="op">%&gt;%</span>
+<div class="sourceCode" id="cb2"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="va">original_data</span> <span class="op">%&gt;%</span>
     <span class="fu">distinct</span><span class="op">(</span>
       <span class="va">member_id</span>,
       <span class="va">dt_facclm_adm</span>,     <span class="co"># facility claim admission date</span>
@@ -154,21 +153,21 @@
               <span class="va">dt_facclm_adm</span>,
               <span class="va">dt_facclm_dschg</span>,
               name <span class="op">=</span> <span class="st">"n_doc"</span>   <span class="co"># n_doc&gt;1 was defined as multi-surgeon</span>
-    <span class="op">)</span></pre></div>
+    <span class="op">)</span></code></pre></div>
 </div>
 <div id="assistant_surgeon" class="section level3">
 <h3 class="hasAnchor">
 <a href="#assistant_surgeon" class="anchor"></a>assistant_surgeon</h3>
 <p>Assistant surgeon role was defined by CPT modifier code “80” or “82”. So if a case has either “80” or “82” as the CPT modifier, then it is flagged as assistant_surgeon case.</p>
-<div class="sourceCode" id="cb3"><pre class="downlit">
-<span class="va">flg_assistant_surgeon</span> <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/ifelse.html">ifelse</a></span><span class="op">(</span><span class="fu">str_detect</span><span class="op">(</span><span class="va">cpt_mod</span>, <span class="st">"80|82"</span><span class="op">)</span>, <span class="fl">1</span>, <span class="fl">0</span><span class="op">)</span></pre></div>
+<div class="sourceCode" id="cb3"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="va">flg_assistant_surgeon</span> <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/ifelse.html">ifelse</a></span><span class="op">(</span><span class="fu">str_detect</span><span class="op">(</span><span class="va">cpt_mod</span>, <span class="st">"80|82"</span><span class="op">)</span>, <span class="fl">1</span>, <span class="fl">0</span><span class="op">)</span></code></pre></div>
 </div>
 <div id="multi_cpt" class="section level3">
 <h3 class="hasAnchor">
 <a href="#multi_cpt" class="anchor"></a>multi_cpt</h3>
 <p>Multiple CPT was defined as one patient has multiple CPTs performed in one hospital admission. Note CPT modifier code is not in cosideration here.</p>
-<div class="sourceCode" id="cb4"><pre class="downlit">
-<span class="va">data</span> <span class="op">%&gt;%</span>
+<div class="sourceCode" id="cb4"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="va">data</span> <span class="op">%&gt;%</span>
     <span class="fu">distinct</span><span class="op">(</span>
       <span class="va">member_id</span>,
       <span class="va">dt_facclm_adm</span>,     <span class="co"># facility claim admission date</span>
@@ -179,7 +178,13 @@
               <span class="va">dt_facclm_adm</span>,
               <span class="va">dt_facclm_dschg</span>,
               name <span class="op">=</span> <span class="st">"n_proc"</span>
-    <span class="op">)</span> </pre></div>
+    <span class="op">)</span> </code></pre></div>
+</div>
+<div id="poa" class="section level3">
+<h3 class="hasAnchor">
+<a href="#poa" class="anchor"></a>POA</h3>
+<p>Present on admission flag. Any complication and severe complication are defined by complications that were not POA. However, the POA flag is not available in MedPAR before 2010. So, any analyses related to complication using medicare analytic file starts from 2010.</p>
+<p>One note, in RedDAC website, it states <a href="https://resdac.org/cms-data/variables/claim-diagnosis-code-i-diagnosis-present-admission-poa-indicator-code-ffs">POA</a> was was not available until 2011. However, I double checked with our actual dataset, POA variables started in 2010.</p>
 </div>
 </div>
   </div>
