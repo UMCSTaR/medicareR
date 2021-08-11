@@ -3,6 +3,7 @@
 #' @details  1. Looking through the procedure codes across multiple admissions;
 #'    2. Create the ICD9/10 procedure codes to re-operation mapping using pre-defined operation types;
 #'    3. Get the re-operation flags if defined re operation happened within <=30 days
+#'    4. emergent admission only
 
 #'
 #' @param std_data_root data path to the standardized data folder

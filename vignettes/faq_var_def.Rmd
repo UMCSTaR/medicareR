@@ -29,7 +29,7 @@ In this document, we focused on derived variables.
 
 ### 30-day Reoperation
 
-Reoperation is one of the major patient outcomes, and often used in our medicare outcome analysis. We define reoperation by 1. Looking through the procedure codes across multiple admissions; 2. Create the ICD9/10 procedure codes to re-operation mapping using pre-defined operation types; 3. Get the re-operation flags if defined re-operation happened within \<=30 days
+Reoperation is one of the major patient outcomes, and often used in our medicare outcome analysis. We define reoperation by 1. Looking through the procedure codes across multiple admissions; 2. Create the ICD9/10 procedure codes to re-operation mapping using pre-defined operation types; 3. Get the re-operation flags if defined re-operation happened within \<=30 days; 4. emergent admission
 
 8 operations were included in the re-operation mapping below. All the operations were defined using ICD9/10 code in MedPAR
 
@@ -47,6 +47,8 @@ Reoperation is one of the major patient outcomes, and often used in our medicare
 Reoperations were from all MedPAR claims, which include all procedures in Medicare, not just the procedures we study.
 
 ### 30-day Readmission
+
+readmission to emergent inpatient admission within 30 days of the index procedure
 
 ### multi-surgeon
 

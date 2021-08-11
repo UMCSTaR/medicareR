@@ -121,7 +121,7 @@
 <div id="day-reoperation" class="section level3">
 <h3 class="hasAnchor">
 <a href="#day-reoperation" class="anchor"></a>30-day Reoperation</h3>
-<p>Reoperation is one of the major patient outcomes, and often used in our medicare outcome analysis. We define reoperation by 1. Looking through the procedure codes across multiple admissions; 2. Create the ICD9/10 procedure codes to re-operation mapping using pre-defined operation types; 3. Get the re-operation flags if defined re-operation happened within &lt;=30 days</p>
+<p>Reoperation is one of the major patient outcomes, and often used in our medicare outcome analysis. We define reoperation by 1. Looking through the procedure codes across multiple admissions; 2. Create the ICD9/10 procedure codes to re-operation mapping using pre-defined operation types; 3. Get the re-operation flags if defined re-operation happened within &lt;=30 days; 4. emergent admission</p>
 <p>8 operations were included in the re-operation mapping below. All the operations were defined using ICD9/10 code in MedPAR</p>
 <div class="sourceCode" id="cb1"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a>[<span class="dv">1</span>] <span class="st">"Reoperation for management of deep surgical site infection"</span>  </span>
 <span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a>[<span class="dv">2</span>] <span class="st">"Retrieval of retained foreign body"</span>                        </span>
@@ -136,6 +136,7 @@
 <div id="day-readmission" class="section level3">
 <h3 class="hasAnchor">
 <a href="#day-readmission" class="anchor"></a>30-day Readmission</h3>
+<p>readmission to emergent inpatient admission within 30 days of the index procedure</p>
 </div>
 <div id="multi-surgeon" class="section level3">
 <h3 class="hasAnchor">
