@@ -2,7 +2,7 @@
 % Please edit documentation in R/multi_surgeon_proce_assist.R
 \name{multi_surgeon_proc_assit_flags}
 \alias{multi_surgeon_proc_assit_flags}
-\title{Multiple suregons, procedures and assistant surgeons flags}
+\title{Multiple surgeons, procedures and assistant surgeons flags}
 \usage{
 multi_surgeon_proc_assit_flags(original_data)
 }

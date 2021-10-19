@@ -1,4 +1,4 @@
-#' Multiple suregons, procedures and assistant surgeons flags
+#' Multiple surgeons, procedures and assistant surgeons flags
 #' @description   1. One admission has been operated by multiple physicians;
 #'    2. One admission has multiple operations;
 #'    3. Assistant physicians (using cpt mod code 80|82)

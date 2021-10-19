@@ -20,5 +20,6 @@ emergent_merpar_claim_ids_all_year(
 \description{
 This is used to refine readmission; readmission should only be defined as
 emergent admission after the index procedure. This helps exclude any planned visit after
-the index surgery
+the index surgery. Only need to rerun if MedPAR original data has changed
+or added new MedPAR year data
 }

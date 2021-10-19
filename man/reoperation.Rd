@@ -40,5 +40,6 @@ use procedure code ICD code to define reop
 \item Looking through the procedure codes across multiple admissions;
 \item Create the ICD9/10 procedure codes to re-operation mapping using pre-defined operation types;
 \item Get the re-operation flags if defined re operation happened within <=30 days
+\item emergent admission only
 }
 }

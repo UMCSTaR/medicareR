@@ -141,7 +141,8 @@ reoperation <- function(original_data,
 #' Emergent MedPAR claim ids
 #' @description This is used to refine readmission; readmission should only be defined as
 #' emergent admission after the index procedure. This helps exclude any planned visit after
-#' the index surgery
+#' the index surgery. Only need to rerun if MedPAR original data has changed
+#' or added new MedPAR year data
 #'
 #' @param std_data_root data path to the standardized data folder
 #' @param fac_clm_folder facility claim file folder name
