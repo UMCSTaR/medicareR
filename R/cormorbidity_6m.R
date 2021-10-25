@@ -11,7 +11,7 @@
 #' @export
 #'
 comorbidity_6m <- function(original_data = analytic_30dcmp,
-                                   month = 6) {
+                             month = 6) {
   # get unique cases
   cmb <- original_data %>%
     lazy_dt() %>%
@@ -77,5 +77,6 @@ comorbidity_6m <- function(original_data = analytic_30dcmp,
 
   original_data[dt_facclm_adm >= cut_date] %>%
     merge.data.table(comorbitities_6mon_dedup, by = c("member_id", "dt_facclm_adm", "dt_facclm_dschg"), all.x = TRUE) %>%
+    as.data.frame() %>%
     ungroup()
 }
