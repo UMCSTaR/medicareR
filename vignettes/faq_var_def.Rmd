@@ -27,6 +27,22 @@ In this document, we focused on derived variables.
 
 ## Variable Definitions
 
+### 30-day Severe complication (no POA)
+
+Severe complication excluding POA was defined as having one or more complications from the list below within 30 days after the index procedure, and the length of stay is greater than 75% of the cases for the procedure group. For example, a severe complication after Partial Colectomy is having any complication from the list below within 30 days after the procedure, and the hospoital length of stay is more than 75% of medicare patients stayed for Partial Colectomy procedures.
+
+```{.r}
+[1] "post-op lung failure" 
+[2] "post-op pneumonia"    
+[3] "post-op MI"           
+[4] "post-op dvt/pe"       
+[5] "post-op renal failure"
+[6] "post-op hemorrhage"   
+[7] "post-op ssi"          
+[8] "post-op GI hemorrhage"
+```
+
+
 ### 30-day Reoperation
 
 Reoperation is one of the major patient outcomes, and often used in our medicare outcome analysis. We define reoperation by 1. Looking through the procedure codes across multiple admissions; 2. Create the ICD9/10 procedure codes to re-operation mapping using pre-defined operation types; 3. Get the re-operation flags if defined re-operation happened within \<=30 days; 4. emergent admission
