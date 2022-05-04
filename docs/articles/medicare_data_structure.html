@@ -50,7 +50,7 @@
   <a href="../reference/index.html">Reference</a>
 </li>
 <li class="dropdown">
-  <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">
+  <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
     Articles
      
     <span class="caret"></span>
@@ -67,6 +67,9 @@
     </li>
     <li>
       <a href="../articles/medicare_data_structure.html">Medicare Data Folder Structure</a>
+    </li>
+    <li>
+      <a href="../articles/model_covariates.html">Model Covaraites</a>
     </li>
     <li>
       <a href="../articles/profiling-results.html">Profiling Results</a>
@@ -103,7 +106,9 @@
 <div class="section level2">
 <h2 id="designed-data-structure">1. Designed Data Structure<a class="anchor" aria-label="anchor" href="#designed-data-structure"></a>
 </h2>
-<p>This data structure is used in medicare 100 data standardization and analytic files creation. It’s import to follow the data folder structure so the code can read and write data from valid paths.</p>
+<p>This data structure is used in medicare 100 data standardization and
+analytic files creation. It’s import to follow the data folder structure
+so the code can read and write data from valid paths.</p>
 <div class="sourceCode" id="cb1"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a>Medicare <span class="dv">100</span></span>
 <span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="fl">1.</span>    Full data</span>
 <span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a><span class="dv">1</span>.<span class="fl">1.</span>  Selected vars csv</span>
@@ -151,7 +156,8 @@
 
 <span class="co"># for more input paths control, refer to</span>
 <span class="op">?</span><span class="fu">medicareR</span><span class="fu">::</span><span class="va"><a href="../reference/mk_data_dir_path.html">mk_data_dir_path</a></span></code></pre></div>
-<p>The code above will assisgn all paths needed as below in your environment.</p>
+<p>The code above will assisgn all paths needed as below in your
+environment.</p>
 <div class="sourceCode" id="cb3"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="co"># Note: you care also manually assign/overwirte all the values in the wd list as below </span>
 <span class="va">wd</span><span class="op">$</span><span class="va">george_file</span> <span class="op">=</span> <span class="st">"/Volumes/George_Surgeon_Projects"</span>
@@ -179,7 +185,7 @@
 
 <div class="pkgdown">
   <p></p>
-<p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.0.2.</p>
+<p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.0.3.</p>
 </div>
 
       </footer>

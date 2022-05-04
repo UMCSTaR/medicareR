@@ -50,7 +50,7 @@
   <a href="../reference/index.html">Reference</a>
 </li>
 <li class="dropdown">
-  <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">
+  <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
     Articles
      
     <span class="caret"></span>
@@ -67,6 +67,9 @@
     </li>
     <li>
       <a href="../articles/medicare_data_structure.html">Medicare Data Folder Structure</a>
+    </li>
+    <li>
+      <a href="../articles/model_covariates.html">Model Covaraites</a>
     </li>
     <li>
       <a href="../articles/profiling-results.html">Profiling Results</a>
@@ -100,11 +103,19 @@
 
     
     
-<p>If you want to use add variables from the original medicare files to all medicare years, like MedPAR or Carrier, this article would help you to do so.</p>
+<p>If you want to use add variables from the original medicare files to
+all medicare years, like MedPAR or Carrier, this article would help you
+to do so.</p>
 <div class="section level2">
 <h2 id="why-add-more-variables">Why add more variables?<a class="anchor" aria-label="anchor" href="#why-add-more-variables"></a>
 </h2>
-<p>You have learned more about medicare and found some useful variables that were not previously used in medicare standardization steps. For example, I recently learned from ResDAC that MedPAR has a variable <em>SS_LS_SNF_IND_CD</em> to indicate if it’s SNF stay. This is particularly useful since our research is about inpatient procedures. So we would want to exclude SNF claims. I wanted to add this new var to all medicare standardized MedPAR for our analytic files.</p>
+<p>You have learned more about medicare and found some useful variables
+that were not previously used in medicare standardization steps. For
+example, I recently learned from ResDAC that MedPAR has a variable
+<em>SS_LS_SNF_IND_CD</em> to indicate if it’s SNF stay. This is
+particularly useful since our research is about inpatient procedures. So
+we would want to exclude SNF claims. I wanted to add this new var to all
+medicare standardized MedPAR for our analytic files.</p>
 </div>
 <div class="section level2">
 <h2 id="how-to-add-more-variables">How to add more variables<a class="anchor" aria-label="anchor" href="#how-to-add-more-variables"></a>
@@ -112,8 +123,11 @@
 <div class="section level3">
 <h3 id="step1-select-vars-from-sas-files">Step1: select vars from SAS files<a class="anchor" aria-label="anchor" href="#step1-select-vars-from-sas-files"></a>
 </h3>
-<p>Since all our original files are in SAS format, first step to add this new variable, for example <em>SS_LS_SNF_IND_CD</em>, to our variable selections from SAS</p>
-<p>the sas code to do so can be found in <code>medicare_std/code/other/sas_code/create_0.1perc_sample_from_sas_data/Medpar.sas</code></p>
+<p>Since all our original files are in SAS format, first step to add
+this new variable, for example <em>SS_LS_SNF_IND_CD</em>, to our
+variable selections from SAS</p>
+<p>the sas code to do so can be found in
+<code>medicare_std/code/other/sas_code/create_0.1perc_sample_from_sas_data/Medpar.sas</code></p>
 <pre><code># sas code example
 proc export data = medpar.medpar2007 (keep = ORG_NPI_NUM BENE_ID MEDPAR_ID PRVDR_NUM ADMSN_DT DSCHRG_DT DSCHRG_DSTNTN_CD BENE_DSCHRG_STUS_CD IP_ADMSN_TYPE_CD BENE_PRMRY_PYR_CD DRG_CD ADMTG_DGNS_CD DGNS_CD_CNT SRGCL_PRCDR_CD_CNT bene_id DGNS_1_CD DGNS_2_CD DGNS_3_CD DGNS_4_CD DGNS_5_CD DGNS_6_CD DGNS_7_CD DGNS_8_CD DGNS_9_CD DGNS_10_CD SRGCL_PRCDR_1_CD SRGCL_PRCDR_2_CD SRGCL_PRCDR_3_CD SRGCL_PRCDR_4_CD SRGCL_PRCDR_5_CD SRGCL_PRCDR_6_CD SRGCL_PRCDR_PRFRM_1_DT SRGCL_PRCDR_PRFRM_2_DT SRGCL_PRCDR_PRFRM_3_DT SRGCL_PRCDR_PRFRM_4_DT SRGCL_PRCDR_PRFRM_5_DT SRGCL_PRCDR_PRFRM_6_DT SS_LS_SNF_IND_CD)
       dbms=csv
@@ -124,7 +138,8 @@ run;</code></pre>
 <div class="section level3">
 <h3 id="step2-create-0-1-data-from-the-new-csv-files">Step2: create 0.1% data from the new csv files<a class="anchor" aria-label="anchor" href="#step2-create-0-1-data-from-the-new-csv-files"></a>
 </h3>
-<p>code is at <code>"medicare_std/code/other/sample_raw_data/sample_raw_medicare.R"</code></p>
+<p>code is at
+<code>"medicare_std/code/other/sample_raw_data/sample_raw_medicare.R"</code></p>
 <pre><code><span class="co"># code from the file</span>
 <span class="co"># DO NOT RUN</span>
 
@@ -156,7 +171,8 @@ run;</code></pre>
 <div class="section level3">
 <h3 id="done">Done!<a class="anchor" aria-label="anchor" href="#done"></a>
 </h3>
-<p>now, we just need to use the updated data and map for standardization code.</p>
+<p>now, we just need to use the updated data and map for standardization
+code.</p>
 </div>
 </div>
   </div>
@@ -178,7 +194,7 @@ run;</code></pre>
 
 <div class="pkgdown">
   <p></p>
-<p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.0.2.</p>
+<p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.0.3.</p>
 </div>
 
       </footer>
