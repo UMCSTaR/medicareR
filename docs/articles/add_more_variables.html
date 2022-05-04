@@ -26,6 +26,8 @@
 <![endif]-->
 </head>
 <body data-spy="scroll" data-target="#toc">
+    
+
     <div class="container template-article">
       <header><div class="navbar navbar-default navbar-fixed-top" role="navigation">
   <div class="container">
@@ -38,18 +40,12 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">medicareR</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.0.1</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="">0.0.1</span>
       </span>
     </div>
 
     <div id="navbar" class="navbar-collapse collapse">
       <ul class="nav navbar-nav">
-<li>
-  <a href="../index.html">
-    <span class="fas fa-home fa-lg"></span>
-     
-  </a>
-</li>
 <li>
   <a href="../reference/index.html">Reference</a>
 </li>
@@ -91,7 +87,7 @@
 
       
 
-      </header><script src="add_more_variables_files/header-attrs-2.8/header-attrs.js"></script><div class="row">
+      </header><div class="row">
   <div class="col-md-9 contents">
     <div class="page-header toc-ignore">
       <h1 data-toc-skip>Add More Variables</h1>
@@ -105,17 +101,17 @@
     
     
 <p>If you want to use add variables from the original medicare files to all medicare years, like MedPAR or Carrier, this article would help you to do so.</p>
-<div id="why-add-more-variables" class="section level2">
-<h2 class="hasAnchor">
-<a href="#why-add-more-variables" class="anchor"></a>Why add more variables?</h2>
+<div class="section level2">
+<h2 id="why-add-more-variables">Why add more variables?<a class="anchor" aria-label="anchor" href="#why-add-more-variables"></a>
+</h2>
 <p>You have learned more about medicare and found some useful variables that were not previously used in medicare standardization steps. For example, I recently learned from ResDAC that MedPAR has a variable <em>SS_LS_SNF_IND_CD</em> to indicate if it’s SNF stay. This is particularly useful since our research is about inpatient procedures. So we would want to exclude SNF claims. I wanted to add this new var to all medicare standardized MedPAR for our analytic files.</p>
 </div>
-<div id="how-to-add-more-variables" class="section level2">
-<h2 class="hasAnchor">
-<a href="#how-to-add-more-variables" class="anchor"></a>How to add more variables</h2>
-<div id="step1-select-vars-from-sas-files" class="section level3">
-<h3 class="hasAnchor">
-<a href="#step1-select-vars-from-sas-files" class="anchor"></a>Step1: select vars from SAS files</h3>
+<div class="section level2">
+<h2 id="how-to-add-more-variables">How to add more variables<a class="anchor" aria-label="anchor" href="#how-to-add-more-variables"></a>
+</h2>
+<div class="section level3">
+<h3 id="step1-select-vars-from-sas-files">Step1: select vars from SAS files<a class="anchor" aria-label="anchor" href="#step1-select-vars-from-sas-files"></a>
+</h3>
 <p>Since all our original files are in SAS format, first step to add this new variable, for example <em>SS_LS_SNF_IND_CD</em>, to our variable selections from SAS</p>
 <p>the sas code to do so can be found in <code>medicare_std/code/other/sas_code/create_0.1perc_sample_from_sas_data/Medpar.sas</code></p>
 <pre><code># sas code example
@@ -125,41 +121,41 @@ proc export data = medpar.medpar2007 (keep = ORG_NPI_NUM BENE_ID MEDPAR_ID PRVDR
       replace;
 run;</code></pre>
 </div>
-<div id="step2-create-0-1-data-from-the-new-csv-files" class="section level3">
-<h3 class="hasAnchor">
-<a href="#step2-create-0-1-data-from-the-new-csv-files" class="anchor"></a>Step2: create 0.1% data from the new csv files</h3>
+<div class="section level3">
+<h3 id="step2-create-0-1-data-from-the-new-csv-files">Step2: create 0.1% data from the new csv files<a class="anchor" aria-label="anchor" href="#step2-create-0-1-data-from-the-new-csv-files"></a>
+</h3>
 <p>code is at <code>"medicare_std/code/other/sample_raw_data/sample_raw_medicare.R"</code></p>
-<pre><code># code from the file
-# DO NOT RUN
+<pre><code><span class="co"># code from the file</span>
+<span class="co"># DO NOT RUN</span>
 
-# select medpar records related to the bene in first step
-medpar_data_dir &lt;- create_path(
-  medicare_dir = medicare_dir,
-  data_folder_name = medpar_folder
-)
+<span class="co"># select medpar records related to the bene in first step</span>
+<span class="va">medpar_data_dir</span> <span class="op">&lt;-</span> <span class="fu">create_path</span><span class="op">(</span>
+  medicare_dir <span class="op">=</span> <span class="va">medicare_dir</span>,
+  data_folder_name <span class="op">=</span> <span class="va">medpar_folder</span>
+<span class="op">)</span>
 
-medpar_list &lt;- list(
-  demon_sample_data_path = demon_data_dir$sample_data_path,
-  read_full_data_path = medpar_data_dir$full_data_path,
-  save_sample_data_path = medpar_data_dir$sample_data_path
-)
+<span class="va">medpar_list</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span>
+  demon_sample_data_path <span class="op">=</span> <span class="va">demon_data_dir</span><span class="op">$</span><span class="va">sample_data_path</span>,
+  read_full_data_path <span class="op">=</span> <span class="va">medpar_data_dir</span><span class="op">$</span><span class="va">full_data_path</span>,
+  save_sample_data_path <span class="op">=</span> <span class="va">medpar_data_dir</span><span class="op">$</span><span class="va">sample_data_path</span>
+<span class="op">)</span>
 
-no_cores &lt;- availableCores() - 2
-plan(multicore, workers = no_cores)
+<span class="va">no_cores</span> <span class="op">&lt;-</span> <span class="fu">availableCores</span><span class="op">(</span><span class="op">)</span> <span class="op">-</span> <span class="fl">2</span>
+<span class="fu">plan</span><span class="op">(</span><span class="va">multicore</span>, workers <span class="op">=</span> <span class="va">no_cores</span><span class="op">)</span>
 
-future_pmap(medpar_list, select_sample, .progress = TRUE)</code></pre>
+<span class="fu">future_pmap</span><span class="op">(</span><span class="va">medpar_list</span>, <span class="va">select_sample</span>, .progress <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span></code></pre>
 </div>
-<div id="step3-change-mapping" class="section level3">
-<h3 class="hasAnchor">
-<a href="#step3-change-mapping" class="anchor"></a>Step3: change mapping</h3>
+<div class="section level3">
+<h3 id="step3-change-mapping">Step3: change mapping<a class="anchor" aria-label="anchor" href="#step3-change-mapping"></a>
+</h3>
 <p>add the new variable to import_mapping.csv file like below.</p>
 <div class="figure">
 <img src="add_new_var.png" alt=""><p class="caption">manual_add</p>
 </div>
 </div>
-<div id="done" class="section level3">
-<h3 class="hasAnchor">
-<a href="#done" class="anchor"></a>Done!</h3>
+<div class="section level3">
+<h3 id="done">Done!<a class="anchor" aria-label="anchor" href="#done"></a>
+</h3>
 <p>now, we just need to use the updated data and map for standardization code.</p>
 </div>
 </div>
@@ -176,11 +172,13 @@ future_pmap(medpar_list, select_sample, .progress = TRUE)</code></pre>
 
 
       <footer><div class="copyright">
-  <p>Developed by Xilin Chen.</p>
+  <p></p>
+<p>Developed by Xilin Chen.</p>
 </div>
 
 <div class="pkgdown">
-  <p>Site built with <a href="https://pkgdown.r-lib.org/">pkgdown</a> 1.6.1.</p>
+  <p></p>
+<p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.0.2.</p>
 </div>
 
       </footer>
@@ -188,6 +186,8 @@ future_pmap(medpar_list, select_sample, .progress = TRUE)</code></pre>
 
   
 
+
+  
 
   </body>
 </html>

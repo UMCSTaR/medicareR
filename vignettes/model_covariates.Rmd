@@ -1,0 +1,84 @@
+---
+title: "Model Covaraites"
+output: rmarkdown::html_vignette
+vignette: >
+  %\VignetteIndexEntry{model_covariates}
+  %\VignetteEngine{knitr::rmarkdown}
+  %\VignetteEncoding{UTF-8}
+---
+
+```{r, include = FALSE}
+knitr::opts_chunk$set(
+  collapse = TRUE,
+  comment = "#>"
+)
+```
+
+These are the commonly used covaraites in medicare outcomes models.
+
+### Fixed effects:
+
+```{r, eval=F}
+
+'surgeon_years_experience'
+'sex_male',
+'age_at_admit_std',
+'ahrq_score_std',
+'race_white',
+'ses_top3quintiles',
+'emergent_admission',
+'year', # facility claim year
+"had_assist_surg",
+'hospital_urban', # from flg_hosp_urban_cbsa
+'hospital_beds_gt_350',
+'hospital_icu',
+'hospital_rn2bed_ratio_std',
+'hospital_mcday2inptday_ratio_std'
+
+```
+
+**Note**: Do not use *flg_hosp_urban* to define *hospital_urban*.
+
+*flg_hosp_urban* values in 2007's medicare data were all missing. Since we only use complete data in the analysis, we would lose all 2007's data in the models.
+
+
+### Random effects:
+
+```{r, eval= F}
+'procedure', # ECS label or project-specific procedure group
+'cpt_cd',
+'id_surgeon',
+'id_hospital'
+   
+```
+
+
+### Code to name the varaibles in medicare
+
+The code to rename all original medicare variable to more readable names is in function **medicareAnalytics::prep_data_for_model**.
+
+Below is the renaming code from the function above.
+
+```{r, eval=FALSE}
+data = data %>%
+    mutate(sex_male = ifelse(flg_male == 1, 1, 0),
+           hospital_beds_gt_350 = ifelse( e_hosp_beds_4grp %in% c(3,4), 1, 0)) %>% 
+    rename(
+      id_surgeon = id_physician_npi,
+      id_hospital = facility_prvnumgrp,
+      procedure = e_proc_grp_lbl,
+      year = facility_clm_yr_from_year0,
+      surgeon_years_experience = val_yr_practice,
+      hospital_urban = flg_hosp_urban_cbsa,
+      hospital_icu = flg_hosp_ICU_hosp,
+      hospital_rn2bed_ratio_std = val_hosp_rn2bed_ratio_std,
+      hospital_mcday2inptday_ratio_std = val_hosp_mcday2inptday_ratio_std,
+      hospital_rn2inptday_ratio_std = val_hosp_rn2inptday_ratio_std,
+      death_30d = flg_death_30d,
+      severe_complication = flg_cmp_po_severe_not_poa,
+      readmission_30d = flg_readmit_30d,
+      reoperation_30d = flg_util_reop,
+      any_complication = flg_cmp_po_any_not_poa,
+    ) 
+```
+

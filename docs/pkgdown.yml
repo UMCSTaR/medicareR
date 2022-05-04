@@ -1,11 +1,12 @@
-pandoc: 2.11.2
-pkgdown: 1.6.1
+pandoc: 2.17.1.1
+pkgdown: 2.0.3
 pkgdown_sha: ~
 articles:
   add-procedures: add-procedures.html
   add_more_variables: add_more_variables.html
   faq_var_def: faq_var_def.html
   medicare_data_structure: medicare_data_structure.html
+  model_covariates: model_covariates.html
   profiling-results: profiling-results.html
-last_built: 2021-08-11T13:14Z
+last_built: 2022-05-04T19:28Z
 

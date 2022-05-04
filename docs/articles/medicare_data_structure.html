@@ -26,6 +26,8 @@
 <![endif]-->
 </head>
 <body data-spy="scroll" data-target="#toc">
+    
+
     <div class="container template-article">
       <header><div class="navbar navbar-default navbar-fixed-top" role="navigation">
   <div class="container">
@@ -38,18 +40,12 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">medicareR</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.0.1</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="">0.0.1</span>
       </span>
     </div>
 
     <div id="navbar" class="navbar-collapse collapse">
       <ul class="nav navbar-nav">
-<li>
-  <a href="../index.html">
-    <span class="fas fa-home fa-lg"></span>
-     
-  </a>
-</li>
 <li>
   <a href="../reference/index.html">Reference</a>
 </li>
@@ -91,7 +87,7 @@
 
       
 
-      </header><script src="medicare_data_structure_files/header-attrs-2.8/header-attrs.js"></script><div class="row">
+      </header><div class="row">
   <div class="col-md-9 contents">
     <div class="page-header toc-ignore">
       <h1 data-toc-skip>Medicare Data Folder Structure</h1>
@@ -104,9 +100,9 @@
 
     
     
-<div id="designed-data-structure" class="section level2">
-<h2 class="hasAnchor">
-<a href="#designed-data-structure" class="anchor"></a>1. Designed Data Structure</h2>
+<div class="section level2">
+<h2 id="designed-data-structure">1. Designed Data Structure<a class="anchor" aria-label="anchor" href="#designed-data-structure"></a>
+</h2>
 <p>This data structure is used in medicare 100 data standardization and analytic files creation. It’s import to follow the data folder structure so the code can read and write data from valid paths.</p>
 <div class="sourceCode" id="cb1"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a>Medicare <span class="dv">100</span></span>
 <span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="fl">1.</span>    Full data</span>
@@ -142,9 +138,9 @@
 <span id="cb1-32"><a href="#cb1-32" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb1-33"><a href="#cb1-33" aria-hidden="true" tabindex="-1"></a>Medicare <span class="dv">20</span> – same structure</span></code></pre></div>
 </div>
-<div id="how-to-point-to-the-data" class="section level2">
-<h2 class="hasAnchor">
-<a href="#how-to-point-to-the-data" class="anchor"></a>2. How to point to the data</h2>
+<div class="section level2">
+<h2 id="how-to-point-to-the-data">2. How to point to the data<a class="anchor" aria-label="anchor" href="#how-to-point-to-the-data"></a>
+</h2>
 <p>The code we used to create working paths are below</p>
 <div class="sourceCode" id="cb2"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="fu">medicareR</span><span class="fu">::</span><span class="fu"><a href="../reference/mk_data_dir_path.html">mk_data_dir_path</a></span><span class="op">(</span>data_root <span class="op">=</span> <span class="st">"sample"</span>,
@@ -177,11 +173,13 @@
 
 
       <footer><div class="copyright">
-  <p>Developed by Xilin Chen.</p>
+  <p></p>
+<p>Developed by Xilin Chen.</p>
 </div>
 
 <div class="pkgdown">
-  <p>Site built with <a href="https://pkgdown.r-lib.org/">pkgdown</a> 1.6.1.</p>
+  <p></p>
+<p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.0.2.</p>
 </div>
 
       </footer>
@@ -189,6 +187,8 @@
 
   
 
+
+  
 
   </body>
 </html>

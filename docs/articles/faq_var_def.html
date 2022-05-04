@@ -26,6 +26,8 @@
 <![endif]-->
 </head>
 <body data-spy="scroll" data-target="#toc">
+    
+
     <div class="container template-article">
       <header><div class="navbar navbar-default navbar-fixed-top" role="navigation">
   <div class="container">
@@ -38,18 +40,12 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">medicareR</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.0.1</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="">0.0.1</span>
       </span>
     </div>
 
     <div id="navbar" class="navbar-collapse collapse">
       <ul class="nav navbar-nav">
-<li>
-  <a href="../index.html">
-    <span class="fas fa-home fa-lg"></span>
-     
-  </a>
-</li>
 <li>
   <a href="../reference/index.html">Reference</a>
 </li>
@@ -91,7 +87,7 @@
 
       
 
-      </header><script src="faq_var_def_files/header-attrs-2.11/header-attrs.js"></script><div class="row">
+      </header><div class="row">
   <div class="col-md-9 contents">
     <div class="page-header toc-ignore">
       <h1 data-toc-skip>FAQ - Variable Definitions</h1>
@@ -104,9 +100,9 @@
 
     
     
-<div id="introduction" class="section level2">
-<h2 class="hasAnchor">
-<a href="#introduction" class="anchor"></a>Introduction</h2>
+<div class="section level2">
+<h2 id="introduction">Introduction<a class="anchor" aria-label="anchor" href="#introduction"></a>
+</h2>
 <p>In this article, we listed frequently asked questions regarding how we defined the variables in our medicare analytic files. it’s working in progress document, since the definitions can change, and new variables can be added.</p>
 <p>In our medicare analytic files, variables come from two sources:</p>
 <ul>
@@ -115,12 +111,12 @@
 </ul>
 <p>In this document, we focused on derived variables.</p>
 </div>
-<div id="variable-definitions" class="section level2">
-<h2 class="hasAnchor">
-<a href="#variable-definitions" class="anchor"></a>Variable Definitions</h2>
-<div id="day-severe-complication-no-poa" class="section level3">
-<h3 class="hasAnchor">
-<a href="#day-severe-complication-no-poa" class="anchor"></a>30-day Severe complication (no POA)</h3>
+<div class="section level2">
+<h2 id="variable-definitions">Variable Definitions<a class="anchor" aria-label="anchor" href="#variable-definitions"></a>
+</h2>
+<div class="section level3">
+<h3 id="day-severe-complication-no-poa">30-day Severe complication (no POA)<a class="anchor" aria-label="anchor" href="#day-severe-complication-no-poa"></a>
+</h3>
 <p>Severe complication excluding POA was defined as having one or more complications from the list below within 30 days after the index procedure, and the length of stay is greater than 75% of the cases for the procedure group. For example, a severe complication after Partial Colectomy is having any complication from the list below within 30 days after the procedure, and the hospoital length of stay is more than 75% of medicare patients stayed for Partial Colectomy procedures.</p>
 <div class="sourceCode" id="cb1"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a>[<span class="dv">1</span>] <span class="st">"post-op lung failure"</span> </span>
 <span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a>[<span class="dv">2</span>] <span class="st">"post-op pneumonia"</span>    </span>
@@ -131,9 +127,9 @@
 <span id="cb1-7"><a href="#cb1-7" aria-hidden="true" tabindex="-1"></a>[<span class="dv">7</span>] <span class="st">"post-op ssi"</span>          </span>
 <span id="cb1-8"><a href="#cb1-8" aria-hidden="true" tabindex="-1"></a>[<span class="dv">8</span>] <span class="st">"post-op GI hemorrhage"</span></span></code></pre></div>
 </div>
-<div id="day-reoperation" class="section level3">
-<h3 class="hasAnchor">
-<a href="#day-reoperation" class="anchor"></a>30-day Reoperation</h3>
+<div class="section level3">
+<h3 id="day-reoperation">30-day Reoperation<a class="anchor" aria-label="anchor" href="#day-reoperation"></a>
+</h3>
 <p>Reoperation is one of the major patient outcomes, and often used in our medicare outcome analysis. We define reoperation by 1. Looking through the procedure codes across multiple admissions; 2. Create the ICD9/10 procedure codes to re-operation mapping using pre-defined operation types; 3. Get the re-operation flags if defined re-operation happened within &lt;=30 days; 4. emergent admission</p>
 <p>8 operations were included in the re-operation mapping below. All the operations were defined using ICD9/10 code in MedPAR</p>
 <div class="sourceCode" id="cb2"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a>[<span class="dv">1</span>] <span class="st">"Reoperation for management of deep surgical site infection"</span>  </span>
@@ -146,14 +142,14 @@
 <span id="cb2-8"><a href="#cb2-8" aria-hidden="true" tabindex="-1"></a>[<span class="dv">8</span>] <span class="st">"Repair of an organ injury/laceration"</span></span></code></pre></div>
 <p>Reoperations were from all MedPAR claims, which include all procedures in Medicare, not just the procedures we study.</p>
 </div>
-<div id="day-readmission" class="section level3">
-<h3 class="hasAnchor">
-<a href="#day-readmission" class="anchor"></a>30-day Readmission</h3>
+<div class="section level3">
+<h3 id="day-readmission">30-day Readmission<a class="anchor" aria-label="anchor" href="#day-readmission"></a>
+</h3>
 <p>readmission to emergent inpatient admission within 30 days of the index procedure</p>
 </div>
-<div id="multi-surgeon" class="section level3">
-<h3 class="hasAnchor">
-<a href="#multi-surgeon" class="anchor"></a>multi-surgeon</h3>
+<div class="section level3">
+<h3 id="multi-surgeon">multi-surgeon<a class="anchor" aria-label="anchor" href="#multi-surgeon"></a>
+</h3>
 <p>multiple providers (not necessary to be surgeons, for example providers can be PA) operated in one hospital admission. It can be different procedures. For example, if one patient in <em>one hospital admission</em> had both Partial Colectomy and Cholecystectomy by different NPI, both the Cole and the Cholecystectomy procedures were flagged as multi-surgeon.</p>
 <div class="sourceCode" id="cb3"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="va">original_data</span> <span class="op">%&gt;%</span>
@@ -169,16 +165,16 @@
               name <span class="op">=</span> <span class="st">"n_doc"</span>   <span class="co"># n_doc&gt;1 was defined as multi-surgeon</span>
     <span class="op">)</span></code></pre></div>
 </div>
-<div id="assistant_surgeon" class="section level3">
-<h3 class="hasAnchor">
-<a href="#assistant_surgeon" class="anchor"></a>assistant_surgeon</h3>
+<div class="section level3">
+<h3 id="assistant_surgeon">assistant_surgeon<a class="anchor" aria-label="anchor" href="#assistant_surgeon"></a>
+</h3>
 <p>Assistant surgeon role was defined by CPT modifier code “80” or “82”. So if a case has either “80” or “82” as the CPT modifier, then it is flagged as assistant_surgeon case.</p>
 <div class="sourceCode" id="cb4"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="va">flg_assistant_surgeon</span> <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/ifelse.html">ifelse</a></span><span class="op">(</span><span class="fu">str_detect</span><span class="op">(</span><span class="va">cpt_mod</span>, <span class="st">"80|82"</span><span class="op">)</span>, <span class="fl">1</span>, <span class="fl">0</span><span class="op">)</span></code></pre></div>
+<code class="sourceCode R"><span class="va">flg_assistant_surgeon</span> <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/ifelse.html" class="external-link">ifelse</a></span><span class="op">(</span><span class="fu">str_detect</span><span class="op">(</span><span class="va">cpt_mod</span>, <span class="st">"80|82"</span><span class="op">)</span>, <span class="fl">1</span>, <span class="fl">0</span><span class="op">)</span></code></pre></div>
 </div>
-<div id="multi_cpt" class="section level3">
-<h3 class="hasAnchor">
-<a href="#multi_cpt" class="anchor"></a>multi_cpt</h3>
+<div class="section level3">
+<h3 id="multi_cpt">multi_cpt<a class="anchor" aria-label="anchor" href="#multi_cpt"></a>
+</h3>
 <p>Multiple CPT was defined as one patient has multiple CPTs performed in one hospital admission. Note CPT modifier code is not in cosideration here.</p>
 <div class="sourceCode" id="cb5"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="va">data</span> <span class="op">%&gt;%</span>
@@ -194,11 +190,11 @@
               name <span class="op">=</span> <span class="st">"n_proc"</span>
     <span class="op">)</span> </code></pre></div>
 </div>
-<div id="poa" class="section level3">
-<h3 class="hasAnchor">
-<a href="#poa" class="anchor"></a>POA</h3>
+<div class="section level3">
+<h3 id="poa">POA<a class="anchor" aria-label="anchor" href="#poa"></a>
+</h3>
 <p>Present on admission flag. Any complication and severe complication are defined by complications that were not POA. However, the POA flag is not available in MedPAR before 2010. So, any analyses related to complication using medicare analytic file starts from 2010.</p>
-<p>One note, in RedDAC website, it states <a href="https://resdac.org/cms-data/variables/claim-diagnosis-code-i-diagnosis-present-admission-poa-indicator-code-ffs">POA</a> was was not available until 2011. However, I double checked with our actual dataset, POA variables started in 2010.</p>
+<p>One note, in RedDAC website, it states <a href="https://resdac.org/cms-data/variables/claim-diagnosis-code-i-diagnosis-present-admission-poa-indicator-code-ffs" class="external-link">POA</a> was was not available until 2011. However, I double checked with our actual dataset, POA variables started in 2010.</p>
 </div>
 </div>
   </div>
@@ -214,11 +210,13 @@
 
 
       <footer><div class="copyright">
-  <p>Developed by Xilin Chen.</p>
+  <p></p>
+<p>Developed by Xilin Chen.</p>
 </div>
 
 <div class="pkgdown">
-  <p>Site built with <a href="https://pkgdown.r-lib.org/">pkgdown</a> 1.6.1.</p>
+  <p></p>
+<p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.0.2.</p>
 </div>
 
       </footer>
@@ -226,6 +224,8 @@
 
   
 
+
+  
 
   </body>
 </html>

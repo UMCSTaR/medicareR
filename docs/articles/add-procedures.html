@@ -26,6 +26,8 @@
 <![endif]-->
 </head>
 <body data-spy="scroll" data-target="#toc">
+    
+
     <div class="container template-article">
       <header><div class="navbar navbar-default navbar-fixed-top" role="navigation">
   <div class="container">
@@ -38,18 +40,12 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">medicareR</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.0.1</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="">0.0.1</span>
       </span>
     </div>
 
     <div id="navbar" class="navbar-collapse collapse">
       <ul class="nav navbar-nav">
-<li>
-  <a href="../index.html">
-    <span class="fas fa-home fa-lg"></span>
-     
-  </a>
-</li>
 <li>
   <a href="../reference/index.html">Reference</a>
 </li>
@@ -91,13 +87,13 @@
 
       
 
-      </header><script src="add-procedures_files/header-attrs-2.8/header-attrs.js"></script><div class="row">
+      </header><div class="row">
   <div class="col-md-9 contents">
     <div class="page-header toc-ignore">
       <h1 data-toc-skip>Add more procedures to analytic files</h1>
-                        <h4 class="author">Xilin Chen</h4>
+                        <h4 data-toc-skip class="author">Xilin Chen</h4>
             
-            <h4 class="date">2021-08-11</h4>
+            <h4 data-toc-skip class="date">2022-02-18</h4>
       
       
       <div class="hidden name"><code>add-procedures.Rmd</code></div>
@@ -106,19 +102,19 @@
 
     
     
-<div id="background" class="section level2">
-<h2 class="hasAnchor">
-<a href="#background" class="anchor"></a>1. Background</h2>
+<div class="section level2">
+<h2 id="background">1. Background<a class="anchor" aria-label="anchor" href="#background"></a>
+</h2>
 <p>In 2019, we purchased more than 100 procedures that are commonly performed by general surgery surgeons from CMS. The purchased procedures went back from 2007. Since we already have Medicare data from 2007-2016 for the original 5 procedures, we received the purchased procedures in separate datasets. After 2016, all newly added procedures and original 5 procedures are together in one data file each year.</p>
 </div>
-<div id="datasets" class="section level2">
-<h2 class="hasAnchor">
-<a href="#datasets" class="anchor"></a>2. Datasets</h2>
+<div class="section level2">
+<h2 id="datasets">2. Datasets<a class="anchor" aria-label="anchor" href="#datasets"></a>
+</h2>
 <p>Changes needed for professional claims (Carrier claim and line files). New procedure files location on Maize: <code>Shared3/DMH_Shared/Dimick_Improve_Surgical_Care/SAS_Files/New_Hernia_ECMD</code>. We don’t need to rerun standardization process for MBSF and MedPAR because we already have 100% MedPAR and MBSF datasets each year. Added beneficiaries and MedPAR cases that are related to Carrier files are already included in the old files.</p>
 <p>Note: in the data folder, you can find the datasets from 2007-2017. As mentioned above, after 2016, all procedures will be in one data file under yearly purchased, eg. <code>Dimick_Improve_Surgical_Care/SAS_Files/2017</code>.</p>
-<div id="contents" class="section level3">
-<h3 class="hasAnchor">
-<a href="#contents" class="anchor"></a>Contents</h3>
+<div class="section level3">
+<h3 id="contents">Contents<a class="anchor" aria-label="anchor" href="#contents"></a>
+</h3>
 <p>The datasets we use are carrier files named as: <code>bcarrier_ln_20xx</code> and <code>bcarrier_clms_20xx</code></p>
 <ul>
 <li>
@@ -128,38 +124,38 @@
 <li>Newly added procedures claims are saved under file <code>George_Surgeon_Projects/original\medicare\selectedvars/data/Carrier/ecs</code> Combine ecs claim and line files with the original 5 procedures by year.</li>
 </ul>
 </li>
-<li><p>Code used to combine datasets are at <a href="https://github.com/UMCSTaR/Medicare_Std_R/tree/add_procedures/code/other/add_new_procedure">add_procedure</a></p></li>
+<li><p>Code used to combine datasets are at <a href="https://github.com/UMCSTaR/Medicare_Std_R/tree/add_procedures/code/other/add_new_procedure" class="external-link">add_procedure</a></p></li>
 </ul>
 <div class="sourceCode" id="cb1"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="co"># example</span>
 <span class="co"># do not run</span>
-<span class="fu">purrr</span><span class="fu">::</span><span class="fu"><a href="https://purrr.tidyverse.org/reference/map.html">map</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="fl">2007</span><span class="op">:</span><span class="fl">2016</span><span class="op">)</span>, <span class="co"># year</span>
+<span class="fu">purrr</span><span class="fu">::</span><span class="fu"><a href="https://purrr.tidyverse.org/reference/map.html" class="external-link">map</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">2007</span><span class="op">:</span><span class="fl">2016</span><span class="op">)</span>, <span class="co"># year</span>
            <span class="op">~</span><span class="fu">add_new_procedure</span><span class="op">(</span>claim <span class="op">=</span> <span class="cn">TRUE</span>, 
                               src_data_root <span class="op">=</span> <span class="st">"/Volumes/George_Surgeon_Projects/original_medicare_selected_vars/data/"</span>,
                               year <span class="op">=</span> <span class="va">.x</span><span class="op">)</span><span class="op">)</span></code></pre></div>
 </div>
 </div>
-<div id="process" class="section level2">
-<h2 class="hasAnchor">
-<a href="#process" class="anchor"></a>3. Process</h2>
-<div id="create-a-defined-cpt-to-procedure-names-map-" class="section level3">
-<h3 class="hasAnchor">
-<a href="#create-a-defined-cpt-to-procedure-names-map-" class="anchor"></a>Create a defined CPT to procedure names map.</h3>
-<p>The map we use for the project is at <a href="https://docs.google.com/spreadsheets/d/1Fa2xWCRIe5-_3F7MpQPvJfCzy_lBtWFvB_TGevnZ60Q/edit#gid=1841533335">ecs_list</a>. - In the list, CPTs to ECS procedures are not uniquely mapped. Make sure to get unique maps between cpt to ECS to avoid data processing errors (introduce by left join process)</p>
+<div class="section level2">
+<h2 id="process">3. Process<a class="anchor" aria-label="anchor" href="#process"></a>
+</h2>
+<div class="section level3">
+<h3 id="create-a-defined-cpt-to-procedure-names-map-">Create a defined CPT to procedure names map.<a class="anchor" aria-label="anchor" href="#create-a-defined-cpt-to-procedure-names-map-"></a>
+</h3>
+<p>The map we use for the project is at <a href="https://docs.google.com/spreadsheets/d/1Fa2xWCRIe5-_3F7MpQPvJfCzy_lBtWFvB_TGevnZ60Q/edit#gid=1841533335" class="external-link">ecs_list</a>. - In the list, CPTs to ECS procedures are not uniquely mapped. Make sure to get unique maps between cpt to ECS to avoid data processing errors (introduce by left join process)</p>
 <div class="sourceCode" id="cb2"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="co"># do not run</span>
 <span class="co"># ecs_list_with_coded_flg.csv was downloaded from https://docs.google.com/spreadsheets/d/1Fa2xWCRIe5-_3F7MpQPvJfCzy_lBtWFvB_TGevnZ60Q/edit#gid=1841533335</span>
-<span class="va">cpt_map</span> <span class="op">=</span> <span class="fu">readr</span><span class="fu">::</span><span class="fu"><a href="https://readr.tidyverse.org/reference/read_delim.html">read_csv</a></span><span class="op">(</span><span class="st">"/Volumes/George_Surgeon_Projects/standardized_medicare_data_using_R/input/raw/ecs_list_with_coded_flg.csv"</span><span class="op">)</span> 
+<span class="va">cpt_map</span> <span class="op">=</span> <span class="fu">readr</span><span class="fu">::</span><span class="fu"><a href="https://readr.tidyverse.org/reference/read_delim.html" class="external-link">read_csv</a></span><span class="op">(</span><span class="st">"/Volumes/George_Surgeon_Projects/standardized_medicare_data_using_R/input/raw/ecs_list_with_coded_flg.csv"</span><span class="op">)</span> 
 <span class="co"># one cpt to one procedure</span>
 <span class="va">cpt_ecs_map</span> <span class="op">=</span> <span class="va">cpt_map</span> <span class="op">%&gt;%</span> 
   <span class="fu">distinct</span><span class="op">(</span><span class="va">cpt</span>, <span class="va">ecs_id</span>, <span class="va">ECSProcedureName</span>, <span class="va">ProcedureGroup</span><span class="op">)</span></code></pre></div>
 </div>
-<div id="standardization-and-ceeating-analytic-files" class="section level3">
-<h3 class="hasAnchor">
-<a href="#standardization-and-ceeating-analytic-files" class="anchor"></a>Standardization and ceeating analytic files</h3>
-<div id="standardization" class="section level4">
-<h4 class="hasAnchor">
-<a href="#standardization" class="anchor"></a>standardization</h4>
+<div class="section level3">
+<h3 id="standardization-and-ceeating-analytic-files">Standardization and ceeating analytic files<a class="anchor" aria-label="anchor" href="#standardization-and-ceeating-analytic-files"></a>
+</h3>
+<div class="section level4">
+<h4 id="standardization">standardization<a class="anchor" aria-label="anchor" href="#standardization"></a>
+</h4>
 <ul>
 <li>
 <p>Create 0.1% sample data for the carrier claim and line files</p>
@@ -185,23 +181,23 @@
 <div class="sourceCode" id="cb3"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="co"># you can control years by editing import_src</span>
 <span class="va">import_src</span> <span class="op">&lt;-</span> <span class="fu">read_csv</span><span class="op">(</span><span class="st">"data/2020/import_source.csv"</span><span class="op">)</span> <span class="op">%&gt;%</span> 
-  <span class="fu"><a href="https://rdrr.io/r/stats/filter.html">filter</a></span><span class="op">(</span><span class="va">source_dir</span><span class="op">&lt;</span><span class="fl">2017</span><span class="op">)</span></code></pre></div>
+  <span class="fu"><a href="https://rdrr.io/r/stats/filter.html" class="external-link">filter</a></span><span class="op">(</span><span class="va">source_dir</span><span class="op">&lt;</span><span class="fl">2017</span><span class="op">)</span></code></pre></div>
 <ul>
 <li>rerun code for step3: Professional and step5: Professional Claim using the combined carrier claim and line files.</li>
 </ul>
 </div>
-<div id="creating-analytic-files" class="section level4">
-<h4 class="hasAnchor">
-<a href="#creating-analytic-files" class="anchor"></a>Creating analytic files</h4>
+<div class="section level4">
+<h4 id="creating-analytic-files">Creating analytic files<a class="anchor" aria-label="anchor" href="#creating-analytic-files"></a>
+</h4>
 <ul>
-<li>Run the <a href="https://github.com/UMCSTaR/Medicare_Std_R/blob/add_procedures/code/step2_generate_analytic_file/analytic_master.R">step2</a> step.</li>
+<li>Run the <a href="https://github.com/UMCSTaR/Medicare_Std_R/blob/add_procedures/code/step2_generate_analytic_file/analytic_master.R" class="external-link">step2</a> step.</li>
 <li>update the procedure map (cpt to procedure map)</li>
 </ul>
 <div class="sourceCode" id="cb4"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="co"># do not run</span>
 <span class="co"># procedure map defined by cpt </span>
-<span class="va">define_proc_by_cpt</span> <span class="op">&lt;-</span> <span class="fu">readr</span><span class="fu">::</span><span class="fu"><a href="https://readr.tidyverse.org/reference/read_delim.html">read_csv</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/paste.html">paste0</a></span><span class="op">(</span><span class="va">wd</span><span class="op">$</span><span class="va">input_data</span>, <span class="st">"cpt_ecs_map.csv"</span><span class="op">)</span><span class="op">)</span> <span class="op">%&gt;%</span> 
-  <span class="fu">transmute</span><span class="op">(</span>cpt_cd <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/character.html">as.character</a></span><span class="op">(</span><span class="va">cpt</span><span class="op">)</span>, e_proc_grp <span class="op">=</span> <span class="va">ecs_id</span>, e_proc_grp_lbl <span class="op">=</span> <span class="va">ECSProcedureName</span><span class="op">)</span> <span class="op">%&gt;%</span> 
+<span class="va">define_proc_by_cpt</span> <span class="op">&lt;-</span> <span class="fu">readr</span><span class="fu">::</span><span class="fu"><a href="https://readr.tidyverse.org/reference/read_delim.html" class="external-link">read_csv</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/paste.html" class="external-link">paste0</a></span><span class="op">(</span><span class="va">wd</span><span class="op">$</span><span class="va">input_data</span>, <span class="st">"cpt_ecs_map.csv"</span><span class="op">)</span><span class="op">)</span> <span class="op">%&gt;%</span> 
+  <span class="fu">transmute</span><span class="op">(</span>cpt_cd <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/character.html" class="external-link">as.character</a></span><span class="op">(</span><span class="va">cpt</span><span class="op">)</span>, e_proc_grp <span class="op">=</span> <span class="va">ecs_id</span>, e_proc_grp_lbl <span class="op">=</span> <span class="va">ECSProcedureName</span><span class="op">)</span> <span class="op">%&gt;%</span> 
   <span class="fu">distinct</span><span class="op">(</span><span class="op">)</span></code></pre></div>
 </div>
 </div>
@@ -219,11 +215,13 @@
 
 
       <footer><div class="copyright">
-  <p>Developed by Xilin Chen.</p>
+  <p></p>
+<p>Developed by Xilin Chen.</p>
 </div>
 
 <div class="pkgdown">
-  <p>Site built with <a href="https://pkgdown.r-lib.org/">pkgdown</a> 1.6.1.</p>
+  <p></p>
+<p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.0.2.</p>
 </div>
 
       </footer>
@@ -231,6 +229,8 @@
 
   
 
+
+  
 
   </body>
 </html>
